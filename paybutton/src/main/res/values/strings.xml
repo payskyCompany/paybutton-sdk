@@ -1,0 +1,72 @@
+<resources>
+    <string name="app_name">PayButton</string>
+    <string name="pay_now">Pay Now</string>
+    <string name="merchant">Merchant</string>
+    <string name="amount">Amount</string>
+    <string name="arabic">عربى</string>
+    <string name="terms_conditions">Terms and conditions</string>
+    <string name="card">Card</string>
+    <string name="wallet">Wallet</string>
+    <string name="enter_card_data">Please enter card data</string>
+    <string name="card_number">Card number</string>
+    <string name="name_on_card">Card holder name</string>
+    <string name="expire_date">Expiry Date</string>
+    <string name="cvc">CVC</string>
+    <string name="proceed">Proceed</string>
+    <string name="error">Error</string>
+    <string name="check_internet_connection">Check internet connection and try again.</string>
+    <string name="ok">OK</string>
+    <string name="invalid_card_number_length">Please enter valid card number</string>
+    <string name="enter_valid_owner">Enter valid card holder name</string>
+    <string name="invalid_expire_date">Card expiry date should be 4 digits.</string>
+    <string name="invalid_ccv">CVC should be 3 digits length.</string>
+    <string name="please_wait">Please wait…</string>
+    <string name="error_try_again">Error in connection,try again.</string>
+    <string name="auth_number">Auth Code:</string>
+    <string name="trx_id">Transaction No:</string>
+    <string name="close">Close</string>
+    <string name="send_notification">Send receipt</string>
+    <string name="email_hint">Email</string>
+    <string name="send">Send</string>
+    <string name="transaction_success"><![CDATA[
+             <font color="#282C2E">Transaction </font> <font color="#00BFA5">Approved </font>
+    ]]></string>
+    <string name="invalid_mail">Invalid email address.</string>
+    <string name="mail_sent_to">Email sent to </string>
+    <string name="cannot_send_mail">Cannot send email, try again.</string>
+    <string name="transaction_declined"><![CDATA[
+         <font color="#2D3134">Transaction </font> <font color="#C23A2C">Declined</font>
+    ]]></string>
+    <string name="try_again">Try again</string>
+    <string name="open_wallet_app">Please Scan the QR code with your Wallet app. to make payment.</string>
+    <string name="quick_payment_form">Quick Payment Form</string>
+    <string name="enter_mobile_number">Enter your wallet mobile number</string>
+    <string name="mobile_number">Mobile number</string>
+    <string name="send_otp">Send</string>
+    <string name="invalid_mobile_number">invalid mobile number.</string>
+    <string name="enter_pin_code">Enter PIN</string>
+    <string name="pin">PIN</string>
+    <string name="sms_received_within">Sms should be received within</string>
+    <string name="seconds">Seconds</string>
+    <string name="terms_conditions_text">This terms and conditions to use Paysky payment service integration.</string>
+    <string name="sent_request_success">The payment has been requested</string>
+    <string name="or">OR</string>
+    <string name="cant_scan_code">Can\'t scan Qr code? \nSend payment request to the entered mobile number.</string>
+    <string name="request_payment">Request Payment</string>
+    <string name="invalid_expire_date_date">Invalid expire date</string>
+    <string name="egp">EGP</string>
+    <string name="print">Print receipt</string>
+    <string name="merchant_copy__">---Merchant copy---</string>
+    <string name="customer_copy__">---Customer copy---</string>
+    <string name="merchant_copy">Merchant copy</string>
+    <string name="customer_copy">Customer copy</string>
+    <string name="powered_paysky">Powered by PaySky.io</string>
+    <string name="qr">Qr Scan</string>
+    <string name="failed_load_merchant_data">Authentication failed.</string>
+    <string name="cancel">Cancel</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="allow_light_scan">Open camera flash light to scan quickly.</string>
+    <string name="invalid_ccv_value">Invalid CVC</string>
+</resources>

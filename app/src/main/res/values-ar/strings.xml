@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="merchant_id">رقم التاجر</string>
+    <string name="terminal_id">نقطة البيع</string>
+    <string name="amount">المبلغ</string>
+    <string name="currency">العملة</string>
+    <string name="pay">ادفع</string>
+</resources>

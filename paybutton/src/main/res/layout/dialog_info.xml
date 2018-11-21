@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/dialog_title_textView"
+            style="@style/TextAppearance.AppCompat.Medium"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_48sdp"
+            android:background="#00A7F6"
+            android:gravity="center"
+            android:textSize="@dimen/_14ssp"
+            android:textColor="@android:color/white"
+            tools:text="test color" />
+
+        <TextView
+            android:id="@+id/dialog_content_textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:minHeight="@dimen/_90sdp"
+            android:padding="@dimen/_10sdp"
+            android:textSize="@dimen/_13ssp"
+            android:textColor="#2D3134"
+            tools:text="dialog content" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_6sdp">
+
+            <Button
+                android:id="@+id/cancel_action"
+                style="@style/buttonStyle"
+                android:layout_width="0dp"
+                android:layout_marginLeft="@dimen/_6sdp"
+                android:layout_marginRight="@dimen/_6sdp"
+                android:layout_weight="1"
+                android:background="@drawable/baybutton_proceed_border_button"
+                android:textColor="#04a48e"
+                android:visibility="gone"
+                android:text="@string/cancel" />
+
+            <Button
+                android:id="@+id/agree_button"
+                style="@style/buttonStyle"
+                android:layout_width="0dp"
+                android:layout_marginLeft="@dimen/_6sdp"
+                android:layout_marginRight="@dimen/_6sdp"
+                android:layout_weight="1"
+                android:visibility="gone"
+                android:background="@drawable/baybutton_proceed_button"
+                android:text="@string/ok" />
+        </LinearLayout>
+
+    </LinearLayout>
+</RelativeLayout>

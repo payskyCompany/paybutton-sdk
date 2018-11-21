@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">PaySky PayButton Demo</string>
+    <string name="required">Required field</string>
+    <string name="english">English</string>
+    <string name="merchant_id">Merchant ID</string>
+    <string name="terminal_id">Terminal ID</string>
+    <string name="amount">Amount</string>
+    <string name="currency">Currency</string>
+    <string name="pay">Pay</string>
+</resources>

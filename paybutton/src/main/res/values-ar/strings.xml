@@ -1,0 +1,64 @@
+<resources>
+    <string name="app_name">PayButton</string>
+    <string name="pay_now">ادفع ألان</string>
+    <string name="merchant">التاجر</string>
+    <string name="amount">المبلغ</string>
+    <string name="arabic">English</string>
+    <string name="terms_conditions">الشروط والاحكام</string>
+    <string name="card">بطاقة</string>
+    <string name="wallet">المحفظة</string>
+    <string name="enter_card_data">تحقق من ادخال بيانات البطاقة</string>
+    <string name="card_number">رقم البطاقة</string>
+    <string name="name_on_card">اسم صاحب البطاقة</string>
+    <string name="expire_date">تاريخ الانتهاء</string>
+    <string name="cvc">رمز الحماية</string>
+    <string name="proceed">تأكيد</string>
+    <string name="error">خطأ</string>
+    <string name="check_internet_connection">تحقق من الاتصال بالانترنت,وحاول مرة أخرى.</string>
+    <string name="ok">موافق</string>
+    <string name="invalid_card_number_length">رقم الكارت غير صحيح</string>
+    <string name="enter_valid_owner">ادخل اسم صاحب البطاقه</string>
+    <string name="invalid_expire_date">تاريخ الانتهاء يجب ان يكون اربعه ارقام</string>
+    <string name="invalid_ccv">رمز الحماية يجب ان يكون 3 ارقام.</string>
+    <string name="please_wait">برجاء الانتظار…</string>
+    <string name="error_try_again">خطأ فى الاتصال,حاول مرة أخرى.</string>
+    <string name="auth_number">رقم الموافقة </string>
+    <string name="trx_id">رقم المعاملة </string>
+    <string name="close">اغلاق</string>
+    <string name="send_notification">ارسال إيصال</string>
+    <string name="email_hint">البريد الالكترونى</string>
+    <string name="send">ارسال</string>
+    <string name="transaction_success"><![CDATA[
+             <font color="#282C2E">عملية </font> <font color="#00BFA5">مقبولة </font>
+    ]]></string>
+    <string name="invalid_mail">البريد الالكترونى غير صحيح.</string>
+    <string name="mail_sent_to">تم إرسال بريد الكترونى الى </string>
+    <string name="cannot_send_mail">تعذر ارسال الايميل</string>
+    <string name="transaction_declined"><![CDATA[
+         <font color="#2D3134">عملية </font> <font color="#C23A2C">مرفوضة</font>
+    ]]></string>
+    <string name="try_again">حاول مرة أخرى</string>
+    <string name="open_wallet_app">قم بفتح تطبيق المحفظة لتتمكن من اتمام المعاملة</string>
+    <string name="quick_payment_form">نموذج الدفع السريع</string>
+    <string name="enter_mobile_number">ادخل رقم الهاتف للمحفظة</string>
+    <string name="mobile_number">رقم الهاتف</string>
+    <string name="send_otp">ارسال</string>
+    <string name="invalid_mobile_number">رقم الهاتف غير صحيح.</string>
+    <string name="enter_pin_code">ادخل ال PIN</string>
+    <string name="pin">PIN</string>
+    <string name="sms_received_within">ستصلك رسالة فى غضون </string>
+    <string name="seconds">ثانية</string>
+    <string name="terms_conditions_text">شروط واحكام شركة باى سكاى لاستخدام خدماتها</string>
+    <string name="sent_request_success">تم ارسال الطلب بنجاح</string>
+    <string name="or">أو</string>
+    <string name="cant_scan_code">لا تستطيع فحص الصور؟ \n قم بارسال المعاملة عن طريق رقم التليفون.</string>
+    <string name="request_payment">طلب اموال</string>
+    <string name="invalid_expire_date_date">تاريخ الانتهاء غير صحيح.</string>
+    <string name="egp">جنية</string>
+    <string name="print">إطبع الفاتورة</string>
+    <string name="powered_paysky">تم التطوير بواسطة باى سكاى</string>
+    <string name="failed_load_merchant_data">فشل التوثيق.</string>
+    <string name="cancel">الغاء</string>
+    <string name="allow_light_scan">افتح فلاش الكاميرا لتصوير اسرع</string>
+    <string name="invalid_ccv_value">رمز غير صحيح</string>
+</resources>

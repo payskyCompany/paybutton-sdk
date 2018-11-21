@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/_8sdp"
+    tools:context="com.example.amrel.paybuttonexample.SettingActivity">
+
+
+    <CheckBox
+        android:id="@+id/enable_manual"
+        android:text="Enable Manual" />
+
+    <CheckBox
+        android:id="@+id/enable_qr"
+        android:text="Enable QR" />
+
+    <CheckBox
+        android:id="@+id/enable_magnetic"
+        android:text="Enable Magnetic" />
+
+
+    <TextView
+        android:layout_marginTop="@dimen/_4sdp"
+        android:text="Default Payment" />
+
+    <Spinner
+        android:id="@+id/default_payment_spinner"
+        android:layout_height="@dimen/_40sdp" />
+
+    <TextView
+        android:layout_marginTop="@dimen/_4sdp"
+        android:text="Server Link" />
+
+    <Spinner
+        android:id="@+id/server_links_spinner"
+        android:layout_height="@dimen/_40sdp" />
+
+
+    <Button
+        android:id="@+id/save_button"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:background="@drawable/button_blue_selector"
+        android:text="SAVE"
+        android:textColor="#FFF" />
+
+
+</TableLayout>

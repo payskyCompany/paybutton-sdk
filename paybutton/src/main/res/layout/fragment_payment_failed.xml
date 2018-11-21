@@ -1,0 +1,60 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="io.paysky.ui.fragment.paymentfail.PaymentFailedFragment">
+
+    <ImageView
+        android:layout_width="@dimen/_110sdp"
+        android:layout_height="@dimen/_110sdp"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/_4sdp"
+        android:src="@drawable/ic_transaction_failed" />
+
+    <TextView
+        android:id="@+id/transaction_declined_textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_12sdp"
+        android:layout_marginRight="@dimen/_12sdp"
+        android:layout_marginTop="@dimen/_4sdp"
+        android:gravity="center" />
+
+    <TextView
+        android:id="@+id/declined_cause_textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_12sdp"
+        android:layout_marginRight="@dimen/_12sdp"
+        android:layout_marginTop="@dimen/_4sdp"
+        android:gravity="center" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_12sdp"
+        android:layout_marginRight="@dimen/_12sdp"
+        android:layout_marginTop="@dimen/_14sdp">
+
+        <Button
+            android:id="@+id/close_button"
+            style="@style/buttonStyle"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_34sdp"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:layout_weight="1"
+            android:text="@string/close" />
+
+        <Button
+            android:id="@+id/try_again_button"
+            style="@style/buttonStyle"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_34sdp"
+            android:layout_marginStart="@dimen/_4sdp"
+            android:layout_weight="1"
+            android:background="@drawable/baybutton_proceed_button"
+            android:text="@string/try_again" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,70 @@
+apply plugin: 'com.android.library'
+// for Android libraries
+apply plugin: 'com.github.dcendents.android-maven'
+group = 'com.github.paysky'
+
+android {
+    compileSdkVersion 27
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0.0"
+        // Enabling multidex support.
+        multiDexEnabled true
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    afterEvaluate {
+        tasks.matching {
+            it.name.startsWith('dex')
+        }.each { dx ->
+            if (dx.additionalParameters == null) {
+                dx.additionalParameters = ['--multi-dex']
+            } else {
+                dx.additionalParameters += '--multi-dex'
+            }
+        }
+    }
+    buildToolsVersion '27.0.3'
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+}
+
+
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.android.support:support-v4:27.1.1'
+    implementation 'org.greenrobot:eventbus:3.1.1'
+    implementation 'com.jakewharton.timber:timber:4.7.0'
+    implementation 'com.android.support:cardview-v7:27.1.1'
+    implementation 'com.pnikosis:materialish-progress:1.7'
+    implementation 'commons-codec:commons-codec:1.10'
+    implementation 'com.github.prashantsolanki3:Secure-Pref-Manager:0.25'
+    implementation 'org.glassfish:javax.annotation:10.0-b28'
+    implementation 'com.google.zxing:core:3.3.3'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
+    implementation 'org.simpleframework:simple-xml:2.7.1'
+    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+    implementation 'com.google.code.gson:gson:2.8.2'
+    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.10.0'
+    implementation 'com.mobprofs:retrofit-simplexmlconverter:1.1'
+    implementation 'morxander.editcard:EditCard:1.0.1'
+    implementation 'com.intuit.sdp:sdp-android:1.0.5'
+    implementation 'com.intuit.ssp:ssp-android:1.0.5'
+    implementation 'io.card:android-sdk:5.5.1'
+    implementation files('libs/magnetictrackparser-2.01.02.jar')
+    implementation files('libs/platform_sdk_v2.4.0210.jar')
+    compile 'com.android.support:multidex:1.0.3'
+    compile 'me.grantland:autofittextview:0.2.+'
+    compile 'uk.co.chrisjenx:calligraphy:2.3.0'
+}
