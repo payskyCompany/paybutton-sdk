@@ -11,7 +11,10 @@ These instructions will get you a copy of the project up and running on your loc
 What things you need to install the software and how to install them
 
 ```
-Create new Android project in Android Studio or if you have project already.
+1-JDK installed on your machine with minimum version 1.7 .
+2-Android Studio
+3-Create new Android project in Android Studio to use SDK or if you have created a project before with minSdkVersion 21 Lollipop.
+
 ```
 
 ### Installing
@@ -24,89 +27,94 @@ A step by step that tell you how to get our SDK in your project.
 maven { url 'https://jitpack.io' }
 Example:-
 allprojects { repositories {
-     maven { url 'https://jitpack.io' }
+        maven { url 'https://jitpack.io' }
                            }
-            }
-3- in your build.gradle file in app level in dependencies{} add :- implementation 'com.github.payskyCompany:fabsdk:1.1.10'
+              }
+3- in your build.gradle file in app level in dependencies{} add :-     implementation 'com.github.payskyCompany:paybutton-sdk:1.0.0'
 Example:-
 dependencies {
-  implementation 'com.github.payskyCompany:paybutton:1.1.12'
+      implementation 'com.github.payskyCompany:paybutton-sdk:1.0.0'
 }
 4- Sync your project.
 
-Note:- 1.1.9 may not be the last version check Releases in github to get latest version.
+Note:- version 1.0.0 may not be the last version check Releases in github to get latest version.
 ```
 ### Using SDK
 
 ```
 in order to use our SDK you should get merchant id and Terminal id from our company.
 
-1 – Attach to your design xml file our Button.
+1 – create a new instance from PayButton:-  
 
-  <io.paysky.ui.custom.PayButton
-                android:id="@+id/paybtn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center" />
+PayButton payButton = new PayButton(context);
 
-2 - if you don't have a xml view layour file you can add our PayButton in your java code.
-
-  PayButton payButton = new PayButton(context);
-
-3 - after inflate PayButton in xml find it in your java code like:-
-
-  PayButton payButton = findViewByI(R.id.paybtn);
-
-you need to just pass some parameters to our button to know merchant data and amount this parameters is:-
-  1-Merchat id
-  2-Terminal id
-  3-Payment amount
-  4-Currency code
+you need to just pass some parameters to PayButton class instance :-
+  1-Merchat id.
+  2-Terminal id.
+  3-Payment amount.
+  4-Currency code [Optional].
+  5-merchant secure hash.
+  
+Note That:-
+you shoud keep your secure hash and merchant id and terminal id with encryption before save them in storage if you want.
 
 Example:-
 
 payButton.setMerchantId(merchantId); // Merchant id
 payButton.setTerminalId(terminalId); // Terminal  id
 payButton.setPayAmount(amount); // Amount
-payButton.setCurrencyCode(currencyCode); // Currency Code
+payButton.setCurrencyCode(currencyCode); // Currency Code [Optional]
+payButton.setMerchantSecureHash("Merchant secure hash"); // Merchant secure hash
 
-4 - in order to create transaction call:-
+2 - in order to create transaction call:-
 
 payButton.createTransaction(new PayButton.PaymentTransactionCallback() {
+
                     @Override
-                    public void onSuccess(String referenceNumber,
-                     String responseCode, String authorizationCode) {
-                       // handle success transaction.
+                    public void onCardTransactionSuccess(SuccessfulCardTransaction cardTransaction) {
+                        paymentStatusTextView.setText(cardTransaction.toString());
+                    }
+
+                    @Override
+                    public void onWalletTransactionSuccess(SuccessfulWalletTransaction walletTransaction) {
+                        paymentStatusTextView.setText(walletTransaction.toString());
                     }
 
                     @Override
                     public void onError(Throwable error) {
-                         // fail to create transacion and receive error.
+                        paymentStatusTextView.setText("failed by:- " + error.getMessage());
                     }
                 });
 
 to create transaction in our sdk you just call createTransaction method and pass to it
 PaymentTransactionCallback listener to call it after transaction.
 this listener has 2 methods:-
-  1 - onSuccess method
-      this method called in case transaction success and you will receive  referenceNumber,  responseCode,  authorizationCode
-      of transaction.
-  2 - onError method in case transaction failed with Throwable exception that has error info.
+  1 - onCardTransactionSuccess method
+      this method called in case transaction success by card payment with SuccessfulCardTransaction object.
+  2 - onWalletTransactionSuccess method 
+      this method is called if customer make a wallet transaction with SuccessfulWalletTransaction object.
+  3- onError method in case transaction failed with Throwable exception that has error info.
+  
+Example:- 
 
-Example:-
-
-payButton.createTransaction(new PayButton.PaymentTransactionCallback() {
+          payButton.createTransaction(new PayButton.PaymentTransactionCallback() {
                     @Override
-                    public void onSuccess(String referenceNumber, String responseCode,
-                                         String authorizationCode) {
-                       // handle success transaction.
+                    public void onCardTransactionSuccess(SuccessfulCardTransaction cardTransaction) {
+                        paymentStatusTextView.setText(cardTransaction.toString());
+                    }
+
+                    @Override
+                    public void onWalletTransactionSuccess(SuccessfulWalletTransaction walletTransaction) {
+                        paymentStatusTextView.setText(walletTransaction.toString());
                     }
 
                     @Override
                     public void onError(Throwable error) {
-                         // fail to create transacion and receive error.
+                        paymentStatusTextView.setText("failed by:- " + error.getMessage());
                     }
                 });
+            }
+        });
 
 ```
 ## Deployment
@@ -118,7 +126,7 @@ in your project, encrypt them before save them in project.
 ## Built With
 
 * [Retrofit](http://square.github.io/retrofit/) - Android Networking library.
-* [https://github.com/greenrobot/EventBus) - Event bus send events between your classes.
+* [EventBus](https://github.com/greenrobot/EventBus) - Event bus send events between your classes.
 
 
 ## Authors
