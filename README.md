@@ -70,7 +70,7 @@ payButton.setTerminalId(terminalId); // Terminal  id
 payButton.setPayAmount(amount); // Amount
 payButton.setCurrencyCode(currencyCode); // Currency Code [Optional]
 payButton.setMerchantSecureHash("Merchant secure hash"); // Merchant secure hash
-payButton.setTransactionReferenceNumber("reference number"); // transaction reference number.
+payButton.setTransactionReferenceNumber("reference number"); // unique transaction reference number.
 // you can get reference number from AppUtils.generateRandomNumber();
 example:-        
 payButton.setTransactionReferenceNumber(AppUtils.generateRandomNumber());
@@ -103,12 +103,16 @@ this listener has 2 methods:-
       this method called in case transaction success by card payment with SuccessfulCardTransaction object.
       SuccessfulCardTransaction object from create transaction listener contains:-
       NetworkReference variable that is reference number of transaction.
-      
+      AuthCode variable
+      ActionCode variable.
+      ReceiptNumber variable.
+      amount variable.
       
   2 - onWalletTransactionSuccess method 
       this method is called if customer make a wallet transaction with SuccessfulWalletTransaction object.
       SuccessfulWalletTransaction object from create transaction listener contains:-
       NetworkReference variable that is reference number of transaction.
+      amount variable.
       
   3- onError method in case transaction failed with Throwable exception that has error info.
   
