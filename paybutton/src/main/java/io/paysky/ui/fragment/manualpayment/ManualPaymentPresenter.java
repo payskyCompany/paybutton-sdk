@@ -32,7 +32,7 @@ class ManualPaymentPresenter extends BasePresenter<ManualPaymentView> {
                     ccv, paymentData.currencyCode, expireDate);
         } else {
             executeManualPayment(paymentData.secureHashKey, paymentData.currencyCode, paymentData.amountFormatted, paymentData.merchantId,
-                    paymentData.terminalId, ccv, expireDate, cardOwnerName, cardNumber, paymentData.receiverMail);
+                    paymentData.terminalId, ccv, expireDate, cardOwnerName, cardNumber, paymentData.transactionReferenceNumber);
         }
 
     }
@@ -61,10 +61,10 @@ class ManualPaymentPresenter extends BasePresenter<ManualPaymentView> {
         request.pAN = pan;
         request.returnURL = "http://localhost.com";
         // call Apis.
-        ApiConnection.compose3dsTransaction(request, new ApiResponseListener<Compose3dsTransactionResponse>() {
+        ApiConnection.compose3dsTransaction(view.getContext(), request, new ApiResponseListener<Compose3dsTransactionResponse>() {
             @Override
             public void onSuccess(Compose3dsTransactionResponse response) {
-                if (isViewDetached())return;
+                if (isViewDetached()) return;
                 view.dismissProgress();
                 String webBody = String.format("vpc_AccessCode=%s&vpc_Amount=%s&vpc_Card=%s&vpc_CardExp=%s&vpc_CardNum=%s&vpc_CardSecurityCode=%s&vpc_Command=%s&vpc_Currency=%s&" +
                                 "vpc_Gateway=%s&vpc_MerchTxnRef=%s&vpc_Merchant=%s&vpc_ReturnURL=%s&vpc_Version=%s&vpc_SecureHash=%s&vpc_SecureHashType=%s",
@@ -89,7 +89,7 @@ class ManualPaymentPresenter extends BasePresenter<ManualPaymentView> {
 
             @Override
             public void onFail(Throwable error) {
-                if (isViewDetached())return;
+                if (isViewDetached()) return;
                 error.printStackTrace();
                 view.dismissProgress();
                 view.showErrorInServerToast();
@@ -99,7 +99,7 @@ class ManualPaymentPresenter extends BasePresenter<ManualPaymentView> {
 
 
     private void executeManualPayment(String secureHash, String currencyCode, String payAmount, final String merchantId, final String terminalId,
-                                      String ccv, String expiryDate, final String cardHolder, final String cardNumber, final String receiverMail) {
+                                      String ccv, String expiryDate, final String cardHolder, final String cardNumber, String merchantReference) {
         // check internet.
         if (!view.isInternetAvailable()) {
             view.showNoInternetDialog();
@@ -121,13 +121,14 @@ class ManualPaymentPresenter extends BasePresenter<ManualPaymentView> {
         paymentRequest.dateTimeLocalTrxn = AppUtils.getDateTimeLocalTrxn();
         paymentRequest.merchantId = merchantId;
         paymentRequest.terminalId = terminalId;
+        paymentRequest.merchantReference = merchantReference;
         // create secure hash.
         paymentRequest.secureHash = HashGenerator.encode(secureHash, paymentRequest.dateTimeLocalTrxn, merchantId, terminalId);
         // make transaction.
-        ApiConnection.executePayment(paymentRequest, new ApiResponseListener<ManualPaymentResponse>() {
+        ApiConnection.executePayment(view.getContext(), paymentRequest, new ApiResponseListener<ManualPaymentResponse>() {
             @Override
             public void onSuccess(ManualPaymentResponse response) {
-                if (isViewDetached())return;
+                if (isViewDetached()) return;
                 // server make response.
                 view.dismissProgress();
 
@@ -138,7 +139,7 @@ class ManualPaymentPresenter extends BasePresenter<ManualPaymentView> {
 
                     Bundle bundle = new Bundle();
                     bundle.putString("decline_cause", response.mWMessage);
-                    bundle.putString("opened_by","manual_payment");
+                    bundle.putString("opened_by", "manual_payment");
                     view.showPaymentFailedFragment(bundle);
                 } else {
                     if (response.actionCode == null || response.actionCode.isEmpty() || !response.actionCode.equals("00")) {
@@ -148,7 +149,7 @@ class ManualPaymentPresenter extends BasePresenter<ManualPaymentView> {
 
                         Bundle bundle = new Bundle();
                         bundle.putString("decline_cause", response.message);
-                        bundle.putString("opened_by","manual_payment");
+                        bundle.putString("opened_by", "manual_payment");
                         view.showPaymentFailedFragment(bundle);
                     } else {
                         // transaction success.
@@ -174,7 +175,7 @@ class ManualPaymentPresenter extends BasePresenter<ManualPaymentView> {
             @Override
             public void onFail(Throwable error) {
                 // payment failed.
-                if (isViewDetached())return;
+                if (isViewDetached()) return;
                 view.dismissProgress();
                 TransactionException transactionException = new TransactionException();
                 transactionException.errorMessage = error.getMessage();

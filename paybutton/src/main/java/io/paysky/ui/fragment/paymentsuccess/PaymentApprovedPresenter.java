@@ -32,7 +32,7 @@ class PaymentApprovedPresenter extends BasePresenter<PaymentApprovedView> {
         request.externalReceiptNo = referenceNumber;
         request.secureHash = HashGenerator.encode(hashKey, request.dateTimeLocalTrxn, merchantId, terminalId);
         // call Api.
-        ApiConnection.sendReceiptByMail(request, new ApiResponseListener<SendReceiptByMailResponse>() {
+        ApiConnection.sendReceiptByMail(view.getContext() , request, new ApiResponseListener<SendReceiptByMailResponse>() {
             @Override
             public void onSuccess(SendReceiptByMailResponse response) {
                 view.dismissProgress();

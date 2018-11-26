@@ -1,11 +1,25 @@
 package io.paysky.data.network;
 
-import com.example.paybutton.BuildConfig;
+import android.content.Context;
+import android.os.Build;
 
-import java.util.List;
+import com.example.paybutton.BuildConfig;
+import com.example.paybutton.R;
+import com.google.android.gms.security.ProviderInstaller;
+
+import java.io.InputStream;
+import java.security.KeyStore;
+import java.security.cert.Certificate;
+import java.security.cert.CertificateFactory;
 import java.util.concurrent.TimeUnit;
 
-import io.paysky.data.model.request.CheckTransactionStatusRequest;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLEngine;
+import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.TrustManagerFactory;
+import javax.net.ssl.X509TrustManager;
+
 import io.paysky.data.model.request.Compose3dsTransactionRequest;
 import io.paysky.data.model.request.ManualPaymentRequest;
 import io.paysky.data.model.request.MerchantInfoRequest;
@@ -14,9 +28,7 @@ import io.paysky.data.model.request.QrGeneratorRequest;
 import io.paysky.data.model.request.RequestToPayRequest;
 import io.paysky.data.model.request.SendReceiptByMailRequest;
 import io.paysky.data.model.request.TransactionStatusRequest;
-import io.paysky.data.model.response.CheckTransactionStatusResponse;
 import io.paysky.data.model.response.Compose3dsTransactionResponse;
-import io.paysky.data.model.response.DateTransactionsItem;
 import io.paysky.data.model.response.GenerateQrCodeResponse;
 import io.paysky.data.model.response.ManualPaymentResponse;
 import io.paysky.data.model.response.MerchantInfoResponse;
@@ -24,7 +36,6 @@ import io.paysky.data.model.response.Process3dTransactionResponse;
 import io.paysky.data.model.response.RequestToPayResponse;
 import io.paysky.data.model.response.SendReceiptByMailResponse;
 import io.paysky.data.model.response.TransactionStatusResponse;
-import io.paysky.data.model.response.TransactionsItem;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
@@ -40,8 +51,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ApiConnection {
 
 
-    public static void executePayment(ManualPaymentRequest manualPaymentRequest, final ApiResponseListener<ManualPaymentResponse> listener) {
-        createConnection().executeManualPayment(manualPaymentRequest)
+    public static void executePayment(Context context, ManualPaymentRequest manualPaymentRequest, final ApiResponseListener<ManualPaymentResponse> listener) {
+        createConnection(context).executeManualPayment(manualPaymentRequest)
                 .enqueue(new Callback<ManualPaymentResponse>() {
                     @Override
                     public void onResponse(Call<ManualPaymentResponse> call, Response<ManualPaymentResponse> response) {
@@ -59,8 +70,8 @@ public class ApiConnection {
                 });
     }
 
-    public static void sendReceiptByMail(SendReceiptByMailRequest mailRequest, final ApiResponseListener<SendReceiptByMailResponse> listener) {
-        createConnection().sendReceiptByMail(mailRequest)
+    public static void sendReceiptByMail(Context context, SendReceiptByMailRequest mailRequest, final ApiResponseListener<SendReceiptByMailResponse> listener) {
+        createConnection(context).sendReceiptByMail(mailRequest)
                 .enqueue(new Callback<SendReceiptByMailResponse>() {
                     @Override
                     public void onResponse(Call<SendReceiptByMailResponse> call, Response<SendReceiptByMailResponse> response) {
@@ -78,8 +89,8 @@ public class ApiConnection {
                 });
     }
 
-    public static void generateQrCode(QrGeneratorRequest request, final ApiResponseListener<GenerateQrCodeResponse> listener) {
-        createConnection().generateQrCode(request)
+    public static void generateQrCode(Context context, QrGeneratorRequest request, final ApiResponseListener<GenerateQrCodeResponse> listener) {
+        createConnection(context).generateQrCode(request)
                 .enqueue(new Callback<GenerateQrCodeResponse>() {
                     @Override
                     public void onResponse(Call<GenerateQrCodeResponse> call, Response<GenerateQrCodeResponse> response) {
@@ -97,8 +108,8 @@ public class ApiConnection {
                 });
     }
 
-    public static void checkTransactionPaymentStatus(TransactionStatusRequest request, final ApiResponseListener<TransactionStatusResponse> listener) {
-        createConnection().checkTransactionStatus(request)
+    public static void checkTransactionPaymentStatus(Context context, TransactionStatusRequest request, final ApiResponseListener<TransactionStatusResponse> listener) {
+        createConnection(context).checkTransactionStatus(request)
                 .enqueue(new Callback<TransactionStatusResponse>() {
                     @Override
                     public void onResponse(Call<TransactionStatusResponse> call, Response<TransactionStatusResponse> response) {
@@ -117,8 +128,8 @@ public class ApiConnection {
     }
 
 
-    public static void requestToPay(RequestToPayRequest requestToPayRequest, final ApiResponseListener<RequestToPayResponse> listener) {
-        createConnection().requestToPay(requestToPayRequest)
+    public static void requestToPay(Context context, RequestToPayRequest requestToPayRequest, final ApiResponseListener<RequestToPayResponse> listener) {
+        createConnection(context).requestToPay(requestToPayRequest)
                 .enqueue(new Callback<RequestToPayResponse>() {
                     @Override
                     public void onResponse(Call<RequestToPayResponse> call, Response<RequestToPayResponse> response) {
@@ -133,28 +144,61 @@ public class ApiConnection {
     }
 
 
-    private static ApiInterface createConnection() {
+    private static ApiInterface createConnection(Context context) {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         if (BuildConfig.DEBUG) {
             interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         } else {
             interceptor.setLevel(HttpLoggingInterceptor.Level.NONE);
         }
-        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor)
+        OkHttpClient.Builder clientBuilder = new OkHttpClient.Builder().addInterceptor(interceptor)
                 .connectTimeout(30, TimeUnit.SECONDS)
                 .writeTimeout(30, TimeUnit.SECONDS)
-                .readTimeout(30, TimeUnit.SECONDS).build();
+                .readTimeout(30, TimeUnit.SECONDS);
+
+        // add certificate.
+
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT) {
+            CertificateFactory certificateFactory;
+            try {
+                certificateFactory = CertificateFactory.getInstance("X.509");
+                InputStream inputStream = context.getResources().openRawResource(R.raw.certificate); //(.crt)
+                Certificate certificate = certificateFactory.generateCertificate(inputStream);
+                inputStream.close();
+
+                // Create a KeyStore containing our trusted CAs
+                String keyStoreType = KeyStore.getDefaultType();
+                KeyStore keyStore = KeyStore.getInstance(keyStoreType);
+                keyStore.load(null, null);
+                keyStore.setCertificateEntry("ca", certificate);
+
+                // Create a TrustManager that trusts the CAs in our KeyStore.
+                String tmfAlgorithm = TrustManagerFactory.getDefaultAlgorithm();
+                TrustManagerFactory trustManagerFactory = TrustManagerFactory.getInstance(tmfAlgorithm);
+                trustManagerFactory.init(keyStore);
+
+                TrustManager[] trustManagers = trustManagerFactory.getTrustManagers();
+                X509TrustManager x509TrustManager = (X509TrustManager) trustManagers[0];
+                ProviderInstaller.installIfNeeded(context);
+                SSLContext sslContext = SSLContext.getInstance("TLSv1.2");
+                sslContext.init(null, new TrustManager[]{x509TrustManager}, null);
+                SSLSocketFactory NoSSLv3Factory = new NoSSLv3SocketFactory(sslContext.getSocketFactory());
+                clientBuilder.sslSocketFactory(NoSSLv3Factory, x509TrustManager);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
 
         return new Retrofit.Builder()
                 .baseUrl(ApiLinks.CUBE)
-                .client(client)
+                .client(clientBuilder.build())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
                 .create(ApiInterface.class);
     }
 
-    public static void getMerchantInfo(MerchantInfoRequest request, final ApiResponseListener<MerchantInfoResponse> listener) {
-        createConnection().getMerchantInfo(request)
+    public static void getMerchantInfo(Context context, MerchantInfoRequest request, final ApiResponseListener<MerchantInfoResponse> listener) {
+        createConnection(context).getMerchantInfo(request)
                 .enqueue(new Callback<MerchantInfoResponse>() {
                     @Override
                     public void onResponse(Call<MerchantInfoResponse> call, Response<MerchantInfoResponse> response) {
@@ -168,8 +212,8 @@ public class ApiConnection {
                 });
     }
 
-    public static void compose3dsTransaction(Compose3dsTransactionRequest request, final ApiResponseListener<Compose3dsTransactionResponse> listener) {
-        createConnection().compose3dpsTransaction(request)
+    public static void compose3dsTransaction(Context context, Compose3dsTransactionRequest request, final ApiResponseListener<Compose3dsTransactionResponse> listener) {
+        createConnection(context).compose3dpsTransaction(request)
                 .enqueue(new Callback<Compose3dsTransactionResponse>() {
                     @Override
                     public void onResponse(Call<Compose3dsTransactionResponse> call, Response<Compose3dsTransactionResponse> response) {
@@ -183,8 +227,8 @@ public class ApiConnection {
                 });
     }
 
-    public static void process3dTransaction(Process3dTransactionRequest request, final ApiResponseListener<Process3dTransactionResponse> listener) {
-        createConnection().process3dTransaction(request).enqueue(new Callback<Process3dTransactionResponse>() {
+    public static void process3dTransaction(Context context, Process3dTransactionRequest request, final ApiResponseListener<Process3dTransactionResponse> listener) {
+        createConnection(context).process3dTransaction(request).enqueue(new Callback<Process3dTransactionResponse>() {
             @Override
             public void onResponse(Call<Process3dTransactionResponse> call, Response<Process3dTransactionResponse> response) {
                 listener.onSuccess(response.body());
@@ -195,39 +239,6 @@ public class ApiConnection {
                 listener.onFail(t);
             }
         });
-    }
-
-
-    public static void checkTransactionStatus(final String transactionId, final CheckTransactionStatusRequest request, final CheckTransactionListener listener) {
-        createConnection().checkTransaction(request)
-                .enqueue(new Callback<CheckTransactionStatusResponse>() {
-                    @Override
-                    public void onResponse(Call<CheckTransactionStatusResponse> call, Response<CheckTransactionStatusResponse> response) {
-                        CheckTransactionStatusResponse body = response.body();
-                        if (body != null && body.success) {
-                            boolean transactionSuccess = false;
-                            List<TransactionsItem> transactions = body.transactions;
-                            for (TransactionsItem item : transactions) {
-                                for (DateTransactionsItem transactionsItem : item.dateTransactions) {
-                                    if (transactionsItem.merchantReference.equals(transactionId)) {
-                                        transactionSuccess = true;
-                                        listener.transactionSuccess(transactionsItem);
-                                    }
-                                }
-                            }
-                            if (!transactionSuccess) {
-                                listener.transactionFailed();
-                            }
-                        } else {
-                            listener.onError(new Exception("error in server"));
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<CheckTransactionStatusResponse> call, Throwable t) {
-                        listener.onError(t);
-                    }
-                });
     }
 
 }

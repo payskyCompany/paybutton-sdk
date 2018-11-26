@@ -133,7 +133,7 @@ public class WebPaymentFragment extends BaseFragment implements WebPaymentView {
         paymentRequest.secureHash = HashGenerator.encode(paymentData.secureHashKey, paymentRequest.dateTimeLocalTrxn,
                 paymentData.merchantId, paymentData.terminalId);
         showProgress();
-        ApiConnection.executePayment(paymentRequest, new ApiResponseListener<ManualPaymentResponse>()
+        ApiConnection.executePayment(getContext() , paymentRequest, new ApiResponseListener<ManualPaymentResponse>()
 
         {
             @Override
@@ -244,7 +244,7 @@ public class WebPaymentFragment extends BaseFragment implements WebPaymentView {
                     request.secureHash = HashGenerator.encode(paymentData.secureHashKey, request.dateTimeLocalTrxn, paymentData.merchantId, paymentData.terminalId);
                     request.threeDSResponseData = Base64.encodeToString(jsonObject.toString().getBytes(), Base64.DEFAULT);
                     // call Api.
-                    ApiConnection.process3dTransaction(request, new ApiResponseListener<Process3dTransactionResponse>() {
+                    ApiConnection.process3dTransaction(getContext() ,request, new ApiResponseListener<Process3dTransactionResponse>() {
                         @Override
                         public void onSuccess(Process3dTransactionResponse response) {
                             if (!isVisible()) {
@@ -284,27 +284,29 @@ public class WebPaymentFragment extends BaseFragment implements WebPaymentView {
                     return;
                 }
                 dismissProgress();
-                webView.evaluateJavascript(
-                        "document.documentElement.outerHTML;",
-                        new ValueCallback<String>() {
-                            @Override
-                            public void onReceiveValue(String html) {
-                                if (html.contains("HTTP Status - 400")) {
-                                    try {
-                                        html = html.replaceAll("<.*?>", "");
-                                        html = html.substring(html.indexOf("E5000:") + 7);
-                                        html = html.substring(0, html.indexOf("\\u003C"));
-                                        ToastUtils.showLongToast(getActivity(), html);
-                                        TransactionManager.setTransactionException(new TransactionException(html));
-                                    } catch (Exception e) {
-                                        e.printStackTrace();
-                                        ToastUtils.showLongToast(getActivity(), getString(R.string.error_try_again));
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                    webView.evaluateJavascript(
+                            "document.documentElement.outerHTML;",
+                            new ValueCallback<String>() {
+                                @Override
+                                public void onReceiveValue(String html) {
+                                    if (html.contains("HTTP Status - 400")) {
+                                        try {
+                                            html = html.replaceAll("<.*?>", "");
+                                            html = html.substring(html.indexOf("E5000:") + 7);
+                                            html = html.substring(0, html.indexOf("\\u003C"));
+                                            ToastUtils.showLongToast(getActivity(), html);
+                                            TransactionManager.setTransactionException(new TransactionException(html));
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
+                                            ToastUtils.showLongToast(getActivity(), getString(R.string.error_try_again));
+                                        }
+                                        webView.setWebViewClient(null);
+                                        activity.showPaymentBasedOnPaymentOptions(0);
                                     }
-                                    webView.setWebViewClient(null);
-                                    activity.showPaymentBasedOnPaymentOptions(0);
                                 }
-                            }
-                        });
+                            });
+                }
             }
 
             @TargetApi(Build.VERSION_CODES.M)

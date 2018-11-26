@@ -48,7 +48,7 @@
     <string name="pin">PIN</string>
     <string name="sms_received_within">Sms should be received within</string>
     <string name="seconds">Seconds</string>
-    <string name="terms_conditions_text">This terms and conditions to use Paysky payment service integration.</string>
+    <string name="terms_conditions_text">This terms and conditions to use PaySky payment service integration.</string>
     <string name="sent_request_success">The payment has been requested</string>
     <string name="or">OR</string>
     <string name="cant_scan_code">Can\'t scan Qr code? \nSend payment request to the entered mobile number.</string>

@@ -2,6 +2,7 @@ package com.example.amrel.paybuttonexample;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
@@ -14,6 +15,7 @@ import io.paysky.exception.TransactionException;
 import io.paysky.ui.PayButton;
 import io.paysky.ui.activity.payment.PaymentActivity;
 import io.paysky.util.AppUtils;
+import io.paysky.util.DialogUtils;
 import io.paysky.util.LocaleHelper;
 
 public class MainActivity extends AppCompatActivity implements View.OnLongClickListener, View.OnClickListener {
@@ -41,8 +43,6 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
                 paymentStatusTextView.setText("");
                 String terminalId = terminalIdEditText.getText().toString().trim();
                 String merchantId = merchantIdEditText.getText().toString().trim();
-        /*        String merchantId = "43808";
-                String terminalId = "222222";*/
                 String amount = amountEditText.getText().toString().trim();
 
                 boolean hasErrors = false;
@@ -75,23 +75,22 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
                     payButton.setCurrencyCode(Integer.valueOf(a)); // Currency Code
                 }
 
-                 payButton.setMerchantSecureHash("35393434313266342D636662392D343334612D613765332D646365626337663334386363");
-               // payButton.setMerchantSecureHash("65613962386534372D383936362D343166322D383838622D323062373865623039303461");
+                payButton.setMerchantSecureHash("35393434313266342D636662392D343334612D613765332D646365626337663334386363");
                 payButton.setTransactionReferenceNumber(AppUtils.generateRandomNumber());
                 payButton.createTransaction(new PayButton.PaymentTransactionCallback() {
                     @Override
                     public void onCardTransactionSuccess(SuccessfulCardTransaction cardTransaction) {
-                        paymentStatusTextView.setText(cardTransaction.toString());
+                        new AlertDialog.Builder(MainActivity.this).setMessage(cardTransaction.toString()).setPositiveButton("OK", null).show();
                     }
 
                     @Override
                     public void onWalletTransactionSuccess(SuccessfulWalletTransaction walletTransaction) {
-                        paymentStatusTextView.setText(walletTransaction.toString());
+                        new AlertDialog.Builder(MainActivity.this).setMessage(walletTransaction.toString()).setPositiveButton("OK", null).show();
                     }
 
                     @Override
                     public void onError(TransactionException error) {
-                        paymentStatusTextView.setText("failed by:- " + error.errorMessage);
+                        new AlertDialog.Builder(MainActivity.this).setMessage("failed by:- " + error.errorMessage).setPositiveButton("OK", null).show();
                     }
                 });
             }

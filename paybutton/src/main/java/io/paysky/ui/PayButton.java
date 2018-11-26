@@ -93,7 +93,7 @@ public class PayButton {
         request.paymentMethod = null;
         request.dateTimeLocalTrxn = AppUtils.getDateTimeLocalTrxn();
         request.secureHash = HashGenerator.encode(merchantSecureHash, request.dateTimeLocalTrxn, merchantId, terminalId);
-        ApiConnection.getMerchantInfo(request, new ApiResponseListener<MerchantInfoResponse>() {
+        ApiConnection.getMerchantInfo(context , request, new ApiResponseListener<MerchantInfoResponse>() {
             @Override
             public void onSuccess(MerchantInfoResponse response) {
                 dismissProgressDialog();

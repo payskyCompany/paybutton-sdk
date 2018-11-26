@@ -85,4 +85,7 @@ public class ManualPaymentRequest {
     @SerializedName("ThreeDSECI")
     public String threeDSECI;
 
+    @SerializedName("MerchantReference")
+    public String merchantReference;
+
 }

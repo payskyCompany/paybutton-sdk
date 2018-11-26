@@ -45,7 +45,7 @@ public class QrPresenter extends BasePresenter<QrView> implements QrBitmapLoadLi
         request.dateTimeLocalTrxn = AppUtils.getDateTimeLocalTrxn();
         request.secureHash = HashGenerator.encode(paymentData.secureHashKey, request.dateTimeLocalTrxn, paymentData.merchantId, paymentData.terminalId);
         // call api.
-        ApiConnection.checkTransactionPaymentStatus(request, new ApiResponseListener<TransactionStatusResponse>() {
+        ApiConnection.checkTransactionPaymentStatus(view.getContext() , request, new ApiResponseListener<TransactionStatusResponse>() {
             @Override
             public void onSuccess(TransactionStatusResponse response) {
                 if (isViewDetached())return;
@@ -86,7 +86,7 @@ public class QrPresenter extends BasePresenter<QrView> implements QrBitmapLoadLi
         qrGeneratorRequest.DateTimeLocalTrxn = AppUtils.getDateTimeLocalTrxn();
         qrGeneratorRequest.SecureHash = HashGenerator.encode(paymentData.secureHashKey, qrGeneratorRequest.DateTimeLocalTrxn, paymentData.merchantId, paymentData.terminalId);
 
-        ApiConnection.generateQrCode(qrGeneratorRequest, new ApiResponseListener<GenerateQrCodeResponse>() {
+        ApiConnection.generateQrCode(view.getContext() , qrGeneratorRequest, new ApiResponseListener<GenerateQrCodeResponse>() {
             @Override
             public void onSuccess(GenerateQrCodeResponse response) {
                 if (isViewDetached())return;
@@ -130,7 +130,7 @@ public class QrPresenter extends BasePresenter<QrView> implements QrBitmapLoadLi
         requestToPayRequest.merchantReference = paymentData.transactionReferenceNumber;
         // generate hashing.
         requestToPayRequest.secureHash = HashGenerator.encode(paymentData.secureHashKey, requestToPayRequest.dateTimeLocalTrxn, paymentData.merchantId, paymentData.terminalId);
-        ApiConnection.requestToPay(requestToPayRequest, new ApiResponseListener<RequestToPayResponse>() {
+        ApiConnection.requestToPay(view.getContext() , requestToPayRequest, new ApiResponseListener<RequestToPayResponse>() {
             @Override
             public void onSuccess(RequestToPayResponse response) {
                 if (isViewDetached())return;

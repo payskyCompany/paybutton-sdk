@@ -70,6 +70,11 @@ public class BaseActivity extends AppCompatActivity implements BaseView {
     }
 
     @Override
+    public Context getContext() {
+        return  this;
+    }
+
+    @Override
     public void showToast(@StringRes int text) {
         ToastUtils.showToast(this, text);
     }

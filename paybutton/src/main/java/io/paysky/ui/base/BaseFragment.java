@@ -85,4 +85,11 @@ public class BaseFragment extends Fragment implements BaseView {
     public boolean isEmpty(String text) {
         return text.isEmpty();
     }
+
+
+    @Nullable
+    @Override
+    public Context getContext() {
+        return super.getContext();
+    }
 }

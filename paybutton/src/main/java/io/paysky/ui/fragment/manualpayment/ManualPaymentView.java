@@ -15,5 +15,9 @@ public interface ManualPaymentView extends BaseView {
 
     void showPaymentFailedFragment(Bundle bundle);
 
-    void showTransactionApprovedFragment(String transactionNo, String authCode, String receiptNumber, String cardHolder, String cardNumber, String systemReference, PaymentData paymentData);
+    void showTransactionApprovedFragment(String transactionNo, String authCode, String receiptNumber, String cardHolder,
+                                         String cardNumber, String systemReference, PaymentData paymentData);
+
+
+
 }

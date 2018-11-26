@@ -1,5 +1,6 @@
 package io.paysky.ui.mvp;
 
+import android.content.Context;
 import android.support.annotation.StringRes;
 
 public interface BaseView {
@@ -16,4 +17,7 @@ public interface BaseView {
     void showNoInternetDialog();
 
     boolean isInternetAvailable();
+
+
+    Context getContext();
 }
