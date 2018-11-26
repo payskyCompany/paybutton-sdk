@@ -13,8 +13,7 @@ What things you need to install the software and how to install them
 ```
 1-JDK installed on your machine with minimum version 1.7 .
 2-Android Studio
-3-Create new Android project in Android Studio to use SDK or if you have created a project before with minSdkVersion 21 Lollipop.
-4-Android project should be support minimum sdk 21 Lollipop.
+3-Create new Android project in Android Studio to use SDK or if you have created a project before with minSdkVersion api version 17.
 ```
 
 ### Installing
@@ -32,16 +31,16 @@ Example:-
                                }
                 }
 			  
-3- in your build.gradle file in app level in dependencies{} add :-     implementation 'com.github.payskyCompany:paybutton-sdk:1.0.0'
+3- in your build.gradle file in app level in dependencies{} add :-     implementation 'com.github.payskyCompany:paybutton-sdk:1.0.1'
 
 Example:-
 dependencies {
-      implementation 'com.github.payskyCompany:paybutton-sdk:1.0.0'
+      implementation 'com.github.payskyCompany:paybutton-sdk:1.0.1'
 }
 
 4- Sync your project.
 
-Note:- version 1.0.0 may not be the last version check Releases in github to get latest version.
+Note:- version 1.0.1 may not be the last version check Releases in github to get latest version.
 ```
 
 ### Using SDK
@@ -59,6 +58,7 @@ you need to just pass some parameters to PayButton class instance :-
   3-Payment amount.
   4-Currency code [Optional].
   5-merchant secure hash.
+  6-transaction Reference Number.
   
 Note That:-
 you shoud keep your secure hash and merchant id and terminal id with encryption before save them in storage if you want.
@@ -70,7 +70,11 @@ payButton.setTerminalId(terminalId); // Terminal  id
 payButton.setPayAmount(amount); // Amount
 payButton.setCurrencyCode(currencyCode); // Currency Code [Optional]
 payButton.setMerchantSecureHash("Merchant secure hash"); // Merchant secure hash
-
+payButton.setTransactionReferenceNumber("reference number"); // transaction reference number.
+// you can get reference number from AppUtils.generateRandomNumber();
+example:-        
+payButton.setTransactionReferenceNumber(AppUtils.generateRandomNumber());
+       
 2 - in order to create transaction call:-
 
 payButton.createTransaction(new PayButton.PaymentTransactionCallback() {
@@ -97,9 +101,17 @@ this listener has 2 methods:-
 
   1 - onCardTransactionSuccess method
       this method called in case transaction success by card payment with SuccessfulCardTransaction object.
+      SuccessfulCardTransaction object from create transaction listener contains:-
+      NetworkReference variable that is reference number of transaction.
+      
+      
   2 - onWalletTransactionSuccess method 
       this method is called if customer make a wallet transaction with SuccessfulWalletTransaction object.
+      SuccessfulWalletTransaction object from create transaction listener contains:-
+      NetworkReference variable that is reference number of transaction.
+      
   3- onError method in case transaction failed with Throwable exception that has error info.
+  
   
 Example:- 
 
@@ -107,11 +119,13 @@ Example:-
                     @Override
                     public void onCardTransactionSuccess(SuccessfulCardTransaction cardTransaction) {
                         paymentStatusTextView.setText(cardTransaction.toString());
+			cardTransaction.NetworkReference; // transaction reference number.
                     }
 
                     @Override
                     public void onWalletTransactionSuccess(SuccessfulWalletTransaction walletTransaction) {
                         paymentStatusTextView.setText(walletTransaction.toString());
+			walletTransaction.NetworkReference ; // transaction reference number.
                     }
 
                     @Override
