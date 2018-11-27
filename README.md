@@ -161,11 +161,12 @@ configurations.all {
 }
 
 force your specific version and sync project again.
-Reference for how to solve problem
+```
+ Reference for how to solve problem
 (https://stackoverflow.com/questions/28444016/how-can-i-force-gradle-to-set-the-same-version-for-two-dependencies)
 (https://stackoverflow.com/questions/28444016/how-can-i-force-gradle-to-set-the-same-version-for-two-dependencies/39292202)
 
-```
+
 ## Deployment
 
 1-Before deploy your project live ,you should get a merchant id and terminal id from our company .
