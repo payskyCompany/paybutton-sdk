@@ -141,6 +141,31 @@ Example:-
         });
 
 ```
+
+### Resolving conflict
+
+Because we use some of libraries like Okhttp, retrofit , EventBus and you may use them with different version number ,
+in some cases this will make a conflict in build project to solve this problem you should force the library that has conflict
+with specific version number.
+```
+Exxample conflict in Gson library we use version  
+implementation 'com.google.code.gson:gson:2.8.5'
+and in your build.gradle file
+implementation 'com.google.code.gson:gson:2.8.4'
+in your build.gradle file add in bottom of it:-
+
+configurations.all {
+    resolutionStrategy { 
+        force 'com.google.code.gson:gson:2.8.4'
+    }
+}
+
+force your specific version and sync project again.
+Reference for how to solve problem
+**https://stackoverflow.com/questions/28444016/how-can-i-force-gradle-to-set-the-same-version-for-two-dependencies**
+**https://stackoverflow.com/questions/28444016/how-can-i-force-gradle-to-set-the-same-version-for-two-dependencies/39292202**
+
+```
 ## Deployment
 
 1-Before deploy your project live ,you should get a merchant id and terminal id from our company .
