@@ -148,7 +148,7 @@ Because we use some of libraries like Okhttp, retrofit , EventBus and you may us
 in some cases this will make a conflict in build project to solve this problem you should force the library that has conflict
 with specific version number.
 ```
-Exxample conflict in Gson library we use version  
+Example conflict in Gson library we use version  
 implementation 'com.google.code.gson:gson:2.8.5'
 and in your build.gradle file
 implementation 'com.google.code.gson:gson:2.8.4'
