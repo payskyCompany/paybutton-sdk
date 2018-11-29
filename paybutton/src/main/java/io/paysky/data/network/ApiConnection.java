@@ -14,7 +14,6 @@ import java.security.cert.CertificateFactory;
 import java.util.concurrent.TimeUnit;
 
 import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLEngine;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.TrustManagerFactory;
@@ -190,7 +189,7 @@ public class ApiConnection {
         }
 
         return new Retrofit.Builder()
-                .baseUrl(ApiLinks.CUBE)
+                .baseUrl(ApiLinks.GRAY_LINK)
                 .client(clientBuilder.build())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()

@@ -66,6 +66,5 @@ dependencies {
     compile 'com.android.support:multidex:1.0.3'
     compile 'me.grantland:autofittextview:0.2.+'
     compile 'uk.co.chrisjenx:calligraphy:2.3.0'
-    compile 'com.google.android.gms:play-services:12.0.1'
-
+    implementation 'com.google.android.gms:play-services-safetynet:16.0.0'
 }
