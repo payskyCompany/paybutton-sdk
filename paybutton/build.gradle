@@ -67,4 +67,5 @@ dependencies {
     compile 'me.grantland:autofittextview:0.2.+'
     compile 'uk.co.chrisjenx:calligraphy:2.3.0'
     implementation 'com.google.android.gms:play-services-safetynet:16.0.0'
+    compile 'com.github.mklimek:ssl-utils-android:1.0.1'
 }

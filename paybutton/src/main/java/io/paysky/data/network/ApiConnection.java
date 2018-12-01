@@ -6,6 +6,7 @@ import android.os.Build;
 import com.example.paybutton.BuildConfig;
 import com.example.paybutton.R;
 import com.google.android.gms.security.ProviderInstaller;
+import com.mklimek.sslutilsandroid.SslUtils;
 
 import java.io.InputStream;
 import java.security.KeyStore;
@@ -158,34 +159,8 @@ public class ApiConnection {
         // add certificate.
 
         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT) {
-            CertificateFactory certificateFactory;
-            try {
-                certificateFactory = CertificateFactory.getInstance("X.509");
-                InputStream inputStream = context.getResources().openRawResource(R.raw.certificate); //(.crt)
-                Certificate certificate = certificateFactory.generateCertificate(inputStream);
-                inputStream.close();
-
-                // Create a KeyStore containing our trusted CAs
-                String keyStoreType = KeyStore.getDefaultType();
-                KeyStore keyStore = KeyStore.getInstance(keyStoreType);
-                keyStore.load(null, null);
-                keyStore.setCertificateEntry("ca", certificate);
-
-                // Create a TrustManager that trusts the CAs in our KeyStore.
-                String tmfAlgorithm = TrustManagerFactory.getDefaultAlgorithm();
-                TrustManagerFactory trustManagerFactory = TrustManagerFactory.getInstance(tmfAlgorithm);
-                trustManagerFactory.init(keyStore);
-
-                TrustManager[] trustManagers = trustManagerFactory.getTrustManagers();
-                X509TrustManager x509TrustManager = (X509TrustManager) trustManagers[0];
-                ProviderInstaller.installIfNeeded(context);
-                SSLContext sslContext = SSLContext.getInstance("TLSv1.2");
-                sslContext.init(null, new TrustManager[]{x509TrustManager}, null);
-                SSLSocketFactory NoSSLv3Factory = new NoSSLv3SocketFactory(sslContext.getSocketFactory());
-                clientBuilder.sslSocketFactory(NoSSLv3Factory, x509TrustManager);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            SSLContext sslContext = SslUtils.getSslContextForCertificateFile(context, "certificate.cer");
+            clientBuilder.sslSocketFactory(sslContext.getSocketFactory());
         }
 
         return new Retrofit.Builder()
