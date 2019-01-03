@@ -189,7 +189,7 @@ public class ApiConnection {
         }
 
         return new Retrofit.Builder()
-                .baseUrl(ApiLinks.CUBE)
+                .baseUrl(ApiLinks.GRAY_LINK)
                 .client(clientBuilder.build())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
