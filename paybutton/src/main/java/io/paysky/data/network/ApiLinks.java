@@ -17,6 +17,6 @@ public class ApiLinks {
     public static final String CHECK_TRANSACTION_STATUS = "Cube/PayLink.svc/api/FilterTransactions";
     public static final String GRAY_LINK = "https://grey.paysky.io/";
     public static final String CUBE = "https://cube.paysky.io/";
-    public static String PAYMENT_LINK = CUBE;
+    public static String PAYMENT_LINK = GRAY_LINK;
 }
 

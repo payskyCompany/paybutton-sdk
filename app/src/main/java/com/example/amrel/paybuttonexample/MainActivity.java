@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
 
                 // add payments data.
                 PayButton payButton = new PayButton(MainActivity.this);
-                payButton.setProduction(true);
+                payButton.setProduction(false);
                 payButton.setMerchantId(merchantId); // Merchant id
                 payButton.setTerminalId(terminalId); // Terminal  id
                 payButton.setAmount(Double.valueOf(amount)); // Amount
