@@ -4,7 +4,7 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.TypedValue;
 
-import com.example.paybutton.R;
+import com.paysky.paybutton.R;
 
 import io.paysky.data.model.PaymentData;
 import io.paysky.data.model.request.QrGeneratorRequest;

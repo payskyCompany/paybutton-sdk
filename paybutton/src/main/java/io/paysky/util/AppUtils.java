@@ -21,7 +21,7 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
-import com.example.paybutton.R;
+import com.paysky.paybutton.R;
 
 import org.greenrobot.eventbus.EventBus;
 

@@ -3,16 +3,12 @@ package io.paysky.ui.base;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Html;
-import android.view.View;
-import android.widget.TextView;
 
-import com.example.paybutton.R;
+import com.paysky.paybutton.R;
 
 import io.paysky.ui.dialog.InfoDialog;
 import io.paysky.ui.mvp.BaseView;

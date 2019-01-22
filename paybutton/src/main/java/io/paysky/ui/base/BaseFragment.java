@@ -3,13 +3,14 @@ package io.paysky.ui.base;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.icu.text.UnicodeSetIterator;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
 import android.widget.TextView;
 
-import com.example.paybutton.R;
+import com.paysky.paybutton.R;
 
 import io.paysky.ui.activity.payment.PaymentActivity;
 import io.paysky.ui.dialog.InfoDialog;

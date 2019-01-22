@@ -12,7 +12,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
-import com.example.paybutton.R;
+
+import com.paysky.paybutton.R;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

@@ -9,12 +9,11 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.paybutton.R;
+import com.paysky.paybutton.R;
 
 import io.paysky.data.model.ReceiptData;
 
 public class ReceiptManager {
-
     //GUI.
     private View receiptView;
     private TextView merchantNameTextView;

@@ -13,9 +13,7 @@ import io.paysky.data.model.SuccessfulCardTransaction;
 import io.paysky.data.model.SuccessfulWalletTransaction;
 import io.paysky.exception.TransactionException;
 import io.paysky.ui.PayButton;
-import io.paysky.ui.activity.payment.PaymentActivity;
 import io.paysky.util.AppUtils;
-import io.paysky.util.DialogUtils;
 import io.paysky.util.LocaleHelper;
 
 public class MainActivity extends AppCompatActivity implements View.OnLongClickListener, View.OnClickListener {
@@ -65,6 +63,7 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
 
                 // add payments data.
                 PayButton payButton = new PayButton(MainActivity.this);
+                payButton.setProduction(true);
                 payButton.setMerchantId(merchantId); // Merchant id
                 payButton.setTerminalId(terminalId); // Terminal  id
                 payButton.setAmount(Double.valueOf(amount)); // Amount

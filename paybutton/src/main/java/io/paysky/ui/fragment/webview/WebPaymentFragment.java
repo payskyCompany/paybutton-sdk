@@ -20,7 +20,7 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import com.example.paybutton.R;
+import com.paysky.paybutton.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;

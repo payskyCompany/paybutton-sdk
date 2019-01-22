@@ -13,7 +13,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.paybutton.R;
+
+import com.paysky.paybutton.R;
 
 import io.paysky.data.model.ReceiptData;
 import io.paysky.ui.activity.payment.PaymentActivity;

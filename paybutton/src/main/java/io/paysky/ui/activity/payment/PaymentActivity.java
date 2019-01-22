@@ -14,7 +14,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.paybutton.R;
+import com.paysky.paybutton.R;
 
 import io.paysky.data.model.PaymentData;
 import io.paysky.data.model.SuccessfulCardTransaction;

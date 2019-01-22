@@ -9,7 +9,8 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.paybutton.R;
+
+import com.paysky.paybutton.R;
 
 import io.paysky.util.ViewUtil;
 

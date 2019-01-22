@@ -1,14 +1,9 @@
 package io.paysky.util;
 
-import android.app.ProgressDialog;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.AsyncTask;
-import android.util.TypedValue;
-import android.widget.ImageView;
 
-import com.example.paybutton.R;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
 import com.google.zxing.WriterException;

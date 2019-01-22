@@ -9,7 +9,8 @@ import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
-import com.example.paybutton.R;
+
+import com.paysky.paybutton.R;
 
 import java.util.ArrayList;
 import java.util.LinkedList;

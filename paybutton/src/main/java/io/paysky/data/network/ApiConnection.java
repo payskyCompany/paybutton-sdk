@@ -2,10 +2,9 @@ package io.paysky.data.network;
 
 import android.content.Context;
 import android.os.Build;
-
-import com.example.paybutton.BuildConfig;
-import com.example.paybutton.R;
 import com.google.android.gms.security.ProviderInstaller;
+import com.paysky.paybutton.BuildConfig;
+import com.paysky.paybutton.R;
 
 import java.io.InputStream;
 import java.security.KeyStore;
@@ -189,7 +188,7 @@ public class ApiConnection {
         }
 
         return new Retrofit.Builder()
-                .baseUrl(ApiLinks.GRAY_LINK)
+                .baseUrl(ApiLinks.PAYMENT_LINK)
                 .client(clientBuilder.build())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()

@@ -2,7 +2,7 @@ package io.paysky.util;
 
 import android.content.Context;
 
-import com.example.paybutton.R;
+import com.paysky.paybutton.R;
 
 import io.paysky.ui.dialog.InfoDialog;
 
