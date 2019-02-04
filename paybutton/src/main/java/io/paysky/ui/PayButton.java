@@ -53,7 +53,9 @@ public class PayButton {
     }
 
     public PayButton setAmount(double amount) {
-        this.amount = amount;
+        // check if amount is valid or not.
+        String englishAmount = AppUtils.convertToEnglishDigits(amount + "");
+        this.amount = Double.valueOf(englishAmount);
         return this;
     }
 
@@ -74,9 +76,9 @@ public class PayButton {
 
 
     public void createTransaction(PaymentTransactionCallback transactionCallback) {
-        if (isProduction){
+        if (isProduction) {
             ApiLinks.PAYMENT_LINK = ApiLinks.CUBE;
-        }else{
+        } else {
             ApiLinks.PAYMENT_LINK = ApiLinks.GRAY_LINK;
         }
         PayButton.transactionCallback = transactionCallback;
@@ -101,7 +103,7 @@ public class PayButton {
         request.paymentMethod = null;
         request.dateTimeLocalTrxn = AppUtils.getDateTimeLocalTrxn();
         request.secureHash = HashGenerator.encode(merchantSecureHash, request.dateTimeLocalTrxn, merchantId, terminalId);
-        ApiConnection.getMerchantInfo(context , request, new ApiResponseListener<MerchantInfoResponse>() {
+        ApiConnection.getMerchantInfo(context, request, new ApiResponseListener<MerchantInfoResponse>() {
             @Override
             public void onSuccess(MerchantInfoResponse response) {
                 dismissProgressDialog();
@@ -127,7 +129,7 @@ public class PayButton {
                 paymentData.amountFormatted = amount + "";
                 paymentData.paymentMethod = response.paymentMethod;
                 paymentData.secureHashKey = merchantSecureHash;
-                String[] c = {paymentData.currencyCode };
+                String[] c = {paymentData.currencyCode};
                 CurrencyCode currencyCode = CurrencyHelper.getCurrencyCode(context, c[0]);
                 if (currencyCode != null) {
                     paymentData.currencyName = currencyCode.currencyShortName;

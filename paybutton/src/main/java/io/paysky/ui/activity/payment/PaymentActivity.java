@@ -55,6 +55,7 @@ public class PaymentActivity extends BaseActivity implements View.OnClickListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         PrefsUtils.initialize(this);
+        LocaleHelper.setLocale(this , LocaleHelper.getLocale());
         makeActivityFullScreen();
         AppUtils.preventScreenshot(this);
         setContentView(R.layout.activity_pay);
