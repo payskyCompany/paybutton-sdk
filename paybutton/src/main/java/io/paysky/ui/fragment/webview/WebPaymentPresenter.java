@@ -5,7 +5,7 @@ import io.paysky.ui.mvp.BasePresenter;
 class WebPaymentPresenter extends BasePresenter<WebPaymentView> {
 
 
-    public void load3dWebView() {
+    void load3dWebView() {
         view.load3dTransactionWebView();
     }
 }

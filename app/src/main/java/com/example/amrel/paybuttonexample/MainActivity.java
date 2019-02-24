@@ -21,7 +21,6 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
     //GUI.
     private EditText merchantIdEditText, terminalIdEditText, amountEditText;
     private TextView paymentStatusTextView;
-    private TextView languageTextView;
     private EditText currencyEditText;
 
     @Override
@@ -42,7 +41,6 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
                 String terminalId = terminalIdEditText.getText().toString().trim();
                 String merchantId = merchantIdEditText.getText().toString().trim();
                 String amount = amountEditText.getText().toString().trim();
-
                 boolean hasErrors = false;
                 if (terminalId.isEmpty()) {
                     terminalIdEditText.setError(getString(R.string.required));
@@ -64,18 +62,19 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
                 // add payments data.
                 PayButton payButton = new PayButton(MainActivity.this);
                 payButton.setProduction(false);
-                payButton.setMerchantId(merchantId); // Merchant id
-                payButton.setTerminalId(terminalId); // Terminal  id
-                payButton.setAmount(Double.valueOf(amount)); // Amount
-                String a = currencyEditText.getText().toString();
-                if (a.isEmpty()) {
-                    payButton.setCurrencyCode(0); // Currency Code
+                payButton.setMerchantId(merchantId);
+                payButton.setTerminalId(terminalId);
+                payButton.setAmount(Double.valueOf(amount));
+                String currency = currencyEditText.getText().toString();
+                if (currency.isEmpty()) {
+                    payButton.setCurrencyCode(0);
                 } else {
-                    payButton.setCurrencyCode(Integer.valueOf(a)); // Currency Code
+                    payButton.setCurrencyCode(Integer.valueOf(currency));
                 }
 
-                payButton.setMerchantSecureHash("35393434313266342D636662392D343334612D613765332D646365626337663334386363");
-                payButton.setTransactionReferenceNumber(AppUtils.generateRandomNumber());
+                payButton.setMerchantSecureHash("63616133323632652D636439312D346435312D623832312D643665666539653633626638");
+                payButton.setTransactionReferenceNumber("1");
+
                 payButton.createTransaction(new PayButton.PaymentTransactionCallback() {
                     @Override
                     public void onCardTransactionSuccess(SuccessfulCardTransaction cardTransaction) {
@@ -98,7 +97,7 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
         appVersion.setText("PaySDK - PayButton module - Ver.  " + AppUtils.getVersionNumber(this));
         ImageView logoImageView = findViewById(R.id.logo_imageView);
         logoImageView.setOnLongClickListener(this);
-        languageTextView = findViewById(R.id.language_textView);
+        TextView languageTextView = findViewById(R.id.language_textView);
         languageTextView.setOnClickListener(this);
         if (LocaleHelper.getLocale().equals("ar")) {
             languageTextView.setText(R.string.english);

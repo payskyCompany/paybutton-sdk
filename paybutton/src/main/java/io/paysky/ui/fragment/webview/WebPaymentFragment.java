@@ -14,6 +14,7 @@ import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.CookieManager;
 import android.webkit.ValueCallback;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
@@ -35,6 +36,7 @@ import io.paysky.data.model.request.Process3dTransactionRequest;
 import io.paysky.data.model.response.ManualPaymentResponse;
 import io.paysky.data.model.response.Process3dTransactionResponse;
 import io.paysky.data.network.ApiConnection;
+import io.paysky.data.network.ApiLinks;
 import io.paysky.data.network.ApiResponseListener;
 import io.paysky.exception.TransactionException;
 import io.paysky.ui.activity.payment.PaymentActivity;
@@ -70,7 +72,6 @@ public class WebPaymentFragment extends BaseFragment implements WebPaymentView {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         presenter = new WebPaymentPresenter();
         activity = (PaymentActivity) getActivity();
         extractBundleData();
@@ -106,7 +107,11 @@ public class WebPaymentFragment extends BaseFragment implements WebPaymentView {
         webView = view.findViewById(R.id.webView);
         webView.getSettings().setJavaScriptEnabled(true);
         webView.setBackgroundColor(Color.TRANSPARENT);
-        webView.setLayerType(WebView.LAYER_TYPE_SOFTWARE, null);
+        if (Build.VERSION.SDK_INT >= 19) {
+            webView.setLayerType(View.LAYER_TYPE_HARDWARE, null);
+        } else {
+            webView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+        }
         presenter.load3dWebView();
     }
 
@@ -133,7 +138,7 @@ public class WebPaymentFragment extends BaseFragment implements WebPaymentView {
         paymentRequest.secureHash = HashGenerator.encode(paymentData.secureHashKey, paymentRequest.dateTimeLocalTrxn,
                 paymentData.merchantId, paymentData.terminalId);
         showProgress();
-        ApiConnection.executePayment(getContext() , paymentRequest, new ApiResponseListener<ManualPaymentResponse>()
+        ApiConnection.executePayment(getContext(), paymentRequest, new ApiResponseListener<ManualPaymentResponse>()
 
         {
             @Override
@@ -214,7 +219,7 @@ public class WebPaymentFragment extends BaseFragment implements WebPaymentView {
 
     @Override
     public void load3dTransactionWebView() {
-        webView.postUrl(url, requestBody.getBytes());
+        showProgress();
         WebViewClient webViewClient = new WebViewClient() {
             @Override
             public void onPageStarted(final WebView view, final String url, final Bitmap favicon) {
@@ -222,7 +227,9 @@ public class WebPaymentFragment extends BaseFragment implements WebPaymentView {
                 if (!isVisible()) {
                     return;
                 }
-                if (url.startsWith("http://localhost.com")) {
+
+                showProgress();
+                if (url.startsWith(ApiLinks.PAYMENT_LINK)) {
                     // call server.
                     Uri uri = Uri.parse(url);
                     Set<String> names = uri.getQueryParameterNames();
@@ -234,7 +241,6 @@ public class WebPaymentFragment extends BaseFragment implements WebPaymentView {
                             e.printStackTrace();
                         }
                     }
-                    showProgress();
                     // request.
                     Process3dTransactionRequest request = new Process3dTransactionRequest();
                     request.gatewayType = gatewayType;
@@ -244,7 +250,7 @@ public class WebPaymentFragment extends BaseFragment implements WebPaymentView {
                     request.secureHash = HashGenerator.encode(paymentData.secureHashKey, request.dateTimeLocalTrxn, paymentData.merchantId, paymentData.terminalId);
                     request.threeDSResponseData = Base64.encodeToString(jsonObject.toString().getBytes(), Base64.DEFAULT);
                     // call Api.
-                    ApiConnection.process3dTransaction(getContext() ,request, new ApiResponseListener<Process3dTransactionResponse>() {
+                    ApiConnection.process3dTransaction(getContext(), request, new ApiResponseListener<Process3dTransactionResponse>() {
                         @Override
                         public void onSuccess(Process3dTransactionResponse response) {
                             if (!isVisible()) {
@@ -269,11 +275,6 @@ public class WebPaymentFragment extends BaseFragment implements WebPaymentView {
                             activity.showPaymentBasedOnPaymentOptions(0);
                         }
                     });
-                } else {
-                    if (!isVisible()) {
-                        return;
-                    }
-                    showProgress();
                 }
             }
 
@@ -283,7 +284,14 @@ public class WebPaymentFragment extends BaseFragment implements WebPaymentView {
                 if (!isVisible()) {
                     return;
                 }
-                dismissProgress();
+
+                // check progress show and hidden .
+                if (url.contains(ApiLinks.PAYMENT_LINK)) {
+                    showProgress();
+                } else {
+                    dismissProgress();
+                }
+
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                     webView.evaluateJavascript(
                             "document.documentElement.outerHTML;",
@@ -319,7 +327,7 @@ public class WebPaymentFragment extends BaseFragment implements WebPaymentView {
             public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
                 if (!isVisible()) return;
                 //-2 address not reachable , -14 error in server.
-                if (errorCode == -14 || errorCode==-2) {
+                if (errorCode == -14 || errorCode == -2) {
                     // error in server.
                     if (!isVisible()) return;
                     dismissProgress();
@@ -331,6 +339,7 @@ public class WebPaymentFragment extends BaseFragment implements WebPaymentView {
 
         };
         webView.setWebViewClient(webViewClient);
+        webView.postUrl(url, requestBody.getBytes());
     }
 
     @Override

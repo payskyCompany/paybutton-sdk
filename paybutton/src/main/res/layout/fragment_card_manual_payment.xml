@@ -22,17 +22,6 @@
                 android:textColor="#282C2E" />
 
 
-            <TableRow>
-
-                <ImageView
-                    android:id="@+id/card_type_imageView"
-                    android:layout_width="@dimen/_40sdp"
-                    android:layout_height="@dimen/_22sdp"
-                    android:layout_marginEnd="@dimen/_12sdp"
-                    android:layout_marginStart="@dimen/_12sdp"
-                    android:scaleType="fitXY" />
-            </TableRow>
-
             <LinearLayout
                 android:layout_height="@dimen/_36sdp"
                 android:layout_marginEnd="@dimen/_8sdp"
@@ -57,12 +46,21 @@
                     android:inputType="number"
                     android:maxLength="19"
                     android:maxLines="1"
-                    android:paddingEnd="8dp"
-                    android:paddingStart="8dp"
+                    android:paddingEnd="@dimen/_4sdp"
+                    android:paddingStart="@dimen/_4sdp"
                     android:singleLine="true"
                     android:textColorHint="?android:textColorHint"
                     android:textDirection="ltr"
                     android:textSize="@dimen/_14ssp" />
+
+                <ImageView
+                    android:id="@+id/card_type_imageView"
+                    android:layout_width="@dimen/_35sdp"
+                    android:layout_height="@dimen/_22sdp"
+                    android:layout_marginEnd="@dimen/_4sdp"
+                    android:layout_marginStart="@dimen/_4sdp"
+                    android:scaleType="fitCenter"
+                    android:layout_gravity="center" />
 
                 <ImageView
                     android:id="@+id/scan_camera_imageView"

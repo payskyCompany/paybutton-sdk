@@ -41,13 +41,13 @@ public class BaseFragment extends Fragment implements BaseView {
     }
 
     public void showProgress(@StringRes int message) {
-        if (isDetached())return;
+        if (isDetached()) return;
         showProgress(getString(message));
     }
 
     @Override
     public void dismissProgress() {
-        if (isDetached())return;
+        if (isDetached()) return;
         if (progressDialog != null && progressDialog.isShowing()) {
             progressDialog.dismiss();
             progressDialog = null;
@@ -62,9 +62,14 @@ public class BaseFragment extends Fragment implements BaseView {
     public void showProgress(String message) {
         if (progressDialog == null) {
             progressDialog = AppUtils.createProgressDialog(getActivity(), message);
+            progressDialog.setCancelable(false);
+            progressDialog.show();
+        } else if (!progressDialog.isShowing()) {
+            progressDialog.setMessage(message);
+            progressDialog.setCancelable(false);
+            progressDialog.show();
         }
-        progressDialog.setCancelable(false);
-        progressDialog.show();
+
     }
 
     public String getText(TextView textView) {

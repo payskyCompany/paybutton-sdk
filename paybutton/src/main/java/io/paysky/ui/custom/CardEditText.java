@@ -15,6 +15,8 @@ import com.paysky.paybutton.R;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+import io.paysky.util.CardsValidation;
+
 
 public class CardEditText extends AppCompatEditText implements TextWatcher {
 
@@ -22,7 +24,6 @@ public class CardEditText extends AppCompatEditText implements TextWatcher {
     private static final String SPACE_STRING = String.valueOf(SPACE_CHAR);
     private static final int GROUPSIZE = 4;
     private boolean isUpdating = false;
-    private String type;
     private ImageView cardTypeImage;
 
     @RequiresApi(api = Build.VERSION_CODES.CUPCAKE)
@@ -61,30 +62,35 @@ public class CardEditText extends AppCompatEditText implements TextWatcher {
         int cardIcon;
         if (s.startsWith("4") || s.matches(CardPattern.VISA)) {
             cardIcon = R.drawable.vi;
-            type = "Visa";
         } else if (s.startsWith("5") || s.matches(CardPattern.MASTERCARD_SHORTER) || s.matches(CardPattern.MASTERCARD_SHORT)
                 || s.matches(CardPattern.MASTERCARD)) {
             cardIcon = R.drawable.mc;
-            type = "MasterCard";
         } else if (s.matches(CardPattern.AMERICAN_EXPRESS)) {
             cardIcon = R.drawable.am;
-            type = "American_Express";
         } else if (s.matches(CardPattern.DISCOVER_SHORT) || s.matches(CardPattern.DISCOVER)) {
             cardIcon = R.drawable.ds;
-            type = "Discover";
         } else if (s.matches(CardPattern.JCB_SHORT) || s.matches(CardPattern.JCB)) {
             cardIcon = R.drawable.jcb;
-            type = "JCB";
         } else if (s.matches(CardPattern.DINERS_CLUB_SHORT) || s.matches(CardPattern.DINERS_CLUB)) {
             cardIcon = R.drawable.dc;
-            type = "Diners_Club";
+        } else if (s.matches(CardPattern.MEZA_VALID)
+                || s.matches(CardPattern.MASTER_MEZA_VALID)
+                || s.matches(CardPattern.SHORT_MEZA_VALID)
+                || s.matches(CardPattern.SHORT_MASTER_MEZA_VALID)
+                || s.startsWith("9818")
+                || s.startsWith("50")) {
+            cardIcon = R.drawable.meeza_logo;
         } else {
             cardIcon = R.drawable.card_icon;
-            type = "UNKNOWN";
         }
 
         if (cardTypeImage != null) {
             cardTypeImage.setImageResource(cardIcon);
+        }
+
+        if (s.length() > 15 && !CardsValidation.isCardValid(s)) {
+            // check card validation.
+            this.setError(this.getContext().getString(R.string.invalid_card_number_length));
         }
 
     }
@@ -94,9 +100,6 @@ public class CardEditText extends AppCompatEditText implements TextWatcher {
     }
 
     public boolean isValid() {
-/*        return getCardNumber().matches(CardPattern.VISA_VALID) || getCardNumber().matches(CardPattern.MASTERCARD_VALID)
-                || getCardNumber().matches(CardPattern.AMERICAN_EXPRESS_VALID) || getCardNumber().matches(CardPattern.DISCOVER_VALID)
-                || getCardNumber().matches(CardPattern.DINERS_CLUB_VALID) || getCardNumber().matches(CardPattern.JCB_VALID);*/
         final ArrayList<String> listOfPattern = new ArrayList<>();
         String ptVisa = "^4[0-9]{6,}$";
         listOfPattern.add(ptVisa);
@@ -161,17 +164,11 @@ public class CardEditText extends AppCompatEditText implements TextWatcher {
             s.insert((i + 1) * GROUPSIZE + i, SPACE_STRING);
         }
 
-        // Finally check that the cursor is not placed before a whitespace.
-        // This will happen if, for example, the user deleted the digit '5' in
-        // the string: "1234 567".
-        // If it is, move it back one step; otherwise it will be impossible to delete
-        // further numbers.
         int cursorPos = getSelectionStart();
         if (cursorPos > 0 && s.charAt(cursorPos - 1) == SPACE_CHAR) {
             setSelection(cursorPos - 1);
         }
 
         isUpdating = false;
-
     }
 }

@@ -35,4 +35,12 @@ public class CardPattern {
     public static final String DINERS_CLUB = "^3(?:0[0-5]|[68][0-9])[0-9]{11}$";
     public static final String DINERS_CLUB_SHORT = "^30[0-5]";
     public static final String DINERS_CLUB_VALID = "^3(?:0[0-5]|[68][0-9])[0-9]{11}$";
+
+    public static final String MEZA_VALID = "^50[0-9]{14,14}$";
+    public static final String SHORT_MEZA_VALID = "^50\\d*";
+
+
+    public static final String MASTER_MEZA_VALID = "^9818[0-9]{12,15}$";
+    public static final String SHORT_MASTER_MEZA_VALID = "^9818\\d*";
+
 }

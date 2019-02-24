@@ -25,12 +25,12 @@ import io.paysky.data.model.PaymentData;
 import io.paysky.data.model.ReceiptData;
 import io.paysky.ui.base.BaseFragment;
 import io.paysky.ui.custom.CardEditText;
-import io.paysky.ui.dialog.InfoDialog;
 import io.paysky.ui.fragment.paymentfail.PaymentFailedFragment;
 import io.paysky.ui.fragment.paymentsuccess.PaymentApprovedFragment;
 import io.paysky.ui.fragment.webview.WebPaymentFragment;
 import io.paysky.util.AppConstant;
 import io.paysky.util.AppUtils;
+import io.paysky.util.CardsValidation;
 import io.paysky.util.LocaleHelper;
 import io.paysky.util.ToastUtils;
 
@@ -144,7 +144,7 @@ public class ManualPaymentFragment extends BaseFragment implements ManualPayment
 
     private boolean isInputsValid(String cardNumber, String ownerName, String expireDate, String ccv) {
         boolean isValidInputs = true;
-        if (!cardNumberEditText.isValid()) {
+        if (!cardNumberEditText.isValid() || !CardsValidation.isCardValid(cardNumber)) {
             isValidInputs = false;
             cardNumberEditText.setError(getString(R.string.invalid_card_number_length));
         }
@@ -204,11 +204,8 @@ public class ManualPaymentFragment extends BaseFragment implements ManualPayment
                 // success.
                 char[] chars = creditCard.cardNumber.toCharArray();
                 StringBuilder numberBuilder = new StringBuilder();
-                for (int i = 0; i < chars.length; i++) {
-                    numberBuilder.append(chars[i]);
-                    if (i + 1 % 4 == 0 && i + 1 != chars.length) {
-                        numberBuilder.append(" ");
-                    }
+                for (char aChar : chars) {
+                    numberBuilder.append(aChar);
                 }
                 cardNumberEditText.setText(numberBuilder.toString());
             }

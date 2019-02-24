@@ -26,7 +26,7 @@ class ManualPaymentPresenter extends BasePresenter<ManualPaymentView> {
         TransactionManager.setTransactionType(TransactionManager.TransactionType.MANUAL);
     }
 
-    public void makePayment(String cardNumber, String expireDate, String cardOwnerName, String ccv) {
+    void makePayment(String cardNumber, String expireDate, String cardOwnerName, String ccv) {
         if (paymentData.is3dsEnabled) {
             expose3dsTransaction(paymentData.secureHashKey, paymentData.merchantId, paymentData.terminalId, cardNumber, paymentData.amountFormatted,
                     ccv, paymentData.currencyCode, expireDate);
@@ -123,9 +123,11 @@ class ManualPaymentPresenter extends BasePresenter<ManualPaymentView> {
         paymentRequest.terminalId = terminalId;
         paymentRequest.merchantReference = merchantReference;
         // create secure hash.
-        paymentRequest.secureHash = HashGenerator.encode(secureHash, paymentRequest.dateTimeLocalTrxn, merchantId, terminalId);
+        paymentRequest.secureHash = HashGenerator.encode(secureHash,
+                paymentRequest.dateTimeLocalTrxn, merchantId, terminalId);
         // make transaction.
-        ApiConnection.executePayment(view.getContext(), paymentRequest, new ApiResponseListener<ManualPaymentResponse>() {
+        ApiConnection.executePayment(view.getContext(), paymentRequest,
+                new ApiResponseListener<ManualPaymentResponse>() {
             @Override
             public void onSuccess(ManualPaymentResponse response) {
                 if (isViewDetached()) return;
