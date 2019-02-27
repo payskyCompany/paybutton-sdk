@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/PayButton-Release.iml" filepath="$PROJECT_DIR$/PayButton-Release.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/paybutton/paybutton.iml" filepath="$PROJECT_DIR$/paybutton/paybutton.iml" />
+      <module fileurl="file://$PROJECT_DIR$/paybutton-sdk.iml" filepath="$PROJECT_DIR$/paybutton-sdk.iml" />
     </modules>
   </component>
 </project>
