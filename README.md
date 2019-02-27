@@ -35,12 +35,12 @@ Example:-
 
 Example:-
 dependencies {
-      implementation 'com.github.payskyCompany:paybutton-sdk:1.0.1'
+      implementation 'com.github.payskyCompany:paybutton-sdk:1.0.9'
 }
 
 4- Sync your project.
 
-Note:- version 1.0.1 may not be the last version check Releases in github to get latest version.
+Note:- version 1.0.9 may not be the last version check Releases in github to get latest version.
 ```
 
 ### Using SDK
