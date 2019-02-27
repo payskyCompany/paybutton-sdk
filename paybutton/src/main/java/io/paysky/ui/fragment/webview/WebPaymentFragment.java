@@ -223,6 +223,7 @@ public class WebPaymentFragment extends BaseFragment implements WebPaymentView {
                 if (!isVisible()) {
                     return;
                 }
+
                 if (url.startsWith("http://localhost.com")) {
                     // call server.
                     Uri uri = Uri.parse(url);
