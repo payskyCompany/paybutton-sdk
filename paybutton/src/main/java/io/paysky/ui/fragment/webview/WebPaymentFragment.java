@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.ValueCallback;
+import android.webkit.WebChromeClient;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
@@ -36,6 +37,7 @@ import io.paysky.data.model.request.Process3dTransactionRequest;
 import io.paysky.data.model.response.ManualPaymentResponse;
 import io.paysky.data.model.response.Process3dTransactionResponse;
 import io.paysky.data.network.ApiConnection;
+import io.paysky.data.network.ApiLinks;
 import io.paysky.data.network.ApiResponseListener;
 import io.paysky.exception.TransactionException;
 import io.paysky.ui.activity.payment.PaymentActivity;
@@ -213,6 +215,7 @@ public class WebPaymentFragment extends BaseFragment implements WebPaymentView {
     }
 
 
+    boolean sucessTransaction =false;
     @Override
     public void load3dTransactionWebView() {
         webView.postUrl(url, requestBody.getBytes());
@@ -220,11 +223,13 @@ public class WebPaymentFragment extends BaseFragment implements WebPaymentView {
             @Override
             public void onPageStarted(final WebView view, final String url, final Bitmap favicon) {
                 super.onPageStarted(view, url, favicon);
-                if (!isVisible()) {
+                if (!isVisible() || sucessTransaction) {
                     return;
                 }
 
-                if (url.startsWith("http://localhost.com")) {
+                if (url.contains(ApiLinks.CUBE)) {
+                    webView.setVisibility(View.GONE);
+                    sucessTransaction = true;
                     // call server.
                     Uri uri = Uri.parse(url);
                     Set<String> names = uri.getQueryParameterNames();
@@ -281,6 +286,8 @@ public class WebPaymentFragment extends BaseFragment implements WebPaymentView {
 
             @Override
             public void onPageFinished(WebView view, String url) {
+
+
                 super.onPageFinished(view, url);
                 if (!isVisible()) {
                     return;
@@ -331,6 +338,22 @@ public class WebPaymentFragment extends BaseFragment implements WebPaymentView {
 
         };
         webView.setWebViewClient(webViewClient);
+
+        webView.setWebChromeClient(new WebChromeClient(){
+            @Override
+            public void onProgressChanged(WebView view, int newProgress) {
+                super.onProgressChanged(view, newProgress);
+
+                if (newProgress!= 100 || view.getUrl().contains(ApiLinks.CUBE)){
+
+                    if (progressDialog != null && !progressDialog.isShowing())
+                    progressDialog.show();
+                }else {
+                    if (progressDialog != null)
+                    progressDialog.dismiss();
+                }
+            }
+        });
     }
 
     @Override

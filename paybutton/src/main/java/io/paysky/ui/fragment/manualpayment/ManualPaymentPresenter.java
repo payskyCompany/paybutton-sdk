@@ -9,6 +9,7 @@ import io.paysky.data.model.request.ManualPaymentRequest;
 import io.paysky.data.model.response.Compose3dsTransactionResponse;
 import io.paysky.data.model.response.ManualPaymentResponse;
 import io.paysky.data.network.ApiConnection;
+import io.paysky.data.network.ApiLinks;
 import io.paysky.data.network.ApiResponseListener;
 import io.paysky.exception.TransactionException;
 import io.paysky.ui.mvp.BasePresenter;
@@ -59,7 +60,7 @@ class ManualPaymentPresenter extends BasePresenter<ManualPaymentView> {
         request.currencyCodeTrxn = Integer.valueOf(currencyCode);
         request.dateExpiration = dateExpiration;
         request.pAN = pan;
-        request.returnURL = "http://localhost.com";
+        request.returnURL = ""+ApiLinks.CUBE;
         // call Apis.
         ApiConnection.compose3dsTransaction(request, new ApiResponseListener<Compose3dsTransactionResponse>() {
             @Override
