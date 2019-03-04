@@ -22,7 +22,8 @@ A step by step that tell you how to get our SDK in your project.
 
 ```
 1- open your android project.
-2- in your project in build.gradle file in project level in allproject{} inside it you will find repositories{} inside it add :-
+2- in your project in build.gradle file in project level in allproject{} inside it you will find
+repositories{} inside it add :-
 maven { url 'https://jitpack.io' }
 
 Example:-
@@ -31,16 +32,17 @@ Example:-
                                }
                 }
 			  
-3- in your build.gradle file in app level in dependencies{} add :-     implementation 'com.github.payskyCompany:paybutton-sdk:1.0.1'
+3- in your build.gradle file in app level in dependencies{} add :-    
+implementation 'com.github.payskyCompany:paybutton-sdk:1.0.9'
 
 Example:-
 dependencies {
-      implementation 'com.github.payskyCompany:paybutton-sdk:1.0.1'
+      implementation 'com.github.payskyCompany:paybutton-sdk:1.0.9'
 }
 
 4- Sync your project.
 
-Note:- version 1.0.1 may not be the last version check Releases in github to get latest version.
+Note:- version 1.0.9 may not be the last version check Releases in github to get latest version.
 ```
 
 ### Using SDK
@@ -61,7 +63,8 @@ you need to just pass some parameters to PayButton class instance :-
   6-transaction Reference Number.
   
 Note That:-
-you shoud keep your secure hash and merchant id and terminal id with encryption before save them in storage if you want.
+you shoud keep your secure hash and merchant id and terminal id with encryption 
+before save them in storage if you want.
 
 Example:-
 
