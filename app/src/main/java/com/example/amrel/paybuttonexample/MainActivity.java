@@ -65,17 +65,17 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
 
                 // add payments data.
                 PayButton payButton = new PayButton(MainActivity.this);
-                payButton.setMerchantId(merchantId); // Merchant id
-                payButton.setTerminalId(terminalId); // Terminal  id
+                payButton.setMerchantId("42143"); // Merchant id
+                payButton.setTerminalId("73299056"); // Terminal  id
                 payButton.setAmount(Double.valueOf(amount)); // Amount
                 String a = currencyEditText.getText().toString();
                 if (a.isEmpty()) {
                     payButton.setCurrencyCode(0); // Currency Code
                 } else {
-                    payButton.setCurrencyCode(Integer.valueOf(a)); // Currency Code
+                    payButton.setCurrencyCode(Integer.valueOf("826")); // Currency Code
                 }
 
-                 payButton.setMerchantSecureHash("35393434313266342D636662392D343334612D613765332D646365626337663334386363");
+                 payButton.setMerchantSecureHash("61616564366361622D323762632D343134642D613637652D613532656439663136343339");
                // payButton.setMerchantSecureHash("65613962386534372D383936362D343166322D383838622D323062373865623039303461");
                 payButton.setTransactionReferenceNumber(AppUtils.generateRandomNumber());
                 payButton.createTransaction(new PayButton.PaymentTransactionCallback() {
