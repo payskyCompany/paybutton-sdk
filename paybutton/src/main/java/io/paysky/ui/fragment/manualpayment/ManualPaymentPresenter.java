@@ -60,7 +60,7 @@ class ManualPaymentPresenter extends BasePresenter<ManualPaymentView> {
         request.currencyCodeTrxn = Integer.valueOf(currencyCode);
         request.dateExpiration = dateExpiration;
         request.pAN = pan;
-        request.returnURL = ""+ApiLinks.CUBE;
+        request.returnURL = ""+ApiLinks.PAYMENT_LINK;
         // call Apis.
         ApiConnection.compose3dsTransaction(request, new ApiResponseListener<Compose3dsTransactionResponse>() {
             @Override

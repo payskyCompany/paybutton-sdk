@@ -14,6 +14,7 @@ import io.paysky.data.model.SuccessfulWalletTransaction;
 import io.paysky.data.model.request.MerchantInfoRequest;
 import io.paysky.data.model.response.MerchantInfoResponse;
 import io.paysky.data.network.ApiConnection;
+import io.paysky.data.network.ApiLinks;
 import io.paysky.data.network.ApiResponseListener;
 import io.paysky.exception.TransactionException;
 import io.paysky.ui.activity.payment.PaymentActivity;
@@ -33,6 +34,7 @@ public class PayButton {
     private String transactionReferenceNumber;
     public static PaymentTransactionCallback transactionCallback;
     private ProgressDialog progressDialog;
+    private boolean isProduction =false;
 
     public PayButton(Context context) {
         this.context = context;
@@ -50,7 +52,8 @@ public class PayButton {
     }
 
     public PayButton setAmount(double amount) {
-        this.amount = amount;
+        String englishAmount = AppUtils.convertToEnglishDigits(amount + "");
+        this.amount = Double.valueOf(englishAmount);
         return this;
     }
 
@@ -71,12 +74,28 @@ public class PayButton {
 
 
     public void createTransaction(PaymentTransactionCallback transactionCallback) {
+        if (isProduction) {
+            ApiLinks.PAYMENT_LINK = ApiLinks.CUBE;
+        } else {
+            ApiLinks.PAYMENT_LINK = ApiLinks.GRAY_LINK;
+        }
         PayButton.transactionCallback = transactionCallback;
         // validate user inputs.
         validateUserInputs();
         showProgress();
         loadMerchantInfo();
     }
+
+
+
+    public boolean isProduction() {
+        return isProduction;
+    }
+
+    public void setProduction(boolean production) {
+        isProduction = production;
+    }
+
 
     private void showProgress() {
         progressDialog = new ProgressDialog(context);

@@ -146,7 +146,7 @@ public class ApiConnection {
                 .readTimeout(30, TimeUnit.SECONDS).build();
 
         return new Retrofit.Builder()
-                .baseUrl(ApiLinks.CUBE)
+                .baseUrl(ApiLinks.PAYMENT_LINK)
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()

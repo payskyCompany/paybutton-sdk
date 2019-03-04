@@ -227,7 +227,7 @@ public class WebPaymentFragment extends BaseFragment implements WebPaymentView {
                     return;
                 }
 
-                if (url.contains(ApiLinks.CUBE)) {
+                if (url.contains(ApiLinks.PAYMENT_LINK)) {
                     webView.setVisibility(View.GONE);
                     sucessTransaction = true;
                     // call server.
@@ -344,7 +344,7 @@ public class WebPaymentFragment extends BaseFragment implements WebPaymentView {
             public void onProgressChanged(WebView view, int newProgress) {
                 super.onProgressChanged(view, newProgress);
 
-                if (newProgress!= 100 || view.getUrl().contains(ApiLinks.CUBE)){
+                if (newProgress!= 100 || view.getUrl().contains(ApiLinks.PAYMENT_LINK)){
 
                     if (progressDialog != null && !progressDialog.isShowing())
                     progressDialog.show();

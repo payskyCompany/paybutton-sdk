@@ -150,16 +150,11 @@ public class AppUtils {
     }
 
     public static String convertToEnglishDigits(String value) {
-
-        return value.replace("١", "1").replace("٢", "2")
-                .replace("٣", "3").replace("٤", "4").replace("٥", "5")
-                .replace("٦", "6").replace("7", "٧").replace("٨", "8")
-                .replace("٩", "9").replace("٠", "0")
-                .replace("۱", "1").replace("۲", "2").replace("۳", "3")
-                .replace("۴", "4").replace("۵", "5")
-                .replace("۶", "6").replace("۷", "7").replace("۸", "8")
-                .replace("۹", "9").replace("۰", "0").replace("٫", ".");
-    }
+        return value.replaceAll("٠", "0").replaceAll("١", "1")
+                .replaceAll("٢", "2").replaceAll("٣", "3")
+                .replaceAll("٤", "4").replaceAll("٥", "5")
+                .replaceAll("٦", "6").replaceAll("٧", "7")
+                .replaceAll("٨", "8").replaceAll("٩", "9");    }
 
     public static boolean isPaymentMachine() {
         String model = Build.MODEL;
