@@ -132,6 +132,7 @@ public class WebPaymentFragment extends BaseFragment implements WebPaymentView {
         paymentRequest.threeDSenrolled = response.threeDSenrolled;
         paymentRequest.threeDSstatus = response.threeDSstatus;
         paymentRequest.threeDSXID = response.threeDSXID;
+        paymentRequest.MerchantReference = paymentData.transactionReferenceNumber;
         paymentRequest.verType = response.verType;
         paymentRequest.secureHash = HashGenerator.encode(paymentData.secureHashKey, paymentRequest.dateTimeLocalTrxn,
                 paymentData.merchantId, paymentData.terminalId);

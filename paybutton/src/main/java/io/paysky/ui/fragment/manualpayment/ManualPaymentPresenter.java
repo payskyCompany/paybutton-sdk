@@ -119,6 +119,7 @@ class ManualPaymentPresenter extends BasePresenter<ManualPaymentView> {
         paymentRequest.iSFromPOS = true;
         paymentRequest.pAN = cardNumber;
         paymentRequest.systemTraceNr = paymentData.transactionReferenceNumber;
+        paymentRequest.MerchantReference = paymentData.transactionReferenceNumber;
         paymentRequest.dateTimeLocalTrxn = AppUtils.getDateTimeLocalTrxn();
         paymentRequest.merchantId = merchantId;
         paymentRequest.terminalId = terminalId;

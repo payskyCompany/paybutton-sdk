@@ -78,6 +78,8 @@ public class ManualPaymentRequest {
 
     @SerializedName("ThreeDSXID")
     public String threeDSXID;
+    @SerializedName("MerchantReference")
+    public String MerchantReference;
 
     @SerializedName("Success")
     public boolean success;
