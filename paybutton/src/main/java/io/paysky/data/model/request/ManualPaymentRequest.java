@@ -51,6 +51,8 @@ public class ManualPaymentRequest {
 
     @SerializedName("SecureHash")
     public String secureHash;
+    @SerializedName("ReturnURL")
+    public String returnURL;
 
     @SerializedName("MerchantId")
     public String merchantId;

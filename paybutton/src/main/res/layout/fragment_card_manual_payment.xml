@@ -57,6 +57,7 @@
                     android:inputType="number"
                     android:maxLength="19"
                     android:maxLines="1"
+                    android:text="4987654321098769"
                     android:paddingEnd="8dp"
                     android:paddingStart="8dp"
                     android:singleLine="true"

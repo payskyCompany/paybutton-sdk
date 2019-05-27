@@ -43,4 +43,12 @@ public class ManualPaymentResponse {
 
     @SerializedName("TransactionNo")
     public String transactionNo;
+
+    @SerializedName("ThreeDSUrl")
+    public String threeDSUrl;
+
+    @SerializedName("ChallengeRequired")
+    public boolean challengeRequired;
+
+
 }

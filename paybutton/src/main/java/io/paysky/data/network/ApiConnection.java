@@ -168,34 +168,34 @@ public class ApiConnection {
                 });
     }
 
-    public static void compose3dsTransaction(Compose3dsTransactionRequest request, final ApiResponseListener<Compose3dsTransactionResponse> listener) {
-        createConnection().compose3dpsTransaction(request)
-                .enqueue(new Callback<Compose3dsTransactionResponse>() {
-                    @Override
-                    public void onResponse(Call<Compose3dsTransactionResponse> call, Response<Compose3dsTransactionResponse> response) {
-                        listener.onSuccess(response.body());
-                    }
-
-                    @Override
-                    public void onFailure(Call<Compose3dsTransactionResponse> call, Throwable t) {
-                        listener.onFail(t);
-                    }
-                });
-    }
-
-    public static void process3dTransaction(Process3dTransactionRequest request, final ApiResponseListener<Process3dTransactionResponse> listener) {
-        createConnection().process3dTransaction(request).enqueue(new Callback<Process3dTransactionResponse>() {
-            @Override
-            public void onResponse(Call<Process3dTransactionResponse> call, Response<Process3dTransactionResponse> response) {
-                listener.onSuccess(response.body());
-            }
-
-            @Override
-            public void onFailure(Call<Process3dTransactionResponse> call, Throwable t) {
-                listener.onFail(t);
-            }
-        });
-    }
+//    public static void compose3dsTransaction(Compose3dsTransactionRequest request, final ApiResponseListener<Compose3dsTransactionResponse> listener) {
+//        createConnection().compose3dpsTransaction(request)
+//                .enqueue(new Callback<Compose3dsTransactionResponse>() {
+//                    @Override
+//                    public void onResponse(Call<Compose3dsTransactionResponse> call, Response<Compose3dsTransactionResponse> response) {
+//                        listener.onSuccess(response.body());
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Call<Compose3dsTransactionResponse> call, Throwable t) {
+//                        listener.onFail(t);
+//                    }
+//                });
+//    }
+//
+//    public static void process3dTransaction(Process3dTransactionRequest request, final ApiResponseListener<Process3dTransactionResponse> listener) {
+//        createConnection().process3dTransaction(request).enqueue(new Callback<Process3dTransactionResponse>() {
+//            @Override
+//            public void onResponse(Call<Process3dTransactionResponse> call, Response<Process3dTransactionResponse> response) {
+//                listener.onSuccess(response.body());
+//            }
+//
+//            @Override
+//            public void onFailure(Call<Process3dTransactionResponse> call, Throwable t) {
+//                listener.onFail(t);
+//            }
+//        });
+//    }
 
 
     public static void checkTransactionStatus(final String transactionId, final CheckTransactionStatusRequest request, final CheckTransactionListener listener) {

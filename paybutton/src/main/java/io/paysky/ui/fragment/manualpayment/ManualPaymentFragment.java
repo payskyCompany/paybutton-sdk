@@ -24,12 +24,12 @@ import io.paysky.data.model.PaymentData;
 import io.paysky.data.model.ReceiptData;
 import io.paysky.ui.base.BaseFragment;
 import io.paysky.ui.custom.CardEditText;
-import io.paysky.ui.dialog.InfoDialog;
 import io.paysky.ui.fragment.paymentfail.PaymentFailedFragment;
 import io.paysky.ui.fragment.paymentsuccess.PaymentApprovedFragment;
 import io.paysky.ui.fragment.webview.WebPaymentFragment;
 import io.paysky.util.AppConstant;
 import io.paysky.util.AppUtils;
+import io.paysky.util.CardsValidation;
 import io.paysky.util.LocaleHelper;
 import io.paysky.util.ToastUtils;
 
@@ -143,10 +143,14 @@ public class ManualPaymentFragment extends BaseFragment implements ManualPayment
 
     private boolean isInputsValid(String cardNumber, String ownerName, String expireDate, String ccv) {
         boolean isValidInputs = true;
-        if (!cardNumberEditText.isValid()) {
+
+
+        if (!cardNumberEditText.getText().toString().isEmpty()
+                && !CardsValidation.luhnCheck(cardNumber)) {
             isValidInputs = false;
             cardNumberEditText.setError(getString(R.string.invalid_card_number_length));
         }
+
 
         if (isEmpty(ownerName)) {
             isValidInputs = false;
@@ -251,15 +255,11 @@ public class ManualPaymentFragment extends BaseFragment implements ManualPayment
     }
 
 
-    public void show3dpWebView(String webBody, String url, int gatewayType, PaymentData paymentData) {
+    public void show3dpWebView(String url, PaymentData paymentData) {
         Bundle bundle = new Bundle();
-        bundle.putString("request_body", webBody);
         bundle.putString("url", url);
-        bundle.putInt("gateway_type", gatewayType);
-        bundle.putString("card_number", cardNumber);
-        bundle.putString("expiry_date", expireDate);
-        bundle.putString("cvv", ccv);
         bundle.putParcelable(AppConstant.BundleKeys.PAYMENT_DATA, paymentData);
+
         activity.replaceFragmentAndRemoveOldFragment(WebPaymentFragment.class, bundle);
     }
 

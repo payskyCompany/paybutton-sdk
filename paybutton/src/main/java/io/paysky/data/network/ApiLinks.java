@@ -12,13 +12,11 @@ public class ApiLinks {
     public static final String CHECK_PAYMENT_STATUS = "Cube/PayLink.svc/api/CheckTxnStatus";
     public static final String SMS_PAYMENT = "Cube/PayLink.svc/api/RequestToPay";
     public static final String MERCHANT_INFO = "Cube/PayLink.svc/api/CheckPaymentMethod";
-    public static final String COMPOSE_3DS_TRANSACTION = "Cube/PayLink.svc/api/Compose3DSTransaction";
-    public static final String PROCESS_3D_TRANSACTION = "Cube/PayLink.svc/api/Process3DSTransaction";
     public static final String CHECK_TRANSACTION_STATUS = "Cube/PayLink.svc/api/FilterTransactions";
 
 
     public static final String GRAY_LINK = "https://grey.paysky.io/";
     public static final String CUBE = "https://cube.paysky.io/";
-    public static String PAYMENT_LINK = GRAY_LINK;
+    public static String PAYMENT_LINK = CUBE;
 }
 

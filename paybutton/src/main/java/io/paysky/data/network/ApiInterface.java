@@ -46,12 +46,12 @@ public interface ApiInterface {
 
     @POST(ApiLinks.MERCHANT_INFO)
     Call<MerchantInfoResponse> getMerchantInfo(@Body MerchantInfoRequest request);
+//
+//    @POST(ApiLinks.COMPOSE_3DS_TRANSACTION)
+//    Call<Compose3dsTransactionResponse> compose3dpsTransaction(@Body Compose3dsTransactionRequest request);
 
-    @POST(ApiLinks.COMPOSE_3DS_TRANSACTION)
-    Call<Compose3dsTransactionResponse> compose3dpsTransaction(@Body Compose3dsTransactionRequest request);
-
-    @POST(ApiLinks.PROCESS_3D_TRANSACTION)
-    Call<Process3dTransactionResponse> process3dTransaction(@Body Process3dTransactionRequest request);
+//    @POST(ApiLinks.PROCESS_3D_TRANSACTION)
+//    Call<Process3dTransactionResponse> process3dTransaction(@Body Process3dTransactionRequest request);
 
     @POST(ApiLinks.CHECK_TRANSACTION_STATUS)
     Call<CheckTransactionStatusResponse> checkTransaction(@Body CheckTransactionStatusRequest request);
