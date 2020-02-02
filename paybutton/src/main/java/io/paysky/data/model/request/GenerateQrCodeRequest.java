@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import javax.annotation.Generated;
 
 @Generated("com.robohorse.robopojogenerator")
-public class GenerateQrCodeRequest{
+public class GenerateQrCodeRequest extends BaseRequest{
 
 	@SerializedName("StoreLabel")
 	public String storeLabel;

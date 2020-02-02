@@ -11,7 +11,7 @@ import io.paysky.util.AppUtils;
  * Created by amrel on 17/04/2018.
  */
 
-public class QrGeneratorRequest implements Serializable {
+public class QrGeneratorRequest extends BaseRequest implements Serializable  {
 
     @SerializedName("MerchantId")
     public String MerchantId;

@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import javax.annotation.Generated;
 
 @Generated("com.robohorse.robopojogenerator")
-public class TransactionStatusRequest {
+public class TransactionStatusRequest extends BaseRequest{
 
     @SerializedName("TxnId")
     public long txnId;

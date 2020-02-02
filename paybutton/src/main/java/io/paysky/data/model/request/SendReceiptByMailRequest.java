@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import javax.annotation.Generated;
 
 @Generated("com.robohorse.robopojogenerator")
-public class SendReceiptByMailRequest{
+public class SendReceiptByMailRequest extends BaseRequest{
 
 	@SerializedName("EmailTo")
 	public String emailTo;

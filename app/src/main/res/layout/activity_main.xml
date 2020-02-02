@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="vertical"
         android:padding="8dp"
         tools:context="com.example.amrel.paybuttonexample.MainActivity">
-
 
         <ImageView
             android:layout_width="@dimen/_70sdp"
@@ -47,8 +46,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="7"
-                android:inputType="number"
-                android:text="11400000001" />
+                android:inputType="number" />
         </LinearLayout>
 
         <LinearLayout
@@ -70,8 +68,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="7"
-                android:inputType="number"
-                android:text="10002000" />
+                android:inputType="number" />
         </LinearLayout>
 
         <LinearLayout
@@ -93,8 +90,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="7"
-                android:inputType="numberDecimal"
-                android:text="20" />
+                android:inputType="numberDecimal" />
         </LinearLayout>
 
         <LinearLayout
@@ -116,9 +112,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="7"
-                android:hint="amount"
-                android:inputType="numberSigned"
-                android:text="818" />
+                android:inputType="numberSigned" />
         </LinearLayout>
 
 

@@ -4,7 +4,7 @@ import javax.annotation.Generated;
 import com.google.gson.annotations.SerializedName;
 
 @Generated("com.robohorse.robopojogenerator")
-public class MerchantInfoRequest{
+public class MerchantInfoRequest extends BaseRequest{
 
 	@SerializedName("SecureHash")
 	public String secureHash;

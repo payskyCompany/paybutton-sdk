@@ -6,7 +6,7 @@
     <string name="arabic">English</string>
     <string name="terms_conditions">الشروط والاحكام</string>
     <string name="card">بطاقة</string>
-    <string name="wallet">المحفظة</string>
+    <string name="wallet">ميزة ديجيتال</string>
     <string name="enter_card_data">تحقق من ادخال بيانات البطاقة</string>
     <string name="card_number">رقم البطاقة</string>
     <string name="name_on_card">اسم صاحب البطاقة</string>
@@ -40,10 +40,10 @@
     <string name="try_again">حاول مرة أخرى</string>
     <string name="open_wallet_app">قم بفتح تطبيق المحفظة لتتمكن من اتمام المعاملة</string>
     <string name="quick_payment_form">نموذج الدفع السريع</string>
-    <string name="enter_mobile_number">ادخل رقم الهاتف للمحفظة</string>
-    <string name="mobile_number">رقم الهاتف</string>
+    <string name="enter_mobile_number">أدخل رقم ميزة ديجيتال /رقم المحمول </string>
+    <string name="mobile_number">رقم ميزة ديجيتال / رقم المحمول</string>
     <string name="send_otp">ارسال</string>
-    <string name="invalid_mobile_number">رقم الهاتف غير صحيح.</string>
+    <string name="invalid_mobile_number">رقم المحمول غير صحيح.</string>
     <string name="enter_pin_code">ادخل ال PIN</string>
     <string name="pin">PIN</string>
     <string name="sms_received_within">ستصلك رسالة فى غضون </string>
@@ -51,7 +51,7 @@
     <string name="terms_conditions_text">شروط واحكام شركة باى سكاى لاستخدام خدماتها</string>
     <string name="sent_request_success">تم ارسال الطلب بنجاح</string>
     <string name="or">أو</string>
-    <string name="cant_scan_code">لا تستطيع فحص الصور؟ \n قم بارسال المعاملة عن طريق رقم التليفون.</string>
+    <string name="cant_scan_code">لا تستطيع فحص الصور؟ \n قم بارسال المعاملة عن طريق رقم ميزة ديجيتال/ رقم المحمول.</string>
     <string name="request_payment">طلب اموال</string>
     <string name="invalid_expire_date_date">تاريخ الانتهاء غير صحيح.</string>
     <string name="egp">جنية</string>

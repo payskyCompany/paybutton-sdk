@@ -4,7 +4,7 @@ import javax.annotation.Generated;
 import com.google.gson.annotations.SerializedName;
 
 @Generated("com.robohorse.robopojogenerator")
-public class Process3dTransactionRequest{
+public class Process3dTransactionRequest extends BaseRequest{
 
 	@SerializedName("SecureHash")
 	public String secureHash;

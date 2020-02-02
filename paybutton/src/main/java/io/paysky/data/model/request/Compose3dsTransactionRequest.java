@@ -4,7 +4,7 @@ import javax.annotation.Generated;
 import com.google.gson.annotations.SerializedName;
 
 @Generated("com.robohorse.robopojogenerator")
-public class Compose3dsTransactionRequest {
+public class Compose3dsTransactionRequest  extends BaseRequest{
 
 /*	@SerializedName("MerchantReference")
 	public String merchantReference;*/

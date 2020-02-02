@@ -2,9 +2,12 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/Android-paybutton-sdk.iml" filepath="$PROJECT_DIR$/Android-paybutton-sdk.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/paybutton/paybutton.iml" filepath="$PROJECT_DIR$/paybutton/paybutton.iml" />
       <module fileurl="file://$PROJECT_DIR$/paybutton-sdk.iml" filepath="$PROJECT_DIR$/paybutton-sdk.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/paybutton-sdk-app.iml" filepath="$PROJECT_DIR$/app/paybutton-sdk-app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/paybutton/paybutton-sdk-paybutton.iml" filepath="$PROJECT_DIR$/paybutton/paybutton-sdk-paybutton.iml" />
     </modules>
   </component>
 </project>

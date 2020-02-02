@@ -61,8 +61,11 @@ public class CardEditText extends AppCompatEditText implements TextWatcher {
         if (s.startsWith("4") || s.matches(CardPattern.VISA)) {
             cardIcon = R.drawable.vi;
             type = "Visa";
-        } else if (s.startsWith("5") || s.matches(CardPattern.MASTERCARD_SHORTER) || s.matches(CardPattern.MASTERCARD_SHORT)
-                || s.matches(CardPattern.MASTERCARD)) {
+        }  else if (s.matches(CardPattern.MASTERCARD_SHORTER) ||
+                s.matches(CardPattern.MASTERCARD_SHORT)
+                || s.matches(CardPattern.MASTERCARD)
+                || s.matches(CardPattern.MASTERCARD_VALID)
+        ) {
             cardIcon = R.drawable.mc;
             type = "MasterCard";
         } else if (s.matches(CardPattern.AMERICAN_EXPRESS)) {
@@ -77,7 +80,18 @@ public class CardEditText extends AppCompatEditText implements TextWatcher {
         } else if (s.matches(CardPattern.DINERS_CLUB_SHORT) || s.matches(CardPattern.DINERS_CLUB)) {
             cardIcon = R.drawable.dc;
             type = "Diners_Club";
-        } else {
+        }
+        else if (s.matches(CardPattern.MEZA_VALID)
+                || s.matches(CardPattern.MASTER_MEZA_VALID)
+                || s.matches(CardPattern.SHORT_MEZA_VALID)
+                || s.matches(CardPattern.SHORT_MASTER_MEZA_VALID)
+                || s.startsWith("9818")
+                || s.startsWith("50")) {
+            cardIcon = R.drawable.ic_meeza;
+            type = "MIZA";
+        }
+
+        else {
             cardIcon = R.drawable.card_icon;
             type = "UNKNOWN";
         }
