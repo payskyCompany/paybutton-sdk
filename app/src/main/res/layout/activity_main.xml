@@ -115,6 +115,33 @@
                 android:inputType="numberSigned" />
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_marginEnd="@dimen/_4sdp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:text="@string/environment_type" />
+
+            <Spinner
+                android:layout_gravity="center"
+                android:id="@+id/spinner_type"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="7"
+                android:gravity="center"
+                android:text="@string/pay"
+                android:textColor="#FFF"
+                android:textSize="@dimen/_14ssp" />
+        </LinearLayout>
+
 
         <TextView
             android:id="@+id/pay_textView"
@@ -123,7 +150,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_20sdp"
             android:background="@drawable/button_blue_selector"
             android:gravity="center"
             android:text="@string/pay"

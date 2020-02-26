@@ -1,26 +1,24 @@
 package io.paysky.data.network;
 
+import android.util.Log;
+
 import com.example.paybutton.BuildConfig;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import io.paysky.data.model.request.CheckTransactionStatusRequest;
-import io.paysky.data.model.request.Compose3dsTransactionRequest;
 import io.paysky.data.model.request.ManualPaymentRequest;
 import io.paysky.data.model.request.MerchantInfoRequest;
-import io.paysky.data.model.request.Process3dTransactionRequest;
 import io.paysky.data.model.request.QrGeneratorRequest;
 import io.paysky.data.model.request.RequestToPayRequest;
 import io.paysky.data.model.request.SendReceiptByMailRequest;
 import io.paysky.data.model.request.TransactionStatusRequest;
 import io.paysky.data.model.response.CheckTransactionStatusResponse;
-import io.paysky.data.model.response.Compose3dsTransactionResponse;
 import io.paysky.data.model.response.DateTransactionsItem;
 import io.paysky.data.model.response.GenerateQrCodeResponse;
 import io.paysky.data.model.response.ManualPaymentResponse;
 import io.paysky.data.model.response.MerchantInfoResponse;
-import io.paysky.data.model.response.Process3dTransactionResponse;
 import io.paysky.data.model.response.RequestToPayResponse;
 import io.paysky.data.model.response.SendReceiptByMailResponse;
 import io.paysky.data.model.response.TransactionStatusResponse;
@@ -144,6 +142,7 @@ public class ApiConnection {
                 .connectTimeout(30, TimeUnit.SECONDS)
                 .writeTimeout(30, TimeUnit.SECONDS)
                 .readTimeout(30, TimeUnit.SECONDS).build();
+        Log.d("ApiLinksPAYMENT_LINK", ApiLinks.PAYMENT_LINK);
 
         return new Retrofit.Builder()
                 .baseUrl(ApiLinks.PAYMENT_LINK)

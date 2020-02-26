@@ -17,6 +17,9 @@ public class ApiLinks {
 
     public static final String GRAY_LINK = "https://grey.paysky.io/";
     public static final String CUBE = "https://cube.paysky.io/";
+    public static final String STAGING = "https://upgstaging.egyptianbanks.com:4006/"; // ebc test environment
+    public static final String PRODUCTION = "https://upg.egyptianbanks.com/";   // ebc production environment
+
     public static String PAYMENT_LINK = CUBE;
 }
 

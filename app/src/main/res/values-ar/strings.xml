@@ -6,4 +6,6 @@
     <string name="amount">المبلغ</string>
     <string name="currency">العملة</string>
     <string name="pay">ادفع</string>
+    <string name="testing_type">Testing Environment</string>
+    <string name="environment_type">Testing URLs</string>
 </resources>

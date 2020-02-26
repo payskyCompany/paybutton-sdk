@@ -18,6 +18,7 @@ import io.paysky.data.network.ApiLinks;
 import io.paysky.data.network.ApiResponseListener;
 import io.paysky.exception.TransactionException;
 import io.paysky.ui.activity.payment.PaymentActivity;
+import io.paysky.util.AllURLsStatus;
 import io.paysky.util.AppConstant;
 import io.paysky.util.AppUtils;
 import io.paysky.util.CurrencyHelper;
@@ -34,7 +35,12 @@ public class PayButton {
     private String transactionReferenceNumber;
     public static PaymentTransactionCallback transactionCallback;
     private ProgressDialog progressDialog;
-    private boolean isProduction =false;
+    //    private boolean isProduction =false;
+    private AllURLsStatus productionStatus;
+
+    public void setProductionStatus(AllURLsStatus productionStatus) {
+        this.productionStatus = productionStatus;
+    }
 
     public PayButton(Context context) {
         this.context = context;
@@ -74,11 +80,29 @@ public class PayButton {
 
 
     public void createTransaction(PaymentTransactionCallback transactionCallback) {
-        if (isProduction) {
-            ApiLinks.PAYMENT_LINK = ApiLinks.CUBE;
-        } else {
-            ApiLinks.PAYMENT_LINK = ApiLinks.GRAY_LINK;
+
+        switch (productionStatus) {
+            case PRODUCTION:
+                ApiLinks.PAYMENT_LINK = ApiLinks.CUBE;
+                break;
+            case GREY:
+                ApiLinks.PAYMENT_LINK = ApiLinks.GRAY_LINK;
+                break;
+            case UPG_STAGING:
+                ApiLinks.PAYMENT_LINK = ApiLinks.STAGING;
+                break;
+            case UPG_PRODUCTION:
+                ApiLinks.PAYMENT_LINK = ApiLinks.PRODUCTION;
+                break;
         }
+
+
+//
+//        if (isProduction) {
+//            ApiLinks.PAYMENT_LINK = ApiLinks.CUBE;
+//        } else {
+//            ApiLinks.PAYMENT_LINK = ApiLinks.GRAY_LINK;
+//        }
         PayButton.transactionCallback = transactionCallback;
         // validate user inputs.
         validateUserInputs();
@@ -87,14 +111,13 @@ public class PayButton {
     }
 
 
-
-    public boolean isProduction() {
-        return isProduction;
-    }
-
-    public void setProduction(boolean production) {
-        isProduction = production;
-    }
+//    public boolean isProduction() {
+//        return isProduction;
+//    }
+//
+//    public void setProduction(boolean production) {
+//        isProduction = production;
+//    }
 
 
     private void showProgress() {
