@@ -33,16 +33,16 @@ Example:-
                 }
 			  
 3- in your build.gradle file in app level in dependencies{} add :-    
-implementation 'com.github.payskyCompany:paybutton-sdk:1.1.7'
+implementation 'com.github.payskyCompany:paybutton-sdk:1.1.8'
 
 Example:-
 dependencies {
-      implementation 'com.github.payskyCompany:paybutton-sdk:1.1.7'
+      implementation 'com.github.payskyCompany:paybutton-sdk:1.1.8'
 }
 
 4- Sync your project.
 
-Note:- version 1.1.7 may not be the last version check Releases in github to get latest version.
+Note:- version 1.1.8 may not be the last version check Releases in github to get latest version.
 ```
 
 ### Using SDK
