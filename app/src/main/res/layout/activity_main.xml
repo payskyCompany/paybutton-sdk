@@ -22,10 +22,10 @@
             android:id="@+id/app_version_textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/_30sdp"
+            android:layout_marginBottom="@dimen/_20sdp"
             android:gravity="center"
             android:text="@string/app_name"
-            android:textSize="16sp" />
+            android:textSize="@dimen/_12ssp" />
 
 
         <LinearLayout
@@ -131,11 +131,11 @@
                 android:textStyle="bold" />
 
             <EditText
+                android:maxLines="1"
                 android:id="@+id/secureHash_editText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="7"
-                android:inputType="numberSigned" />
+                android:layout_weight="7" />
         </LinearLayout>
 
 
