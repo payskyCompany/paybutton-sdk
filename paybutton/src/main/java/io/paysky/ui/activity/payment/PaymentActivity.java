@@ -1,6 +1,5 @@
 package io.paysky.ui.activity.payment;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -17,21 +16,15 @@ import android.widget.TextView;
 import com.example.paybutton.R;
 
 import io.paysky.data.model.PaymentData;
-import io.paysky.data.model.SuccessfulCardTransaction;
-import io.paysky.data.model.SuccessfulWalletTransaction;
-import io.paysky.exception.TransactionException;
 import io.paysky.ui.base.BaseActivity;
-import io.paysky.ui.dialog.DialogAgreeButtonClick;
-import io.paysky.ui.dialog.DialogCancelButtonClick;
-import io.paysky.ui.dialog.InfoDialog;
 import io.paysky.ui.fragment.manualpayment.ManualPaymentFragment;
 import io.paysky.ui.fragment.qr.QrCodePaymentFragment;
+import io.paysky.util.AllURLsStatus;
 import io.paysky.util.AppConstant;
 import io.paysky.util.AppUtils;
 import io.paysky.util.DialogUtils;
 import io.paysky.util.LocaleHelper;
 import io.paysky.util.PrefsUtils;
-import io.paysky.util.ToastUtils;
 import io.paysky.util.TransactionManager;
 import me.grantland.widget.AutofitHelper;
 
@@ -44,9 +37,14 @@ public class PaymentActivity extends BaseActivity implements View.OnClickListene
     private TextView currencyTextView;
     private TextView amountTextView;
     private TextView merchantNameTextView;
+    private ImageView poweredByImageView;
     //Objects,
     public static Bitmap qrBitmap;
     private PaymentData paymentData;
+
+    private AllURLsStatus allURLsStatus;
+    private int urlStatus;
+
     //Variables.
     private static boolean NORMAL_CLOSE = true;
 
@@ -62,6 +60,11 @@ public class PaymentActivity extends BaseActivity implements View.OnClickListene
         hideActionBar();
         initView();
         paymentData = getIntent().getExtras().getParcelable(AppConstant.BundleKeys.PAYMENT_DATA);
+        urlStatus = getIntent().getExtras().getInt(AppConstant.BundleKeys.URL_ENUM_KEY);
+        allURLsStatus = AllURLsStatus.values()[urlStatus];
+        if (allURLsStatus.equals(AllURLsStatus.UPG_STAGING) || allURLsStatus.equals(AllURLsStatus.UPG_PRODUCTION))
+            poweredByImageView.setImageDrawable(getResources().getDrawable(R.drawable.upg_logo));
+
         // show activity layout.
         AutofitHelper.create(merchantNameTextView);
         merchantNameTextView.setText(paymentData.merchantName);
@@ -96,6 +99,7 @@ public class PaymentActivity extends BaseActivity implements View.OnClickListene
         currencyTextView = findViewById(R.id.currency_textView);
         amountTextView = findViewById(R.id.amount_textView);
         TextView languageTextView = findViewById(R.id.language_textView);
+        poweredByImageView = findViewById(R.id.iv_powered_by);
         languageTextView.setOnClickListener(this);
         TextView termsTextView = findViewById(R.id.terms_conditions_textView);
         termsTextView.setOnClickListener(this);

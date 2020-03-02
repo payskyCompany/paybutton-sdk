@@ -282,10 +282,11 @@
                         android:layout_weight="1" />
 
                     <ImageView
+                        android:id="@+id/iv_powered_by"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:background="@drawable/ic_pay_sky_logo2" />
+                        android:src="@drawable/ic_pay_sky_logo2" />
                 </LinearLayout>
 
             </LinearLayout>

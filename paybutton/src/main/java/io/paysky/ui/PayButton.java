@@ -170,6 +170,7 @@ public class PayButton {
                 }
                 Bundle bundle = new Bundle();
                 bundle.putParcelable(AppConstant.BundleKeys.PAYMENT_DATA, paymentData);
+                bundle.putInt(AppConstant.BundleKeys.URL_ENUM_KEY, productionStatus.ordinal());
                 context.startActivity(new Intent(context, PaymentActivity.class).putExtras(bundle));
             }
 

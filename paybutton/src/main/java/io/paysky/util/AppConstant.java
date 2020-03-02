@@ -12,6 +12,7 @@ public interface AppConstant {
         String RECEIPT = "receipt";
         String CURRENCY_CODE = "currency_code";
         String TRANSACTION_REFERENCE_NUMBER = "transaction_reference_number";
+        String URL_ENUM_KEY = "enumKey";
     }
 
 
