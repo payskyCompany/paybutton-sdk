@@ -36,7 +36,7 @@ Example:-
                 }
 			  
 3- in your build.gradle file in app level in dependencies{} add :-    
-implementation 'com.github.payskyCompany:paybutton-sdk:1.1.9'
+implementation 'com.github.payskyCompany:paybutton-sdk:2.0.0'
 
 Example:-
 dependencies {
