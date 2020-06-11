@@ -1,3 +1,5 @@
+ Supporting AndroidX now for Version 2.0.0
+
 ## PaySky Button SDK
 
 The purpose of this SDK to help programmers to use PaySky payment SDK .
@@ -14,6 +16,7 @@ What things you need to install the software and how to install them
 1-JDK installed on your machine with minimum version 1.7 .
 2-Android Studio
 3-Create new Android project in Android Studio to use SDK or if you have created a project before with minSdkVersion api version 17.
+4- AndroidX compatibility
 ```
 
 ### Installing
@@ -37,12 +40,12 @@ implementation 'com.github.payskyCompany:paybutton-sdk:1.1.9'
 
 Example:-
 dependencies {
-      implementation 'com.github.payskyCompany:paybutton-sdk:1.1.9'
+      implementation 'com.github.payskyCompany:paybutton-sdk:2.0.0'
 }
 
 4- Sync your project.
 
-Note:- version 1.1.9 may not be the last version check Releases in github to get latest version.
+Note:- version 2.0.0 may not be the last version check Releases in github to get latest version.
 ```
 
 ### Using SDK
