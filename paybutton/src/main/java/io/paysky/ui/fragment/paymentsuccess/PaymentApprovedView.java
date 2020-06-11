@@ -1,7 +1,7 @@
 package io.paysky.ui.fragment.paymentsuccess;
 
 import android.content.Context;
-import android.support.annotation.StringRes;
+import androidx.annotation.StringRes;
 
 import io.paysky.ui.mvp.BaseView;
 

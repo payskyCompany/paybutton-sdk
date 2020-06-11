@@ -15,7 +15,7 @@ import java.util.Locale;
  * Created by Paysky-202 on 5/20/2018.
  */
 
-public class ExpiryDate extends android.support.v7.widget.AppCompatEditText {
+public class ExpiryDate extends androidx.appcompat.widget.AppCompatEditText {
     private String mLastInput = "";
     private TextWatcher customWatcher = new TextWatcher() {
 

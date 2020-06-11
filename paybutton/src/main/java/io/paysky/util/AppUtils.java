@@ -13,7 +13,7 @@ import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.StringRes;
+import androidx.annotation.StringRes;
 import android.text.Html;
 import android.text.TextUtils;
 import android.view.View;

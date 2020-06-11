@@ -7,7 +7,7 @@
 
     <application
         android:theme="@style/AppTheme"
-        android:name="android.support.multidex.MultiDexApplication">
+        android:name="androidx.multidex.MultiDexApplication">
         <activity
 
             android:name="io.paysky.ui.activity.payment.PaymentActivity"

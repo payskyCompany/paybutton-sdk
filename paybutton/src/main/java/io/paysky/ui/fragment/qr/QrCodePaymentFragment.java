@@ -4,8 +4,8 @@ package io.paysky.ui.fragment.qr;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +25,6 @@ import io.paysky.ui.base.BaseFragment;
 import io.paysky.ui.fragment.paymentsuccess.PaymentApprovedFragment;
 import io.paysky.util.AppConstant;
 import io.paysky.util.AppUtils;
-import io.paysky.util.DialogUtils;
 import io.paysky.util.ToastUtils;
 import io.paysky.util.TransactionManager;
 

@@ -3,24 +3,19 @@ package io.paysky.ui.base;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.StringRes;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
-import android.text.Html;
-import android.view.View;
-import android.widget.TextView;
-
+import androidx.annotation.StringRes;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import com.example.paybutton.R;
-
+import io.github.inflationx.calligraphy3.CalligraphyConfig;
+import io.github.inflationx.calligraphy3.CalligraphyInterceptor;
+import io.github.inflationx.viewpump.ViewPump;
+import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 import io.paysky.ui.dialog.InfoDialog;
 import io.paysky.ui.mvp.BaseView;
 import io.paysky.util.AppUtils;
 import io.paysky.util.ToastUtils;
-import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
-
 /**
  * Created by Paysky-202 on 5/13/2018.
  */
@@ -32,12 +27,15 @@ public class BaseActivity extends AppCompatActivity implements BaseView {
 
     @Override
     protected void attachBaseContext(Context newBase) {
-        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
-                .setDefaultFontPath("medium.ttf")
-                .setFontAttrId(R.attr.fontPath)
+        ViewPump.init(ViewPump.builder()
+                .addInterceptor(new CalligraphyInterceptor(
+                        new CalligraphyConfig.Builder()
+                                .setDefaultFontPath("medium.ttf")
+                                .setFontAttrId(R.attr.fontPath)
+                                .build()))
                 .build());
 
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+        super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase));
     }
 
     @Override
