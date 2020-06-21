@@ -3,7 +3,6 @@ package io.paysky.ui.fragment.manualpayment;
 import android.os.Bundle;
 
 import io.paysky.data.model.PaymentData;
-import io.paysky.data.model.SuccessfulCardTransaction;
 import io.paysky.ui.mvp.BaseView;
 
 public interface ManualPaymentView extends BaseView {

@@ -2,7 +2,6 @@ package io.paysky.ui.fragment.qr;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.util.DisplayMetrics;
 
 import io.paysky.data.model.PaymentData;
 import io.paysky.data.model.response.TransactionStatusResponse;

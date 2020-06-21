@@ -4,7 +4,6 @@ import io.paysky.data.model.SuccessfulCardTransaction;
 import io.paysky.data.model.SuccessfulWalletTransaction;
 import io.paysky.exception.TransactionException;
 import io.paysky.ui.PayButton;
-import io.paysky.ui.activity.payment.PaymentActivity;
 
 public class TransactionManager {
 

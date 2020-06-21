@@ -2,10 +2,11 @@ package io.paysky.ui.base;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.widget.TextView;
+
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.fragment.app.Fragment;
-import android.widget.TextView;
 
 import com.example.paybutton.R;
 

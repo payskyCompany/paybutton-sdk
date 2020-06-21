@@ -2,7 +2,6 @@ package com.example.amrel.paybuttonexample;
 
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -10,6 +9,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import io.paysky.data.model.SuccessfulCardTransaction;
 import io.paysky.data.model.SuccessfulWalletTransaction;

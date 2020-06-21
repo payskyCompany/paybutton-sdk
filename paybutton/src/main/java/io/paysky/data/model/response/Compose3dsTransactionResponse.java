@@ -1,7 +1,8 @@
 package io.paysky.data.model.response;
 
-import javax.annotation.Generated;
 import com.google.gson.annotations.SerializedName;
+
+import javax.annotation.Generated;
 
 @Generated("com.robohorse.robopojogenerator")
 public class Compose3dsTransactionResponse {

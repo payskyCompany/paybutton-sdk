@@ -2,12 +2,13 @@ package io.paysky.ui.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
-import androidx.annotation.NonNull;
-import androidx.annotation.StringRes;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.StringRes;
 
 import com.example.paybutton.R;
 

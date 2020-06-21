@@ -5,8 +5,6 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-import io.paysky.util.AppUtils;
-
 /**
  * Created by amrel on 17/04/2018.
  */
