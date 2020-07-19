@@ -9,3 +9,4 @@
 .externalNativeBuild
 /app/build
 paybutton/build
+.idea/
