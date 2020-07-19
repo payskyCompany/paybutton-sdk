@@ -1,1 +1,1 @@
-include ':app', ':paybutton',':pay-cards'
+include ':app', ':paybutton'
