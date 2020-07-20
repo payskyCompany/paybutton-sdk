@@ -1,10 +1,8 @@
 package io.paysky.ui.fragment.manualpayment;
 
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,8 +19,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import cards.pay.paycardsrecognizer.sdk.Card;
-import cards.pay.paycardsrecognizer.sdk.ScanCardIntent;
+import io.card.payment.CardIOActivity;
+import io.card.payment.CreditCard;
 import io.paysky.data.model.PaymentData;
 import io.paysky.data.model.ReceiptData;
 import io.paysky.ui.base.BaseFragment;
@@ -137,17 +135,18 @@ public class ManualPaymentFragment extends BaseFragment implements ManualPayment
 
 
     private void onScanCardCameraButtonClick() {
-//        Intent scanIntent = new Intent(getActivity(), CardIOActivity.class);
-//        scanIntent.putExtra(CardIOActivity.EXTRA_USE_PAYPAL_ACTIONBAR_ICON, false);
-//        scanIntent.putExtra(CardIOActivity.EXTRA_HIDE_CARDIO_LOGO, false);
-//        scanIntent.putExtra(CardIOActivity.EXTRA_SUPPRESS_MANUAL_ENTRY, true);
-//        // MY_SCAN_REQUEST_CODE is arbitrary and is only used within this activity.
-//        startActivityForResult(scanIntent, 1005);
-//        ToastUtils.showLongToast(getActivity(), getString(R.string.allow_light_scan));
+        Intent scanIntent = new Intent(getActivity(), CardIOActivity.class);
+        scanIntent.putExtra(CardIOActivity.EXTRA_USE_PAYPAL_ACTIONBAR_ICON, false);
+        scanIntent.putExtra(CardIOActivity.EXTRA_HIDE_CARDIO_LOGO, false);
+        scanIntent.putExtra(CardIOActivity.EXTRA_SUPPRESS_MANUAL_ENTRY, true);
+        scanIntent.putExtra(CardIOActivity.EXTRA_SCAN_EXPIRY, true);
+        scanIntent.putExtra(CardIOActivity.EXTRA_REQUIRE_CARDHOLDER_NAME, true);
+        scanIntent.putExtra(CardIOActivity.EXTRA_REQUIRE_EXPIRY, true);
 
+        // MY_SCAN_REQUEST_CODE is arbitrary and is only used within this activity.
+        startActivityForResult(scanIntent, 1005);
+        ToastUtils.showLongToast(getActivity(), getString(R.string.allow_light_scan));
 
-        Intent intent = new ScanCardIntent.Builder(getActivity()).setSoundEnabled(false).build();
-        startActivityForResult(intent, REQUEST_CODE_SCAN_CARD);
     }
 
 
@@ -210,40 +209,33 @@ public class ManualPaymentFragment extends BaseFragment implements ManualPayment
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-//        if (requestCode == 1005) {
-//            // get result of read card data.
-//            if (data != null && data.hasExtra(CardIOActivity.EXTRA_SCAN_RESULT)) {
-//                CreditCard creditCard = data.getParcelableExtra(CardIOActivity.EXTRA_SCAN_RESULT);
-//                // success.
-//                char[] chars = creditCard.cardNumber.toCharArray();
-//                StringBuilder numberBuilder = new StringBuilder();
-//                for (int i = 0; i < chars.length; i++) {
-//                    numberBuilder.append(chars[i]);
-//                    if (i + 1 % 4 == 0 && i + 1 != chars.length) {
-//                        numberBuilder.append(" ");
-//                    }
-//                }
-//                cardNumberEditText.setText(numberBuilder.toString());
-//            }
-//        }
+        if (requestCode == 1005) {
+            // get result of read card data.
+            if (data != null && data.hasExtra(CardIOActivity.EXTRA_SCAN_RESULT)) {
+                CreditCard creditCard = data.getParcelableExtra(CardIOActivity.EXTRA_SCAN_RESULT);
+                // success.
+                char[] chars = creditCard.cardNumber.toCharArray();
+                StringBuilder numberBuilder = new StringBuilder();
+                for (int i = 0; i < chars.length; i++) {
+                    numberBuilder.append(chars[i]);
+                    if (i + 1 % 4 == 0 && i + 1 != chars.length) {
+                        numberBuilder.append(" ");
+                    }
+                }
+                cardNumberEditText.setText(numberBuilder.toString());
 
-        if (requestCode == REQUEST_CODE_SCAN_CARD) {
-            if (resultCode == Activity.RESULT_OK) {
-                Card card = data.getParcelableExtra(ScanCardIntent.RESULT_PAYCARDS_CARD);
-                cardNumberEditText.setText(card.getCardNumber());
-                expireDateEditText.setText(card.getExpirationDate());
-                cardOwnerNameEditText.setText(card.getCardHolderName());
-                String cardData = "Card number: " + card.getCardNumber() + "\n"
-                        + "Card holder: " + card.getCardHolderName() + "\n"
-                        + "Card expiration date: " + card.getExpirationDate();
-                Log.i("pay-cards", "Card info: " + cardData);
-            } else if (resultCode == Activity.RESULT_CANCELED) {
-                Log.i("pay-cards", "Scan canceled");
-            } else {
-                Log.i("pay-cards", "Scan failed");
+
+                if (creditCard.isExpiryValid()) {
+                    expireDateEditText.setText(creditCard.expiryMonth + "/" + creditCard.expiryYear);
+                }
+
+                if (creditCard.cardholderName != null) {
+                    cardOwnerNameEditText.setText(creditCard.cardholderName);
+                }
             }
         }
     }
+
 
     @Override
     public void showTransactionApprovedFragment(String transactionNumber, String approvalCode,
