@@ -1,4 +1,4 @@
-## Version 2.0.3 adding Support for AndroidX 
+## Version 2.0.4 adding Support for AndroidX 
 
 ## PaySky Button SDK
 
@@ -36,16 +36,16 @@ Example:-
                 }
 			  
 3- in your build.gradle file in app level in dependencies{} add :-    
-implementation 'com.github.payskyCompany:paybutton-sdk:2.0.3'
+implementation 'com.github.payskyCompany:paybutton-sdk:2.0.4'
 
 Example:-
 dependencies {
-      implementation 'com.github.payskyCompany:paybutton-sdk:2.0.3'
+      implementation 'com.github.payskyCompany:paybutton-sdk:2.0.4'
 }
 
 4- Sync your project.
 
-Note:- version 2.0.3 may not be the last version check Releases in github to get latest version.
+Note:- version 2.0.4 may not be the last version check Releases in github to get latest version.
 ```
 
 ### Using SDK
