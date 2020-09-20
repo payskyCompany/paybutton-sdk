@@ -191,9 +191,12 @@ public class PayButton {
     }
 
     private void validateUserInputs() {
-        if (merchantId == null || terminalId == null || merchantSecureHash == null || transactionReferenceNumber == null || amount == 0) {
+
+        if (merchantId == null || terminalId == null || merchantSecureHash == null || transactionReferenceNumber == null) {
             throw new IllegalArgumentException("add all inputs data");
         }
+
+
         if (context == null) {
             throw new IllegalArgumentException("context cannot be null");
         }

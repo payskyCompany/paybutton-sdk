@@ -52,7 +52,7 @@ public class ManualPaymentFragment extends BaseFragment implements ManualPayment
     private String ccv;
 
 
-    static final int REQUEST_CODE_SCAN_CARD = 1;
+    static final int MY_SCAN_REQUEST_CODE = 1;
 
 
     public ManualPaymentFragment() {
@@ -144,7 +144,7 @@ public class ManualPaymentFragment extends BaseFragment implements ManualPayment
         scanIntent.putExtra(CardIOActivity.EXTRA_REQUIRE_EXPIRY, true);
 
         // MY_SCAN_REQUEST_CODE is arbitrary and is only used within this activity.
-        startActivityForResult(scanIntent, 1005);
+        startActivityForResult(scanIntent, MY_SCAN_REQUEST_CODE);
         ToastUtils.showLongToast(getActivity(), getString(R.string.allow_light_scan));
 
     }
@@ -154,12 +154,15 @@ public class ManualPaymentFragment extends BaseFragment implements ManualPayment
         boolean isValidInputs = true;
 
 
+        if (cardNumberEditText.getText().toString().isEmpty()) {
+            isValidInputs = false;
+            cardNumberEditText.setError(getString(R.string.invalid_card_number_length));
+        }
         if (!cardNumberEditText.getText().toString().isEmpty()
                 && !CardsValidation.luhnCheck(cardNumber)) {
             isValidInputs = false;
             cardNumberEditText.setError(getString(R.string.invalid_card_number_length));
         }
-
 
         if (isEmpty(ownerName)) {
             isValidInputs = false;
@@ -209,7 +212,7 @@ public class ManualPaymentFragment extends BaseFragment implements ManualPayment
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1005) {
+        if (requestCode == MY_SCAN_REQUEST_CODE) {
             // get result of read card data.
             if (data != null && data.hasExtra(CardIOActivity.EXTRA_SCAN_RESULT)) {
                 CreditCard creditCard = data.getParcelableExtra(CardIOActivity.EXTRA_SCAN_RESULT);
@@ -226,7 +229,12 @@ public class ManualPaymentFragment extends BaseFragment implements ManualPayment
 
 
                 if (creditCard.isExpiryValid()) {
-                    expireDateEditText.setText(creditCard.expiryMonth + "/" + creditCard.expiryYear);
+                    String month;
+                    if (String.valueOf(creditCard.expiryMonth).length() < 2)
+                        month = "0" + creditCard.expiryMonth;
+                    else month = String.valueOf(creditCard.expiryMonth);
+                    String resultDisplayStr = month + "/" + String.valueOf(creditCard.expiryYear).substring(2, 4) + "\n";
+                    expireDateEditText.setText(resultDisplayStr);
                 }
 
                 if (creditCard.cardholderName != null) {

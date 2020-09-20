@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
                     merchantIdEditText.setError(getString(R.string.required));
                     hasErrors = true;
                 }
-                if (amount.isEmpty()) {
+                if (amount.isEmpty() || amount.equals("0")) {
                     amountEditText.setError(getString(R.string.required));
                     hasErrors = true;
                 }
@@ -116,17 +116,17 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
                 payButton.createTransaction(new PayButton.PaymentTransactionCallback() {
                     @Override
                     public void onCardTransactionSuccess(SuccessfulCardTransaction cardTransaction) {
-                        paymentStatusTextView.setText(cardTransaction.toString());
+                        //  paymentStatusTextView.setText(cardTransaction.toString());
                     }
 
                     @Override
                     public void onWalletTransactionSuccess(SuccessfulWalletTransaction walletTransaction) {
-                        paymentStatusTextView.setText(walletTransaction.toString());
+                        //  paymentStatusTextView.setText(walletTransaction.toString());
                     }
 
                     @Override
                     public void onError(TransactionException error) {
-                        paymentStatusTextView.setText("failed by:- " + error.errorMessage);
+                        //     paymentStatusTextView.setText("failed by:- " + error.errorMessage);
                     }
                 });
             }
@@ -156,7 +156,6 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
     @Override
     public void onClick(View view) {
         LocaleHelper.changeAppLanguage(this);
-        startActivity(new Intent(this, MainActivity.class));
-        finish();
+        recreate();
     }
 }

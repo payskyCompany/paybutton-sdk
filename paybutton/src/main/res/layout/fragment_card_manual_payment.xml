@@ -112,6 +112,7 @@
                     android:paddingEnd="8dp"
                     android:paddingStart="8dp"
                     android:singleLine="true"
+                    android:textAlignment="viewStart"
                     android:textColorHint="?android:textColorHint"
                     android:textSize="@dimen/_14ssp" />
 

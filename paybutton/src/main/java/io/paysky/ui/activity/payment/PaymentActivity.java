@@ -1,7 +1,6 @@
 package io.paysky.ui.activity.payment;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
@@ -185,10 +184,11 @@ public class PaymentActivity extends BaseActivity implements View.OnClickListene
             // change app language.
             LocaleHelper.changeAppLanguage(this);
             NORMAL_CLOSE = false;
-            Bundle bundle = new Bundle();
-            bundle.putParcelable(AppConstant.BundleKeys.PAYMENT_DATA, paymentData);
-            startActivity(new Intent(this, PaymentActivity.class).putExtras(bundle));
-            finish();
+            recreate();
+//            Bundle bundle = new Bundle();
+//            bundle.putParcelable(AppConstant.BundleKeys.PAYMENT_DATA, paymentData);
+//            startActivity(new Intent(this, PaymentActivity.class).putExtras(bundle));
+//            finish();
         } else if (i == R.id.terms_conditions_textView) {
             // show terms dialog.
             DialogUtils.showTermsAndConditionsDialog(this);

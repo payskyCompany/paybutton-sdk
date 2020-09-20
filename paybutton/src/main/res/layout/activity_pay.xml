@@ -53,10 +53,10 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/header_layout"
                 android:layout_centerInParent="true"
-                android:layout_marginBottom="@dimen/_8sdp"
-                android:layout_marginEnd="@dimen/_6sdp"
                 android:layout_marginStart="@dimen/_6sdp"
                 android:layout_marginTop="@dimen/_8sdp"
+                android:layout_marginEnd="@dimen/_6sdp"
+                android:layout_marginBottom="@dimen/_8sdp"
                 android:orientation="horizontal">
 
                 <LinearLayout
@@ -130,9 +130,9 @@
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="@dimen/_2sdp"
                             android:gravity="center"
-                            tools:text="@string/egp"
                             android:textColor="#2D3134"
-                            android:textSize="@dimen/_10ssp" />
+                            android:textSize="@dimen/_10ssp"
+                            tools:text="@string/egp" />
 
                         <TextView
                             android:id="@+id/amount_textView"
@@ -158,8 +158,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_below="@id/payment_info_layout"
-                android:layout_marginEnd="@dimen/_6sdp"
                 android:layout_marginStart="@dimen/_6sdp"
+                android:layout_marginEnd="@dimen/_6sdp"
                 android:background="#C7C8C8" />
 
             <LinearLayout
@@ -172,9 +172,9 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/_6sdp"
                     android:layout_marginStart="@dimen/_6sdp"
                     android:layout_marginTop="@dimen/_6sdp"
+                    android:layout_marginEnd="@dimen/_6sdp"
                     android:baselineAligned="false">
 
                     <LinearLayout
@@ -186,16 +186,17 @@
                         android:background="@drawable/payment_option_selected"
                         android:button="@null"
                         android:checked="true"
-                        android:visibility="gone"
                         android:drawableStart="@drawable/ic_card_white"
-                        android:gravity="center">
+                        android:gravity="center"
+                        android:visibility="gone"
+                        tools:visibility="visible">
 
                         <TextView
                             android:id="@+id/card_payment_textView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:drawablePadding="8dp"
                             android:drawableStart="@drawable/ic_card_white"
+                            android:drawablePadding="8dp"
                             android:gravity="center_vertical"
                             android:text="@string/card"
                             android:textColor="@android:color/white" />
@@ -211,16 +212,17 @@
                         android:background="@drawable/payment_option_unselected"
                         android:button="@null"
                         android:checked="true"
-                        android:visibility="gone"
                         android:drawableStart="@drawable/ic_card_white"
-                        android:gravity="center">
+                        android:gravity="center"
+                        android:visibility="gone"
+                        tools:visibility="visible">
 
                         <TextView
                             android:id="@+id/qr_payment_textView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:drawablePadding="8dp"
                             android:drawableStart="@drawable/ic_wallet_gray"
+                            android:drawablePadding="8dp"
                             android:gravity="center_vertical"
                             android:text="@string/wallet"
                             android:textColor="#2D3134" />
