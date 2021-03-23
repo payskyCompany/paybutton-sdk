@@ -1,6 +1,6 @@
 package io.paysky.ui.mvp;
 
-import android.support.annotation.StringRes;
+import androidx.annotation.StringRes;
 
 public interface BaseView {
 

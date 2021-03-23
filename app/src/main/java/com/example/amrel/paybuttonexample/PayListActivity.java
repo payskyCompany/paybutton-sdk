@@ -1,8 +1,8 @@
 package com.example.amrel.paybuttonexample;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.ListView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class PayListActivity extends AppCompatActivity {
 

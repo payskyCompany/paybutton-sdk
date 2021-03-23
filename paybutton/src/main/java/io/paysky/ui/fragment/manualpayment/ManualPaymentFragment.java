@@ -3,14 +3,15 @@ package io.paysky.ui.fragment.manualpayment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.example.paybutton.R;
 
@@ -49,6 +50,9 @@ public class ManualPaymentFragment extends BaseFragment implements ManualPayment
     private String expireDate;
     private ImageView scanCardImageView;
     private String ccv;
+
+
+    static final int MY_SCAN_REQUEST_CODE = 1;
 
 
     public ManualPaymentFragment() {
@@ -135,9 +139,14 @@ public class ManualPaymentFragment extends BaseFragment implements ManualPayment
         scanIntent.putExtra(CardIOActivity.EXTRA_USE_PAYPAL_ACTIONBAR_ICON, false);
         scanIntent.putExtra(CardIOActivity.EXTRA_HIDE_CARDIO_LOGO, false);
         scanIntent.putExtra(CardIOActivity.EXTRA_SUPPRESS_MANUAL_ENTRY, true);
+        scanIntent.putExtra(CardIOActivity.EXTRA_SCAN_EXPIRY, true);
+        scanIntent.putExtra(CardIOActivity.EXTRA_REQUIRE_CARDHOLDER_NAME, true);
+        scanIntent.putExtra(CardIOActivity.EXTRA_REQUIRE_EXPIRY, true);
+
         // MY_SCAN_REQUEST_CODE is arbitrary and is only used within this activity.
-        startActivityForResult(scanIntent, 1005);
+        startActivityForResult(scanIntent, MY_SCAN_REQUEST_CODE);
         ToastUtils.showLongToast(getActivity(), getString(R.string.allow_light_scan));
+
     }
 
 
@@ -145,12 +154,15 @@ public class ManualPaymentFragment extends BaseFragment implements ManualPayment
         boolean isValidInputs = true;
 
 
+        if (cardNumberEditText.getText().toString().isEmpty()) {
+            isValidInputs = false;
+            cardNumberEditText.setError(getString(R.string.invalid_card_number_length));
+        }
         if (!cardNumberEditText.getText().toString().isEmpty()
                 && !CardsValidation.luhnCheck(cardNumber)) {
             isValidInputs = false;
             cardNumberEditText.setError(getString(R.string.invalid_card_number_length));
         }
-
 
         if (isEmpty(ownerName)) {
             isValidInputs = false;
@@ -200,7 +212,7 @@ public class ManualPaymentFragment extends BaseFragment implements ManualPayment
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1005) {
+        if (requestCode == MY_SCAN_REQUEST_CODE) {
             // get result of read card data.
             if (data != null && data.hasExtra(CardIOActivity.EXTRA_SCAN_RESULT)) {
                 CreditCard creditCard = data.getParcelableExtra(CardIOActivity.EXTRA_SCAN_RESULT);
@@ -214,9 +226,24 @@ public class ManualPaymentFragment extends BaseFragment implements ManualPayment
                     }
                 }
                 cardNumberEditText.setText(numberBuilder.toString());
+
+
+                if (creditCard.isExpiryValid()) {
+                    String month;
+                    if (String.valueOf(creditCard.expiryMonth).length() < 2)
+                        month = "0" + creditCard.expiryMonth;
+                    else month = String.valueOf(creditCard.expiryMonth);
+                    String resultDisplayStr = month + "/" + String.valueOf(creditCard.expiryYear).substring(2, 4) + "\n";
+                    expireDateEditText.setText(resultDisplayStr);
+                }
+
+                if (creditCard.cardholderName != null) {
+                    cardOwnerNameEditText.setText(creditCard.cardholderName);
+                }
             }
         }
     }
+
 
     @Override
     public void showTransactionApprovedFragment(String transactionNumber, String approvalCode,

@@ -9,4 +9,6 @@
     <string name="pay">Pay</string>
     <string name="testing_type">Testing Environment</string>
     <string name="environment_type">Testing URLs</string>
+    <string name="secure_hash_key">SecureHash</string>
+
 </resources>

@@ -2,18 +2,18 @@ package io.paysky.ui.fragment.paymentfail;
 
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import com.example.paybutton.R;
 
 import io.paysky.ui.activity.payment.PaymentActivity;
-import io.paysky.ui.base.BaseActivity;
 import io.paysky.ui.base.BaseFragment;
 import io.paysky.util.AppUtils;
 

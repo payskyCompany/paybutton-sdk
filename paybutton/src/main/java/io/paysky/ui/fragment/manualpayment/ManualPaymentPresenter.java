@@ -4,9 +4,7 @@ import android.os.Bundle;
 
 import io.paysky.data.model.PaymentData;
 import io.paysky.data.model.SuccessfulCardTransaction;
-import io.paysky.data.model.request.Compose3dsTransactionRequest;
 import io.paysky.data.model.request.ManualPaymentRequest;
-import io.paysky.data.model.response.Compose3dsTransactionResponse;
 import io.paysky.data.model.response.ManualPaymentResponse;
 import io.paysky.data.network.ApiConnection;
 import io.paysky.data.network.ApiLinks;

@@ -170,6 +170,7 @@ public class PayButton {
                 }
                 Bundle bundle = new Bundle();
                 bundle.putParcelable(AppConstant.BundleKeys.PAYMENT_DATA, paymentData);
+                bundle.putInt(AppConstant.BundleKeys.URL_ENUM_KEY, productionStatus.ordinal());
                 context.startActivity(new Intent(context, PaymentActivity.class).putExtras(bundle));
             }
 
@@ -190,9 +191,12 @@ public class PayButton {
     }
 
     private void validateUserInputs() {
-        if (merchantId == null || terminalId == null || merchantSecureHash == null || transactionReferenceNumber == null || amount == 0) {
+
+        if (merchantId == null || terminalId == null || merchantSecureHash == null || transactionReferenceNumber == null) {
             throw new IllegalArgumentException("add all inputs data");
         }
+
+
         if (context == null) {
             throw new IllegalArgumentException("context cannot be null");
         }

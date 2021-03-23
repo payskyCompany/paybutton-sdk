@@ -1,3 +1,5 @@
+## Version 2.0.4 adding Support for AndroidX 
+
 ## PaySky Button SDK
 
 The purpose of this SDK to help programmers to use PaySky payment SDK .
@@ -14,6 +16,7 @@ What things you need to install the software and how to install them
 1-JDK installed on your machine with minimum version 1.7 .
 2-Android Studio
 3-Create new Android project in Android Studio to use SDK or if you have created a project before with minSdkVersion api version 17.
+4- AndroidX compatibility
 ```
 
 ### Installing
@@ -33,16 +36,16 @@ Example:-
                 }
 			  
 3- in your build.gradle file in app level in dependencies{} add :-    
-implementation 'com.github.payskyCompany:paybutton-sdk:1.1.6'
+implementation 'com.github.payskyCompany:paybutton-sdk:2.0.4'
 
 Example:-
 dependencies {
-      implementation 'com.github.payskyCompany:paybutton-sdk:1.1.6'
+      implementation 'com.github.payskyCompany:paybutton-sdk:2.0.4'
 }
 
 4- Sync your project.
 
-Note:- version 1.1.6 may not be the last version check Releases in github to get latest version.
+Note:- version 2.0.4 may not be the last version check Releases in github to get latest version.
 ```
 
 ### Using SDK
@@ -74,6 +77,7 @@ payButton.setPayAmount(amount); // Amount
 payButton.setCurrencyCode(currencyCode); // Currency Code [Optional]
 payButton.setMerchantSecureHash("Merchant secure hash"); // Merchant secure hash
 payButton.setTransactionReferenceNumber("reference number"); // unique transaction reference number.
+payButton.setProductionStatus(PRODUCTION); // for testing environment use GREY
 // you can get reference number from AppUtils.generateRandomNumber();
 example:-        
 payButton.setTransactionReferenceNumber(AppUtils.generateRandomNumber());
@@ -188,6 +192,5 @@ in your project, encrypt them before save them in project.
 
 ## Sample Project
 **https://github.com/payskyCompany/payButton.git**
-
 
 
