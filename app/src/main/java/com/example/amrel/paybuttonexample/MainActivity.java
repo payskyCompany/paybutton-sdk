@@ -9,9 +9,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import io.paysky.data.model.SuccessfulCardTransaction;
 import io.paysky.data.model.SuccessfulWalletTransaction;
 import io.paysky.exception.TransactionException;
@@ -29,9 +27,9 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
     private EditText currencyEditText;
     private Spinner spinner_type;
 
-    String[] list_to_show = {"PRODUCTION", "TESTING", "UPG_STAGING", "UPG_PRODUCTION"};
+    String[] list_to_show = {"PRODUCTION", "TESTING", "PACE_PAY"};
     AllURLsStatus[] list_to_URLS = {AllURLsStatus.PRODUCTION, AllURLsStatus.GREY,
-            AllURLsStatus.UPG_STAGING, AllURLsStatus.UPG_PRODUCTION};
+            AllURLsStatus.PACE_PAY};
     int item_position = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

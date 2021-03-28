@@ -62,8 +62,6 @@ public class PaymentActivity extends BaseActivity implements View.OnClickListene
         paymentData = getIntent().getExtras().getParcelable(AppConstant.BundleKeys.PAYMENT_DATA);
         urlStatus = getIntent().getExtras().getInt(AppConstant.BundleKeys.URL_ENUM_KEY);
         allURLsStatus = AllURLsStatus.values()[urlStatus];
-        if (allURLsStatus.equals(AllURLsStatus.UPG_STAGING) || allURLsStatus.equals(AllURLsStatus.UPG_PRODUCTION))
-            poweredByImageView.setImageDrawable(getResources().getDrawable(R.drawable.upg_logo));
 
         // show activity layout.
         AutofitHelper.create(merchantNameTextView);
