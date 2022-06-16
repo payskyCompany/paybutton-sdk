@@ -88,9 +88,6 @@ public class PayButton {
             case GREY:
                 ApiLinks.PAYMENT_LINK = ApiLinks.GRAY_LINK;
                 break;
-            case PACE_PAY:
-                ApiLinks.PAYMENT_LINK = ApiLinks.PACE_PAY;
-                break;
         }
 
 

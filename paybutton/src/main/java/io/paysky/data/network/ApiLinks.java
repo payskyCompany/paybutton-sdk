@@ -17,7 +17,6 @@ public class ApiLinks {
 
     public static final String GRAY_LINK = "https://grey.paysky.io/";
     public static final String CUBE = "https://cube.paysky.io/";
-    public static final String PACE_PAY = "https://adcb.paysky.io/";
 
     public static String PAYMENT_LINK = CUBE;
 }

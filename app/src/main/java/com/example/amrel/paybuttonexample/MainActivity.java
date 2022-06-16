@@ -27,9 +27,8 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
     private EditText currencyEditText;
     private Spinner spinner_type;
 
-    String[] list_to_show = {"PRODUCTION", "TESTING", "PACE_PAY"};
-    AllURLsStatus[] list_to_URLS = {AllURLsStatus.PRODUCTION, AllURLsStatus.GREY,
-            AllURLsStatus.PACE_PAY};
+    String[] list_to_show = {"PRODUCTION", "TESTING"};
+    AllURLsStatus[] list_to_URLS = {AllURLsStatus.PRODUCTION, AllURLsStatus.GREY};
     int item_position = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
