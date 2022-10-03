@@ -2,14 +2,14 @@ apply plugin: 'com.android.library'
 // for Android libraries
 apply plugin: 'com.github.dcendents.android-maven'
 group = 'com.github.paysky'
-
+version ='2.0.6'
 android {
     compileSdkVersion 29
     defaultConfig {
         minSdkVersion 19
         targetSdkVersion 29
         versionCode 22
-        versionName "2.0.1"
+        versionName "2.0.6"
         // Enabling multidex support.
         multiDexEnabled true
     }
