@@ -114,7 +114,7 @@ This listener has 3 methods:
       amount variable.
 ​    
 3) `onError`                                                       
-in case transaction failed with Throwable exception that has error info.                                                                                
+in case transaction failed with TransactionException exception that has error info.                                                                                
 ​
 
 ### 🚀 Resolving conflicts
