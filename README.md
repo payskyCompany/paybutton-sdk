@@ -15,7 +15,7 @@ These instructions will get you a copy of the project up and running on your loc
 ### Prerequisites
 
 1. JDK installed on your machine with minimum version 1.7
-2. Android Studio 
+2. Android Studio installed on your machine
 3. Create new Android project in Android Studio to use SDK or if you have created a project before with minSdkVersion api version 17.                 
 4. AndroidX compatibility
 
@@ -28,11 +28,11 @@ maven { url 'https://jitpack.io' }
 ```
 3. In your build.gradle file in app level in dependencies{} add
 ```
-implementation 'com.github.payskyCompany:paybutton-sdk:2.0.5'
+implementation 'com.github.payskyCompany:paybutton-sdk:2.0.6'
 ```
 4. Sync your project.
 
-Note: version 2.0.5 may not be the last version check Releases in github to get latest version.
+Note: Version 2.0.6 may not be the last version check Releases in github to get latest version.
 
 ## :rocket: Deployment
 1. Before deploying your project live, you should get a merchant ID and terminal ID from our company.
@@ -88,7 +88,7 @@ payButton.createTransaction(new PayButton.PaymentTransactionCallback() {
             }
 
             @Override
-            public void onError(Throwable error) {
+            public void onError(TransactionException error) {
                 paymentStatusTextView.setText("failed by:- " + error.getMessage());
             }
         });
