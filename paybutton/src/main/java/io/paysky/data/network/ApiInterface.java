@@ -16,6 +16,7 @@ import io.paysky.data.model.response.SendReceiptByMailResponse;
 import io.paysky.data.model.response.TransactionStatusResponse;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 
 /**
@@ -24,22 +25,23 @@ import retrofit2.http.POST;
 
 public interface ApiInterface {
 
-
+    @Headers("Content-Type: application/json")
     @POST(ApiLinks.SEND_RECEIPT_BY_MAIL)
     Call<SendReceiptByMailResponse> sendReceiptByMail(@Body SendReceiptByMailRequest mailRequest);
-
+    @Headers("Content-Type: application/json")
     @POST(ApiLinks.CHECK_PAYMENT_STATUS)
     Call<TransactionStatusResponse> checkTransactionStatus(@Body TransactionStatusRequest request);
-
+    @Headers("Content-Type: application/json")
     @POST(ApiLinks.GENERATE_QRCODE)
     Call<GenerateQrCodeResponse> generateQrCode(@Body QrGeneratorRequest request);
-
+    @Headers("Content-Type: application/json")
     @POST(ApiLinks.EXECUTE_PAYMENT)
     Call<ManualPaymentResponse> executeManualPayment(@Body ManualPaymentRequest paymentRequest);
-
+    @Headers("Content-Type: application/json")
     @POST(ApiLinks.SMS_PAYMENT)
     Call<RequestToPayResponse> requestToPay(@Body RequestToPayRequest request);
 
+    @Headers("Content-Type: application/json")
     @POST(ApiLinks.MERCHANT_INFO)
     Call<MerchantInfoResponse> getMerchantInfo(@Body MerchantInfoRequest request);
 //
@@ -48,7 +50,7 @@ public interface ApiInterface {
 
 //    @POST(ApiLinks.PROCESS_3D_TRANSACTION)
 //    Call<Process3dTransactionResponse> process3dTransaction(@Body Process3dTransactionRequest request);
-
+    @Headers("Content-Type: application/json")
     @POST(ApiLinks.CHECK_TRANSACTION_STATUS)
     Call<CheckTransactionStatusResponse> checkTransaction(@Body CheckTransactionStatusRequest request);
 }

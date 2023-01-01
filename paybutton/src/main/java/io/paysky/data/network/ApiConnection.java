@@ -3,7 +3,12 @@ package io.paysky.data.network;
 import android.util.Log;
 
 import com.example.paybutton.BuildConfig;
+import com.ihsanbal.logging.Level;
+import com.ihsanbal.logging.LoggingInterceptor;
 
+import org.greenrobot.eventbus.EventBus;
+
+import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -23,6 +28,7 @@ import io.paysky.data.model.response.RequestToPayResponse;
 import io.paysky.data.model.response.SendReceiptByMailResponse;
 import io.paysky.data.model.response.TransactionStatusResponse;
 import io.paysky.data.model.response.TransactionsItem;
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
@@ -32,12 +38,34 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
- * Created by Paysky-202 on 5/14/2018.
+ * Created by Paysky-202 on 5/14/2018.createConnection
  */
 
 public class ApiConnection {
 
+    private static ApiInterface createConnection() {
+        OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
+        httpClient.readTimeout(100, TimeUnit.SECONDS);
+        httpClient.connectTimeout(40, TimeUnit.SECONDS);
+        httpClient.writeTimeout(100, TimeUnit.SECONDS);
+        httpClient.addInterceptor(new ErrorInterceptor());
+        httpClient.addInterceptor(new LoggingInterceptor.Builder()
+                .loggable(true)
+                .setLevel(Level.BODY)
+                .request("Request")
+                .response("Response")
+                .build());
 
+        OkHttpClient client = httpClient.build();
+
+        return new Retrofit.Builder()
+
+                .baseUrl(ApiLinks.PAYMENT_LINK)
+                .client(client)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+                .create(ApiInterface.class);
+    }
     public static void executePayment(ManualPaymentRequest manualPaymentRequest, final ApiResponseListener<ManualPaymentResponse> listener) {
         createConnection().executeManualPayment(manualPaymentRequest)
                 .enqueue(new Callback<ManualPaymentResponse>() {
@@ -131,26 +159,6 @@ public class ApiConnection {
     }
 
 
-    private static ApiInterface createConnection() {
-        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-        if (BuildConfig.DEBUG) {
-            interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-        } else {
-            interceptor.setLevel(HttpLoggingInterceptor.Level.NONE);
-        }
-        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor)
-                .connectTimeout(30, TimeUnit.SECONDS)
-                .writeTimeout(30, TimeUnit.SECONDS)
-                .readTimeout(30, TimeUnit.SECONDS).build();
-        Log.d("ApiLinksPAYMENT_LINK", ApiLinks.PAYMENT_LINK);
-
-        return new Retrofit.Builder()
-                .baseUrl(ApiLinks.PAYMENT_LINK)
-                .client(client)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
-                .create(ApiInterface.class);
-    }
 
     public static void getMerchantInfo(MerchantInfoRequest request, final ApiResponseListener<MerchantInfoResponse> listener) {
         createConnection().getMerchantInfo(request)
@@ -229,4 +237,24 @@ public class ApiConnection {
                 });
     }
 
+    private static class ErrorInterceptor implements Interceptor {
+
+
+        @Override
+        public okhttp3.Response intercept(Chain chain) throws IOException {
+            okhttp3.Response response;
+
+            response = chain.proceed(chain.request());
+
+            if (response.code() == 401) {
+                EventBus.getDefault().post(new NoConnectivityException());
+            }
+
+
+            return response;
+        }
+    }
+
+    public static class NoConnectivityException extends IOException {
+    }
 }

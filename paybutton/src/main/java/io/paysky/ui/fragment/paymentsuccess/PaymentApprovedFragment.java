@@ -94,9 +94,9 @@ public class PaymentApprovedFragment extends BaseFragment implements View.OnClic
         authNumberTextView.setText(getString(R.string.auth_number) + " #" + transactionData.authNumber);
         TextView trxIdTextView = view.findViewById(R.id.trx_id_textView);
         if (transactionData.rrn.length() > 30) {
-            trxIdTextView.setText(getString(R.string.trx_id) + " #" + transactionData.rrn.substring(transactionData.rrn.length() - 6));
+            trxIdTextView.setText(getString(R.string.trx_id) + " #" + transactionData.stan.substring(transactionData.stan.length() - 6));
         } else {
-            trxIdTextView.setText(getString(R.string.trx_id) + " #" + transactionData.rrn);
+            trxIdTextView.setText(getString(R.string.trx_id) + " #" + transactionData.stan);
         }
         Button closeButton = view.findViewById(R.id.close_button);
         closeButton.setOnClickListener(this);
@@ -148,7 +148,7 @@ public class PaymentApprovedFragment extends BaseFragment implements View.OnClic
         }
         int RECEIPT = 1;
         presenter.sendEmail(transactionData.secureHashKey, email, transactionData.terminalId, transactionData.merchantId,
-                transactionData.receiptNumber, transactionData.channelName, transactionData.rrn,
+                transactionData.receiptNumber, transactionData.channelName, transactionData.stan,
                 RECEIPT);
     }
 

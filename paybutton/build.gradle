@@ -8,8 +8,6 @@ android {
     defaultConfig {
         minSdkVersion 19
         targetSdkVersion 29
-        versionCode 22
-        versionName "2.0.1"
         // Enabling multidex support.
         multiDexEnabled true
     }
@@ -19,17 +17,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    afterEvaluate {
-        tasks.matching {
-            it.name.startsWith('dex')
-        }.each { dx ->
-            if (dx.additionalParameters == null) {
-                dx.additionalParameters = ['--multi-dex']
-            } else {
-                dx.additionalParameters += '--multi-dex'
-            }
-        }
-    }
+
     buildToolsVersion '28.0.3'
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_7
@@ -49,12 +37,17 @@ dependencies {
     implementation 'com.pnikosis:materialish-progress:1.7'
     implementation 'commons-codec:commons-codec:1.10'
     implementation 'com.github.prashantsolanki3:Secure-Pref-Manager:0.25'
+    implementation 'com.github.prashantsolanki3:Secure-Pref-Manager:0.25'
     implementation 'org.glassfish:javax.annotation:10.0-b28'
     implementation 'com.google.zxing:core:3.3.3'
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
     implementation 'org.simpleframework:simple-xml:2.7.1'
     implementation 'com.squareup.retrofit2:retrofit:2.7.0'
     implementation 'com.google.code.gson:gson:2.8.5'
+    implementation 'com.google.code.gson:gson:2.8.9'
+    implementation 'com.squareup.retrofit2:converter-gson:2.7.2'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.12.0'
+    implementation 'com.mobprofs:retrofit-simplexmlconverter:1.1'
     implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.12.0'
     implementation 'com.mobprofs:retrofit-simplexmlconverter:1.1'
@@ -70,4 +63,15 @@ dependencies {
 
     implementation 'io.card:android-sdk:5.5.1'
 
+    implementation('com.github.ihsanbal:LoggingInterceptor:2.0.2') {
+        exclude group: 'org.json', module: 'json'
+    }
+    configurations.all {
+        resolutionStrategy {
+            force("com.google.code.gson:gson:2.8.5")
+            force("'com.squareup.retrofit2:converter-gson:2.5.0")
+            force("com.squareup.retrofit2:retrofit:2.7.0")
+            force("org.greenrobot:eventbus:3.1.1")
+        }
+    }
 }
