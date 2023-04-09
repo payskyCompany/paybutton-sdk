@@ -127,6 +127,8 @@ public class QrPresenter extends BasePresenter<QrView> implements QrBitmapLoadLi
         requestToPayRequest.terminalId = paymentData.terminalId;
         requestToPayRequest.txnId = transactionId;
         requestToPayRequest.mobileNumber = mobileNumber;
+        requestToPayRequest.amount = paymentData.amount;
+        requestToPayRequest.amountTrxn = (int) paymentData.amount;
         requestToPayRequest.merchantReference = paymentData.transactionReferenceNumber;
         // generate hashing.
         requestToPayRequest.secureHash = HashGenerator.encode(paymentData.secureHashKey, requestToPayRequest.dateTimeLocalTrxn, paymentData.merchantId, paymentData.terminalId);

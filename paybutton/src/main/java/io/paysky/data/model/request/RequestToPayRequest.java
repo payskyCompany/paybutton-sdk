@@ -30,4 +30,8 @@ public class RequestToPayRequest  extends BaseRequest{
 
     @SerializedName("MerchantReference")
     public String merchantReference;
+    @SerializedName("Amount")
+    public Double amount;
+    @SerializedName("AmountTrxn")
+    public int amountTrxn;
 }
