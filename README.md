@@ -52,8 +52,8 @@ You need to just pass some parameters to PayButton class instance
 2) Terminal id.
 3) Payment amount.
 4) Currency code [Optional].
-5) merchant secure hash.
-6) transaction Reference Number.
+5) Merchant secure hash.
+6) Transaction Reference Number.
 
 Note That:
 You shoud keep your secure hash and merchant id and terminal id with encryption 
