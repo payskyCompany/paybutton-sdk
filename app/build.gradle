@@ -1,11 +1,11 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 33
     defaultConfig {
         applicationId "com.example.paybutton"
         minSdkVersion 19
-        targetSdkVersion 29
+        targetSdkVersion 33
         versionCode 24
         versionName "2.0.3"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -17,7 +17,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    buildToolsVersion '28.0.3'
+    buildToolsVersion '30.0.3'
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -38,13 +38,13 @@ android {
 }
 
 dependencies {
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'com.intuit.sdp:sdp-android:1.0.6'
     implementation 'com.intuit.ssp:ssp-android:1.0.6'
     implementation 'androidx.multidex:multidex:2.0.1'
     implementation project(':paybutton')
-    implementation "androidx.preference:preference:1.1.1"
+    implementation "androidx.preference:preference:1.2.0"
 }
 
 tasks.withType(Javadoc).all { enabled = false }
