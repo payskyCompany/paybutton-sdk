@@ -123,7 +123,7 @@
                 android:id="@+id/send_email_button"
                 android:layout_width="@dimen/_60sdp"
                 android:layout_height="match_parent"
-                android:background="@drawable/bg_rect_green"
+                android:background="@drawable/button_blue_selector"
                 android:baselineAligned="false"
                 android:text="@string/send"
                 android:textColor="@android:color/white" />
@@ -157,7 +157,7 @@
                 android:layout_marginLeft="@dimen/_10sdp"
                 android:layout_marginRight="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_4sdp"
-                android:background="@drawable/baybutton_proceed_button"
+                android:background="@drawable/button_blue_selector"
                 android:text="@string/close" />
         </LinearLayout>
 

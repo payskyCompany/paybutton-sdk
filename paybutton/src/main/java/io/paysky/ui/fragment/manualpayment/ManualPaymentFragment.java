@@ -21,13 +21,11 @@ import java.util.Locale;
 
 import io.card.payment.CardIOActivity;
 import io.card.payment.CreditCard;
+import io.paysky.data.model.CardPaymentParameters;
 import io.paysky.data.model.PaymentData;
-import io.paysky.data.model.ReceiptData;
 import io.paysky.ui.base.BaseFragment;
 import io.paysky.ui.custom.CardEditText;
-import io.paysky.ui.fragment.paymentfail.PaymentFailedFragment;
-import io.paysky.ui.fragment.paymentsuccess.PaymentApprovedFragment;
-import io.paysky.ui.fragment.webview.WebPaymentFragment;
+import io.paysky.ui.fragment.paymentprocessing.PaymentProcessingFragment;
 import io.paysky.util.AppConstant;
 import io.paysky.util.AppUtils;
 import io.paysky.util.CardsValidation;
@@ -35,11 +33,7 @@ import io.paysky.util.LocaleHelper;
 import io.paysky.util.ToastUtils;
 
 
-public class ManualPaymentFragment extends BaseFragment implements ManualPaymentView, View.OnClickListener {
-
-
-    //Objects
-    private ManualPaymentPresenter presenter;
+public class ManualPaymentFragment extends BaseFragment implements View.OnClickListener {
     //GUI.
     private CardEditText cardNumberEditText;
     private EditText cardOwnerNameEditText;
@@ -52,6 +46,8 @@ public class ManualPaymentFragment extends BaseFragment implements ManualPayment
     private String ccv;
 
 
+    private PaymentData paymentData;
+
     static final int MY_SCAN_REQUEST_CODE = 1;
 
 
@@ -63,7 +59,8 @@ public class ManualPaymentFragment extends BaseFragment implements ManualPayment
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // get data from bundle.
-        presenter = new ManualPaymentPresenter(getArguments());
+        assert getArguments() != null;
+        paymentData = getArguments().getParcelable(AppConstant.BundleKeys.PAYMENT_DATA);
     }
 
     @Override
@@ -76,7 +73,6 @@ public class ManualPaymentFragment extends BaseFragment implements ManualPayment
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        presenter.attachView(this);
         initView(view);
     }
 
@@ -130,7 +126,15 @@ public class ManualPaymentFragment extends BaseFragment implements ManualPayment
 
         AppUtils.hideKeyboard(proceedButton);
 
-        presenter.makePayment(cardNumber, expireDate, cardOwnerName, ccv);
+        //presenter.makePayment(cardNumber, expireDate, cardOwnerName, ccv);
+
+        //move to processing screen with data
+        CardPaymentParameters cardPaymentParameters =
+                new CardPaymentParameters(cardNumber, cardOwnerName, expireDate, ccv);
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(AppConstant.BundleKeys.PAYMENT_DATA, paymentData);
+        bundle.putParcelable(AppConstant.BundleKeys.CARD_DATA, cardPaymentParameters);
+        activity.replaceFragmentAndRemoveOldFragment(PaymentProcessingFragment.class, bundle);
     }
 
 
@@ -242,57 +246,5 @@ public class ManualPaymentFragment extends BaseFragment implements ManualPayment
                 }
             }
         }
-    }
-
-
-    @Override
-    public void showTransactionApprovedFragment(String transactionNumber, String approvalCode,
-                                                String retrievalRefNr, String cardHolderName, String cardNumber, String systemTraceNumber, PaymentData paymentData) {
-        Bundle bundle = new Bundle();
-        ReceiptData receiptData = new ReceiptData();
-        receiptData.rrn = transactionNumber;
-        receiptData.authNumber = approvalCode;
-        receiptData.channelName = AppConstant.TransactionChannelName.CARD;
-        receiptData.refNumber = retrievalRefNr;
-        receiptData.receiptNumber = retrievalRefNr;
-        receiptData.amount = paymentData.amountFormatted;
-        receiptData.cardHolderName = cardHolderName;
-        receiptData.cardNumber = cardNumber;
-        receiptData.merchantName = paymentData.merchantName;
-        receiptData.merchantId = paymentData.merchantId;
-        receiptData.terminalId = paymentData.terminalId;
-        receiptData.paymentType = ReceiptData.PaymentDoneBy.MANUAL.toString();
-        receiptData.stan = systemTraceNumber;
-        receiptData.transactionType = ReceiptData.TransactionType.SALE.name();
-        receiptData.secureHashKey = paymentData.secureHashKey;
-        bundle.putParcelable(AppConstant.BundleKeys.RECEIPT, receiptData);
-        activity.replaceFragmentAndRemoveOldFragment(PaymentApprovedFragment.class, bundle);
-        activity.hidePaymentOptions();
-    }
-
-
-    @Override
-    public void showErrorInServerToast() {
-        ToastUtils.showLongToast(activity, getString(R.string.error_try_again));
-    }
-
-    @Override
-    public void showPaymentFailedFragment(Bundle bundle) {
-        activity.replaceFragmentAndRemoveOldFragment(PaymentFailedFragment.class, bundle);
-    }
-
-
-    public void show3dpWebView(String url, PaymentData paymentData) {
-        Bundle bundle = new Bundle();
-        bundle.putString("url", url);
-        bundle.putParcelable(AppConstant.BundleKeys.PAYMENT_DATA, paymentData);
-
-        activity.replaceFragmentAndRemoveOldFragment(WebPaymentFragment.class, bundle);
-    }
-
-    @Override
-    public void onDestroyView() {
-        presenter.detachView();
-        super.onDestroyView();
     }
 }

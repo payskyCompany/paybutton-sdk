@@ -9,7 +9,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import io.paysky.data.model.SuccessfulCardTransaction;
 import io.paysky.data.model.SuccessfulWalletTransaction;
 import io.paysky.exception.TransactionException;
@@ -64,69 +66,75 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
         paymentStatusTextView = findViewById(R.id.payment_status_textView);
         currencyEditText = findViewById(R.id.currency_editText);
         secureHashKeyEditText = findViewById(R.id.secureHash_editText);
-        payTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                paymentStatusTextView.setText("");
-                String terminalId = terminalIdEditText.getText().toString().trim();
-                String merchantId = merchantIdEditText.getText().toString().trim();
-                String amount = amountEditText.getText().toString().trim();
-                String secureHashKey = secureHashKeyEditText.getText().toString().trim();
 
-                boolean hasErrors = false;
-                if (terminalId.isEmpty()) {
-                    terminalIdEditText.setError(getString(R.string.required));
-                    hasErrors = true;
-                }
-                if (merchantId.isEmpty()) {
-                    merchantIdEditText.setError(getString(R.string.required));
-                    hasErrors = true;
-                }
-                if (amount.isEmpty() || amount.equals("0")) {
-                    amountEditText.setError(getString(R.string.required));
-                    hasErrors = true;
-                }
 
-                if (secureHashKey.isEmpty()) {
-                    secureHashKeyEditText.setError(getString(R.string.required));
-                    hasErrors = true;
-                }
+        merchantIdEditText.setText("41565");
+        terminalIdEditText.setText("1583826");
+        currencyEditText.setText("818");
+        secureHashKeyEditText.setText("09a90e81140dcb0d686c09f0036ef910");
+        spinner_type.setSelection(1);
 
-                if (hasErrors) {
-                    return;
-                }
 
-                // add payments data.
-                PayButton payButton = new PayButton(MainActivity.this);
-                payButton.setMerchantId(merchantId); // Merchant id
-                payButton.setTerminalId(terminalId); // Terminal  id
-                payButton.setAmount(Double.valueOf(amount)); // Amount
-                String a = currencyEditText.getText().toString();
-                if (a.isEmpty()) {
-                    payButton.setCurrencyCode(0); // Currency Code
-                } else {
-                    payButton.setCurrencyCode(Integer.valueOf(a)); // Currency Code
-                }
-                payButton.setMerchantSecureHash(secureHashKey);
-                payButton.setTransactionReferenceNumber(AppUtils.generateRandomNumber());
-                payButton.setProductionStatus(list_to_URLS[item_position]);
-                payButton.createTransaction(new PayButton.PaymentTransactionCallback() {
-                    @Override
-                    public void onCardTransactionSuccess(SuccessfulCardTransaction cardTransaction) {
-                        //  paymentStatusTextView.setText(cardTransaction.toString());
-                    }
+        payTextView.setOnClickListener(v -> {
+            paymentStatusTextView.setText("");
+            String terminalId = terminalIdEditText.getText().toString().trim();
+            String merchantId = merchantIdEditText.getText().toString().trim();
+            String amount = amountEditText.getText().toString().trim();
+            String secureHashKey = secureHashKeyEditText.getText().toString().trim();
 
-                    @Override
-                    public void onWalletTransactionSuccess(SuccessfulWalletTransaction walletTransaction) {
-                        //  paymentStatusTextView.setText(walletTransaction.toString());
-                    }
-
-                    @Override
-                    public void onError(TransactionException error) {
-                        //     paymentStatusTextView.setText("failed by:- " + error.errorMessage);
-                    }
-                });
+            boolean hasErrors = false;
+            if (terminalId.isEmpty()) {
+                terminalIdEditText.setError(getString(R.string.required));
+                hasErrors = true;
             }
+            if (merchantId.isEmpty()) {
+                merchantIdEditText.setError(getString(R.string.required));
+                hasErrors = true;
+            }
+            if (amount.isEmpty() || amount.equals("0")) {
+                amountEditText.setError(getString(R.string.required));
+                hasErrors = true;
+            }
+
+            if (secureHashKey.isEmpty()) {
+                secureHashKeyEditText.setError(getString(R.string.required));
+                hasErrors = true;
+            }
+
+            if (hasErrors) {
+                return;
+            }
+
+            // add payments data.
+            PayButton payButton = new PayButton(MainActivity.this);
+            payButton.setMerchantId(merchantId); // Merchant id
+            payButton.setTerminalId(terminalId); // Terminal  id
+            payButton.setAmount(Double.valueOf(amount)); // Amount
+            String a = currencyEditText.getText().toString();
+            if (a.isEmpty()) {
+                payButton.setCurrencyCode(0); // Currency Code
+            } else {
+                payButton.setCurrencyCode(Integer.valueOf(a)); // Currency Code
+            }
+            payButton.setMerchantSecureHash(secureHashKey);
+            payButton.setTransactionReferenceNumber(AppUtils.generateRandomNumber());
+            payButton.setProductionStatus(list_to_URLS[item_position]);
+            payButton.createTransaction(new PayButton.PaymentTransactionCallback() {
+                @Override
+                public void onCardTransactionSuccess(SuccessfulCardTransaction cardTransaction) {
+                    //  paymentStatusTextView.setText(cardTransaction.toString());
+                }
+
+                @Override
+                public void onWalletTransactionSuccess(SuccessfulWalletTransaction walletTransaction) {
+                    //  paymentStatusTextView.setText(walletTransaction.toString());
+                }
+
+                @Override
+                public void onError(TransactionException error) {
+                    //     paymentStatusTextView.setText("failed by:- " + error.errorMessage);
+                }
+            });
         });
         TextView appVersion = findViewById(R.id.app_version_textView);
         appVersion.setText("PaySDK - PayButton module - Ver.  " + AppUtils.getVersionNumber(this));

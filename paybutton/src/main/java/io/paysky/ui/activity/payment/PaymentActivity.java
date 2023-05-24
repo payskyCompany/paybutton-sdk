@@ -75,7 +75,7 @@ public class PaymentActivity extends BaseActivity implements View.OnClickListene
 
 
     public void makeActivityFullScreen() {
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
     }
@@ -101,7 +101,7 @@ public class PaymentActivity extends BaseActivity implements View.OnClickListene
         languageTextView.setOnClickListener(this);
         TextView termsTextView = findViewById(R.id.terms_conditions_textView);
         termsTextView.setOnClickListener(this);
-        termsTextView.setOnClickListener(this);
+        //termsTextView.setOnClickListener(this);
         cardPaymentLayout = findViewById(R.id.card_payment_layout);
         qrPaymentLayout = findViewById(R.id.qr_payment_layout);
         cardPaymentLayout.setOnClickListener(this);
@@ -164,6 +164,7 @@ public class PaymentActivity extends BaseActivity implements View.OnClickListene
 
 
     public void replaceFragmentAndRemoveOldFragment(Class<? extends Fragment> fragmentClass, Bundle bundle) {
+
         replaceFragment(fragmentClass, bundle, false);
     }
 

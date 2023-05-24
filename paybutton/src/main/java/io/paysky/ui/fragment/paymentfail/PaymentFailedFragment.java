@@ -2,6 +2,7 @@ package io.paysky.ui.fragment.paymentfail;
 
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import com.example.paybutton.R;
 import io.paysky.ui.activity.payment.PaymentActivity;
 import io.paysky.ui.base.BaseFragment;
 import io.paysky.util.AppUtils;
+import timber.log.Timber;
 
 
 public class PaymentFailedFragment extends BaseFragment implements View.OnClickListener {
@@ -32,6 +34,8 @@ public class PaymentFailedFragment extends BaseFragment implements View.OnClickL
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
+        Log.d("PaymentFailedFragment", "onCreate: ");
+
         super.onCreate(savedInstanceState);
         activity = (PaymentActivity) getActivity();
         extractBundle();

@@ -11,5 +11,6 @@
     <string name="required">حقل مطلوب</string>
     <string name="secure_hash_key">SecureHash</string>
     <string name="english">English</string>
+    <string name="submit">Submit</string>
 
 </resources>

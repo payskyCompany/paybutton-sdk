@@ -1,5 +1,10 @@
-apply plugin: 'com.android.library'
-apply plugin: 'maven-publish'
+plugins{
+    id 'com.android.library'
+    id 'maven-publish'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-parcelize'
+}
+
 group = 'com.github.paysky'
 
 android {

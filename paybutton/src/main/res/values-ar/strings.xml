@@ -61,4 +61,6 @@
     <string name="cancel">الغاء</string>
     <string name="allow_light_scan">افتح فلاش الكاميرا لتصوير اسرع</string>
     <string name="invalid_ccv_value">رمز غير صحيح</string>
+    <string name="processing">جار المعالجة</string>
+
 </resources>

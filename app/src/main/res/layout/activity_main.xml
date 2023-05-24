@@ -183,7 +183,7 @@
                 android:layout_marginTop="@dimen/_20sdp"
                 android:background="@drawable/button_blue_selector"
                 android:gravity="center"
-                android:text="@string/pay"
+                android:text="@string/submit"
                 android:textColor="#FFF"
                 android:textSize="@dimen/_14ssp" />
 
