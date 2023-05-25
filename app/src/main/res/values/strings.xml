@@ -11,5 +11,9 @@
     <string name="environment_type">Testing URLs</string>
     <string name="secure_hash_key">SecureHash</string>
     <string name="submit">Submit</string>
+    <string name="not_subscribed">Not Subscribed</string>
+    <string name="subscribed">Subscribed</string>
+    <string name="trnx_ref_number">Trnx Ref Number</string>
+    <string name="customer_id">Customer ID</string>
 
 </resources>

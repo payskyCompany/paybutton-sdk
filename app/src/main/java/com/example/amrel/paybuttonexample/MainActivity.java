@@ -1,6 +1,7 @@
 package com.example.amrel.paybuttonexample;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -23,15 +24,21 @@ import io.paysky.util.LocaleHelper;
 public class MainActivity extends AppCompatActivity implements View.OnLongClickListener, View.OnClickListener {
 
     //GUI.
-    private EditText merchantIdEditText, terminalIdEditText, amountEditText, secureHashKeyEditText;
+    private EditText merchantIdEditText, terminalIdEditText, amountEditText,
+            secureHashKeyEditText, transactionRefNumberEditText, customerIdEditText;
     private TextView paymentStatusTextView;
     private TextView languageTextView;
     private EditText currencyEditText;
     private Spinner spinner_type;
 
+    private View notSubscribedLayout, subscribedLayout, notSubscribedLine, subscribedLine, customerIdLayout;
+    private TextView notSubscribedTextView, subscribedTextView;
+    private Boolean isSubscribed = false;
+
     String[] list_to_show = {"PRODUCTION", "TESTING"};
     AllURLsStatus[] list_to_URLS = {AllURLsStatus.PRODUCTION, AllURLsStatus.GREY};
     int item_position = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,7 +73,31 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
         paymentStatusTextView = findViewById(R.id.payment_status_textView);
         currencyEditText = findViewById(R.id.currency_editText);
         secureHashKeyEditText = findViewById(R.id.secureHash_editText);
+        transactionRefNumberEditText = findViewById(R.id.trnx_ref_number_editText);
 
+
+        notSubscribedLayout = findViewById(R.id.not_subscribed_layout);
+        subscribedLayout = findViewById(R.id.subscribed_layout);
+        notSubscribedTextView = findViewById(R.id.not_subscribed_textview);
+        subscribedTextView = findViewById(R.id.subscribed_textview);
+        notSubscribedLine = findViewById(R.id.not_subscribed_line);
+        subscribedLine = findViewById(R.id.subscribed_line);
+
+        customerIdLayout = findViewById(R.id.customer_id_layout);
+
+        notSubscribedLayout.setOnClickListener(view -> {
+            isSubscribed = false;
+            customerIdLayout.setVisibility(View.GONE);
+            setViewAsSelected(notSubscribedTextView, notSubscribedLine);
+            setViewAsNotSelected(subscribedTextView, subscribedLine);
+        });
+
+        subscribedLayout.setOnClickListener(view -> {
+            isSubscribed = true;
+            customerIdLayout.setVisibility(View.VISIBLE);
+            setViewAsSelected(subscribedTextView, subscribedLine);
+            setViewAsNotSelected(notSubscribedTextView, notSubscribedLine);
+        });
 
         merchantIdEditText.setText("41565");
         terminalIdEditText.setText("1583826");
@@ -74,13 +105,13 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
         secureHashKeyEditText.setText("09a90e81140dcb0d686c09f0036ef910");
         spinner_type.setSelection(1);
 
-
         payTextView.setOnClickListener(v -> {
             paymentStatusTextView.setText("");
             String terminalId = terminalIdEditText.getText().toString().trim();
             String merchantId = merchantIdEditText.getText().toString().trim();
             String amount = amountEditText.getText().toString().trim();
             String secureHashKey = secureHashKeyEditText.getText().toString().trim();
+            String transactionRefNumber = transactionRefNumberEditText.getText().toString().trim();
 
             boolean hasErrors = false;
             if (terminalId.isEmpty()) {
@@ -101,6 +132,11 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
                 hasErrors = true;
             }
 
+            if (transactionRefNumber.isEmpty()) {
+                transactionRefNumberEditText.setError(getString(R.string.required));
+                hasErrors = true;
+            }
+
             if (hasErrors) {
                 return;
             }
@@ -110,6 +146,7 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
             payButton.setMerchantId(merchantId); // Merchant id
             payButton.setTerminalId(terminalId); // Terminal  id
             payButton.setAmount(Double.valueOf(amount)); // Amount
+            payButton.setTransactionReferenceNumber(transactionRefNumber);
             String a = currencyEditText.getText().toString();
             if (a.isEmpty()) {
                 payButton.setCurrencyCode(0); // Currency Code
@@ -150,6 +187,18 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
         } else {
             languageTextView.setText(R.string.arabic);
         }
+    }
+
+    private void setViewAsNotSelected(TextView textView, View line) {
+        textView.setTextColor(getResources().getColor(R.color.gray100));
+        textView.setTypeface(null, Typeface.NORMAL);
+        line.setBackgroundColor(getResources().getColor(R.color.gray100));
+    }
+
+    private void setViewAsSelected(TextView textView, View line) {
+        textView.setTextColor(getResources().getColor(R.color.blue100));
+        textView.setTypeface(null, Typeface.BOLD);
+        line.setBackgroundColor(getResources().getColor(R.color.blue100));
     }
 
     @Override
