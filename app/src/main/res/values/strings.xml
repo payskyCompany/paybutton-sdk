@@ -19,5 +19,8 @@
     <string name="mobile_number_hint">Mobile Number</string>
     <string name="mobile_hint" translatable="false">00201xxxxxxxx</string>
     <string name="invalid_email">Invalid email address</string>
+    <string name="paybutton_version_formatted" translatable="false">
+        PaySDK - PayButton module - Ver.  %s
+    </string>
 
 </resources>

@@ -24,14 +24,13 @@ import io.paysky.util.AllURLsStatus;
 import io.paysky.util.AppUtils;
 import io.paysky.util.LocaleHelper;
 
-public class MainActivity extends AppCompatActivity implements View.OnLongClickListener, View.OnClickListener {
+public class MainActivity extends AppCompatActivity
+        implements View.OnLongClickListener, View.OnClickListener {
 
-    //GUI.
-    private EditText merchantIdEditText, terminalIdEditText, amountEditText,
-            secureHashKeyEditText, transactionRefNumberEditText, customerIdEditText,
-            emailTextField, mobileNumberTextField;
+    private EditText merchantIdEditText, terminalIdEditText,
+            amountEditText, secureHashKeyEditText, transactionRefNumberEditText,
+            customerIdEditText, emailTextField, mobileNumberTextField;
     private TextView paymentStatusTextView;
-    private TextView languageTextView;
     private EditText currencyEditText;
     private Spinner spinner_type, authTypeSpinner;
 
@@ -67,7 +66,8 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
         setupSubscribedNotSubscribedView();
 
         TextView appVersion = findViewById(R.id.app_version_textView);
-        appVersion.setText("PaySDK - PayButton module - Ver.  " + AppUtils.getVersionNumber(this));
+        appVersion.setText(getString(R.string.paybutton_version_formatted,
+                AppUtils.getVersionNumber(this)));
 
         ImageView logoImageView = findViewById(R.id.logo_imageView);
         logoImageView.setOnLongClickListener(this);
@@ -76,9 +76,7 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
     }
 
     private void initializeAuthTypeSpinner() {
-        ArrayAdapter<String> authTypeAdapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_dropdown_item_1line,
-                authenticationTypes) {
+        ArrayAdapter<String> authTypeAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, authenticationTypes) {
             @Override
             public boolean isEnabled(int position) {
                 return position != 0;
@@ -86,8 +84,7 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
 
             @Override
             public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-                View view = super.getDropDownView(
-                        position, convertView, parent);
+                View view = super.getDropDownView(position, convertView, parent);
                 TextView textView = (TextView) view;
                 if (position == 0) {
                     // Set the hint text color gray
@@ -101,8 +98,7 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
             @NonNull
             @Override
             public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-                View view = super.getDropDownView(
-                        position, convertView, parent);
+                View view = super.getDropDownView(position, convertView, parent);
                 TextView textView = (TextView) view;
                 if (position == 0) {
                     // Set the hint text color gray
@@ -113,9 +109,7 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
                 return view;
             }
         };
-        authTypeAdapter.setDropDownViewResource(
-                android.R.layout.simple_dropdown_item_1line
-        );
+        authTypeAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         authTypeSpinner.setAdapter(authTypeAdapter);
 
 
@@ -167,55 +161,15 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
             String email = emailTextField.getText().toString().trim();
             String mobileNumber = mobileNumberTextField.getText().toString().trim();
 
-            boolean hasErrors = false;
-            if (terminalId.isEmpty()) {
-                terminalIdEditText.setError(getString(R.string.required));
-                hasErrors = true;
-            }
-            if (merchantId.isEmpty()) {
-                merchantIdEditText.setError(getString(R.string.required));
-                hasErrors = true;
-            }
-            if (amount.isEmpty() || amount.equals("0")) {
-                amountEditText.setError(getString(R.string.required));
-                hasErrors = true;
-            }
-
-            if (secureHashKey.isEmpty()) {
-                secureHashKeyEditText.setError(getString(R.string.required));
-                hasErrors = true;
-            }
-
-            if (transactionRefNumber.isEmpty()) {
-                transactionRefNumberEditText.setError(getString(R.string.required));
-                hasErrors = true;
-            }
-
-            if (isSubscribed) {
-                if (customerId.isEmpty()) {
-                    customerIdEditText.setError(getString(R.string.required));
-                    hasErrors = true;
-                }
-            } else {
-                if (selectedAuthType != -1) {
-                    if (selectedAuthType == MOBILE_INDEX) {
-                        if (mobileNumber.isEmpty()) {
-                            mobileNumberTextField.setError(getString(R.string.required));
-                            hasErrors = true;
-                        }
-                    } else if (selectedAuthType == EMAIL_INDEX) {
-                        if (email.isEmpty()) {
-                            emailTextField.setError(getString(R.string.required));
-                            hasErrors = true;
-                        } else if (android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                            emailTextField.setError(getString(R.string.invalid_email));
-                            hasErrors = true;
-                        }
-                    }
-                } else {
-                    hasErrors = true;
-                }
-            }
+            boolean hasErrors = validateData(
+                    terminalId,
+                    merchantId,
+                    amount,
+                    secureHashKey,
+                    transactionRefNumber,
+                    customerId,
+                    mobileNumber,
+                    email);
 
             if (hasErrors) {
                 return;
@@ -225,7 +179,7 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
             PayButton payButton = new PayButton(MainActivity.this);
             payButton.setMerchantId(merchantId); // Merchant id
             payButton.setTerminalId(terminalId); // Terminal  id
-            payButton.setAmount(Double.valueOf(amount)); // Amount
+            payButton.setAmount(Double.parseDouble(amount)); // Amount
             payButton.setTransactionReferenceNumber(transactionRefNumber);
             //payButton.setTransactionReferenceNumber(AppUtils.generateRandomNumber());
 
@@ -245,7 +199,7 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
             if (a.isEmpty()) {
                 payButton.setCurrencyCode(0); // Currency Code
             } else {
-                payButton.setCurrencyCode(Integer.valueOf(a)); // Currency Code
+                payButton.setCurrencyCode(Integer.parseInt(a)); // Currency Code
             }
 
             payButton.createTransaction(new PayButton.PaymentTransactionCallback() {
@@ -265,6 +219,66 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
                 }
             });
         });
+    }
+
+    private boolean validateData(String terminalId,
+                                 String merchantId,
+                                 String amount,
+                                 String secureHashKey,
+                                 String transactionRefNumber,
+                                 String customerId,
+                                 String mobileNumber,
+                                 String email) {
+        boolean hasErrors = false;
+        if (terminalId.isEmpty()) {
+            terminalIdEditText.setError(getString(R.string.required));
+            hasErrors = true;
+        }
+        if (merchantId.isEmpty()) {
+            merchantIdEditText.setError(getString(R.string.required));
+            hasErrors = true;
+        }
+        if (amount.isEmpty() || amount.equals("0")) {
+            amountEditText.setError(getString(R.string.required));
+            hasErrors = true;
+        }
+
+        if (secureHashKey.isEmpty()) {
+            secureHashKeyEditText.setError(getString(R.string.required));
+            hasErrors = true;
+        }
+
+        if (transactionRefNumber.isEmpty()) {
+            transactionRefNumberEditText.setError(getString(R.string.required));
+            hasErrors = true;
+        }
+
+        if (isSubscribed) {
+            if (customerId.isEmpty()) {
+                customerIdEditText.setError(getString(R.string.required));
+                hasErrors = true;
+            }
+        } else {
+            if (selectedAuthType != -1) {
+                if (selectedAuthType == MOBILE_INDEX) {
+                    if (mobileNumber.isEmpty()) {
+                        mobileNumberTextField.setError(getString(R.string.required));
+                        hasErrors = true;
+                    }
+                } else if (selectedAuthType == EMAIL_INDEX) {
+                    if (email.isEmpty()) {
+                        emailTextField.setError(getString(R.string.required));
+                        hasErrors = true;
+                    } else if (android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                        emailTextField.setError(getString(R.string.invalid_email));
+                        hasErrors = true;
+                    }
+                }
+            } else {
+                hasErrors = true;
+            }
+        }
+        return hasErrors;
     }
 
     private void setupSubscribedNotSubscribedView() {
@@ -294,8 +308,8 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
     }
 
     private void initializePaymentTypesSpinner() {
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, list_to_show);
+        ArrayAdapter<String> dataAdapter =
+                new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, list_to_show);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner_type.setAdapter(dataAdapter);
         spinner_type.setSelection(item_position);
@@ -314,7 +328,7 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
     }
 
     private void setLanguageTextView() {
-        languageTextView = findViewById(R.id.language_textView);
+        TextView languageTextView = findViewById(R.id.language_textView);
         languageTextView.setOnClickListener(this);
         if (LocaleHelper.getLocale().equals("ar")) {
             languageTextView.setText(R.string.english);
