@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 
@@ -45,11 +47,11 @@ public class ManualPaymentFragment extends BaseFragment implements View.OnClickL
     private ImageView scanCardImageView;
     private String ccv;
 
+    private CheckBox saveForLaterCheckBox, setDefaultCheckBox;
 
     private PaymentData paymentData;
 
     static final int MY_SCAN_REQUEST_CODE = 1;
-
 
     public ManualPaymentFragment() {
         // Required empty public constructor
@@ -100,8 +102,26 @@ public class ManualPaymentFragment extends BaseFragment implements View.OnClickL
         }
         scanCardImageView = view.findViewById(R.id.scan_camera_imageView);
         scanCardImageView.setOnClickListener(this);
-    }
 
+        saveForLaterCheckBox = view.findViewById(R.id.save_for_future_checkbox);
+        setDefaultCheckBox = view.findViewById(R.id.set_as_default_checkbox);
+
+        boolean canSaveCard = paymentData.isCard && paymentData.isTokenized;
+        saveForLaterCheckBox.setVisibility(canSaveCard ? View.VISIBLE : View.GONE);
+        setDefaultCheckBox.setVisibility(canSaveCard ? View.VISIBLE : View.GONE);
+
+        saveForLaterCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (!b) {
+                    setDefaultCheckBox.setChecked(false);
+                    setDefaultCheckBox.setEnabled(false);
+                } else {
+                    setDefaultCheckBox.setEnabled(true);
+                }
+            }
+        });
+    }
 
     @Override
     public void onClick(View view) {
@@ -130,7 +150,14 @@ public class ManualPaymentFragment extends BaseFragment implements View.OnClickL
 
         //move to processing screen with data
         CardPaymentParameters cardPaymentParameters =
-                new CardPaymentParameters(cardNumber, cardOwnerName, expireDate, ccv);
+                new CardPaymentParameters(
+                        cardNumber,
+                        cardOwnerName,
+                        expireDate,
+                        ccv,
+                        saveForLaterCheckBox.isChecked(),
+                        setDefaultCheckBox.isChecked()
+                );
         Bundle bundle = new Bundle();
         bundle.putParcelable(AppConstant.BundleKeys.PAYMENT_DATA, paymentData);
         bundle.putParcelable(AppConstant.BundleKeys.CARD_DATA, cardPaymentParameters);

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -11,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import io.paysky.data.model.SuccessfulCardTransaction;
@@ -25,37 +28,112 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
 
     //GUI.
     private EditText merchantIdEditText, terminalIdEditText, amountEditText,
-            secureHashKeyEditText, transactionRefNumberEditText, customerIdEditText;
+            secureHashKeyEditText, transactionRefNumberEditText, customerIdEditText,
+            emailTextField, mobileNumberTextField;
     private TextView paymentStatusTextView;
     private TextView languageTextView;
     private EditText currencyEditText;
-    private Spinner spinner_type;
+    private Spinner spinner_type, authTypeSpinner;
 
-    private View notSubscribedLayout, subscribedLayout, notSubscribedLine, subscribedLine, customerIdLayout;
+    private View notSubscribedLayout, subscribedLayout, emailLayout, mobileNumberLayout;
+    private View notSubscribedLine, subscribedLine, customerIdLayout;
     private TextView notSubscribedTextView, subscribedTextView;
     private Boolean isSubscribed = false;
 
-    String[] list_to_show = {"PRODUCTION", "TESTING"};
-    AllURLsStatus[] list_to_URLS = {AllURLsStatus.PRODUCTION, AllURLsStatus.GREY};
-    int item_position = 0;
+    private final String[] list_to_show = {"PRODUCTION", "TESTING"};
+    private String[] authenticationTypes;
+    private final AllURLsStatus[] list_to_URLS = {AllURLsStatus.PRODUCTION, AllURLsStatus.GREY};
+    private int item_position = 0;
+
+    private int selectedAuthType = -1;
+    private final int MOBILE_INDEX = 1, EMAIL_INDEX = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        authenticationTypes = new String[]{"Select channel (Mobile number or Email)",
+                getString(R.string.mobile_number_hint), getString(R.string.email_address)};
+
+        linkViewsWithIds();
+
+        initializePaymentTypesSpinner();
+        initializeAuthTypeSpinner();
+
+        //todo comment before create a version
+        setDefaultData();
+
+        setupPayButton();
+        setupSubscribedNotSubscribedView();
+
+        TextView appVersion = findViewById(R.id.app_version_textView);
+        appVersion.setText("PaySDK - PayButton module - Ver.  " + AppUtils.getVersionNumber(this));
+
+        ImageView logoImageView = findViewById(R.id.logo_imageView);
+        logoImageView.setOnLongClickListener(this);
+
+        setLanguageTextView();
+    }
+
+    private void initializeAuthTypeSpinner() {
+        ArrayAdapter<String> authTypeAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_dropdown_item_1line,
+                authenticationTypes) {
+            @Override
+            public boolean isEnabled(int position) {
+                return position != 0;
+            }
+
+            @Override
+            public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+                View view = super.getDropDownView(
+                        position, convertView, parent);
+                TextView textView = (TextView) view;
+                if (position == 0) {
+                    // Set the hint text color gray
+                    textView.setTextColor(getResources().getColor(R.color.gray200));
+                } else {
+                    textView.setTextColor(getResources().getColor(R.color.gray900));
+                }
+                return view;
+            }
+
+            @NonNull
+            @Override
+            public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+                View view = super.getDropDownView(
+                        position, convertView, parent);
+                TextView textView = (TextView) view;
+                if (position == 0) {
+                    // Set the hint text color gray
+                    textView.setTextColor(getResources().getColor(R.color.gray200));
+                } else {
+                    textView.setTextColor(getResources().getColor(R.color.gray900));
+                }
+                return view;
+            }
+        };
+        authTypeAdapter.setDropDownViewResource(
+                android.R.layout.simple_dropdown_item_1line
+        );
+        authTypeSpinner.setAdapter(authTypeAdapter);
 
 
-        spinner_type = findViewById(R.id.spinner_type);
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, list_to_show);
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner_type.setAdapter(dataAdapter);
-        spinner_type.setSelection(item_position);
-
-        spinner_type.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        authTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                item_position = i;
+                if (i > 0) {
+                    selectedAuthType = i;
+                    if (i == MOBILE_INDEX) {
+                        hideAndClearEmail();
+                        mobileNumberLayout.setVisibility(View.VISIBLE);
+                    } else if (i == EMAIL_INDEX) {
+                        hideAndClearPhone();
+                        emailLayout.setVisibility(View.VISIBLE);
+                    }
+                } else {
+                    hideAndClearPhoneAndEmail();
+                }
             }
 
             @Override
@@ -64,47 +142,20 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
             }
         });
 
+    }
 
-        // find views.
+    private void hideAndClearPhone() {
+        mobileNumberLayout.setVisibility(View.GONE);
+        mobileNumberTextField.setText("");
+    }
+
+    private void hideAndClearEmail() {
+        emailLayout.setVisibility(View.GONE);
+        emailTextField.setText("");
+    }
+
+    private void setupPayButton() {
         TextView payTextView = (TextView) findViewById(R.id.pay_textView);
-        merchantIdEditText = findViewById(R.id.merchant_id_editText);
-        terminalIdEditText = findViewById(R.id.terminal_id_editText);
-        amountEditText = findViewById(R.id.amount_editText);
-        paymentStatusTextView = findViewById(R.id.payment_status_textView);
-        currencyEditText = findViewById(R.id.currency_editText);
-        secureHashKeyEditText = findViewById(R.id.secureHash_editText);
-        transactionRefNumberEditText = findViewById(R.id.trnx_ref_number_editText);
-
-
-        notSubscribedLayout = findViewById(R.id.not_subscribed_layout);
-        subscribedLayout = findViewById(R.id.subscribed_layout);
-        notSubscribedTextView = findViewById(R.id.not_subscribed_textview);
-        subscribedTextView = findViewById(R.id.subscribed_textview);
-        notSubscribedLine = findViewById(R.id.not_subscribed_line);
-        subscribedLine = findViewById(R.id.subscribed_line);
-
-        customerIdLayout = findViewById(R.id.customer_id_layout);
-
-        notSubscribedLayout.setOnClickListener(view -> {
-            isSubscribed = false;
-            customerIdLayout.setVisibility(View.GONE);
-            setViewAsSelected(notSubscribedTextView, notSubscribedLine);
-            setViewAsNotSelected(subscribedTextView, subscribedLine);
-        });
-
-        subscribedLayout.setOnClickListener(view -> {
-            isSubscribed = true;
-            customerIdLayout.setVisibility(View.VISIBLE);
-            setViewAsSelected(subscribedTextView, subscribedLine);
-            setViewAsNotSelected(notSubscribedTextView, notSubscribedLine);
-        });
-
-        merchantIdEditText.setText("41565");
-        terminalIdEditText.setText("1583826");
-        currencyEditText.setText("818");
-        secureHashKeyEditText.setText("09a90e81140dcb0d686c09f0036ef910");
-        spinner_type.setSelection(1);
-
         payTextView.setOnClickListener(v -> {
             paymentStatusTextView.setText("");
             String terminalId = terminalIdEditText.getText().toString().trim();
@@ -112,6 +163,9 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
             String amount = amountEditText.getText().toString().trim();
             String secureHashKey = secureHashKeyEditText.getText().toString().trim();
             String transactionRefNumber = transactionRefNumberEditText.getText().toString().trim();
+            String customerId = customerIdEditText.getText().toString().trim();
+            String email = emailTextField.getText().toString().trim();
+            String mobileNumber = mobileNumberTextField.getText().toString().trim();
 
             boolean hasErrors = false;
             if (terminalId.isEmpty()) {
@@ -137,6 +191,32 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
                 hasErrors = true;
             }
 
+            if (isSubscribed) {
+                if (customerId.isEmpty()) {
+                    customerIdEditText.setError(getString(R.string.required));
+                    hasErrors = true;
+                }
+            } else {
+                if (selectedAuthType != -1) {
+                    if (selectedAuthType == MOBILE_INDEX) {
+                        if (mobileNumber.isEmpty()) {
+                            mobileNumberTextField.setError(getString(R.string.required));
+                            hasErrors = true;
+                        }
+                    } else if (selectedAuthType == EMAIL_INDEX) {
+                        if (email.isEmpty()) {
+                            emailTextField.setError(getString(R.string.required));
+                            hasErrors = true;
+                        } else if (android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                            emailTextField.setError(getString(R.string.invalid_email));
+                            hasErrors = true;
+                        }
+                    }
+                } else {
+                    hasErrors = true;
+                }
+            }
+
             if (hasErrors) {
                 return;
             }
@@ -147,15 +227,27 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
             payButton.setTerminalId(terminalId); // Terminal  id
             payButton.setAmount(Double.valueOf(amount)); // Amount
             payButton.setTransactionReferenceNumber(transactionRefNumber);
+            //payButton.setTransactionReferenceNumber(AppUtils.generateRandomNumber());
+
+            payButton.setMerchantSecureHash(secureHashKey);
+            payButton.setProductionStatus(list_to_URLS[item_position]);
+            if (isSubscribed) {
+                payButton.setCustomerId(customerId);
+            } else {
+                if (selectedAuthType == MOBILE_INDEX) {
+                    payButton.setCustomerMobile(mobileNumber);
+                } else if (selectedAuthType == EMAIL_INDEX) {
+                    payButton.setCustomerEmail(email);
+                }
+            }
+
             String a = currencyEditText.getText().toString();
             if (a.isEmpty()) {
                 payButton.setCurrencyCode(0); // Currency Code
             } else {
                 payButton.setCurrencyCode(Integer.valueOf(a)); // Currency Code
             }
-            payButton.setMerchantSecureHash(secureHashKey);
-            payButton.setTransactionReferenceNumber(AppUtils.generateRandomNumber());
-            payButton.setProductionStatus(list_to_URLS[item_position]);
+
             payButton.createTransaction(new PayButton.PaymentTransactionCallback() {
                 @Override
                 public void onCardTransactionSuccess(SuccessfulCardTransaction cardTransaction) {
@@ -173,10 +265,55 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
                 }
             });
         });
-        TextView appVersion = findViewById(R.id.app_version_textView);
-        appVersion.setText("PaySDK - PayButton module - Ver.  " + AppUtils.getVersionNumber(this));
-        ImageView logoImageView = findViewById(R.id.logo_imageView);
-        logoImageView.setOnLongClickListener(this);
+    }
+
+    private void setupSubscribedNotSubscribedView() {
+        notSubscribedLayout.setOnClickListener(view -> {
+            isSubscribed = false;
+            //hide customer data
+            hideAndClearCustomerId();
+
+            //show not subscribed fields
+            showNotSubscribedFields();
+
+            setViewAsSelected(notSubscribedTextView, notSubscribedLine);
+            setViewAsNotSelected(subscribedTextView, subscribedLine);
+        });
+
+        subscribedLayout.setOnClickListener(view -> {
+            isSubscribed = true;
+            //hide not subscribed items
+            hideAndClearNotSubscribedData();
+
+            //show customer id
+            customerIdLayout.setVisibility(View.VISIBLE);
+
+            setViewAsSelected(subscribedTextView, subscribedLine);
+            setViewAsNotSelected(notSubscribedTextView, notSubscribedLine);
+        });
+    }
+
+    private void initializePaymentTypesSpinner() {
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, list_to_show);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner_type.setAdapter(dataAdapter);
+        spinner_type.setSelection(item_position);
+
+        spinner_type.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                item_position = i;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+    }
+
+    private void setLanguageTextView() {
         languageTextView = findViewById(R.id.language_textView);
         languageTextView.setOnClickListener(this);
         if (LocaleHelper.getLocale().equals("ar")) {
@@ -187,6 +324,65 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
         } else {
             languageTextView.setText(R.string.arabic);
         }
+    }
+
+    private void setDefaultData() {
+        merchantIdEditText.setText("41565");
+        terminalIdEditText.setText("1583826");
+        currencyEditText.setText("818");
+        secureHashKeyEditText.setText("09a90e81140dcb0d686c09f0036ef910");
+        spinner_type.setSelection(1);
+    }
+
+    private void linkViewsWithIds() {
+        merchantIdEditText = findViewById(R.id.merchant_id_editText);
+        terminalIdEditText = findViewById(R.id.terminal_id_editText);
+        amountEditText = findViewById(R.id.amount_editText);
+        paymentStatusTextView = findViewById(R.id.payment_status_textView);
+        currencyEditText = findViewById(R.id.currency_editText);
+        secureHashKeyEditText = findViewById(R.id.secureHash_editText);
+        transactionRefNumberEditText = findViewById(R.id.trnx_ref_number_editText);
+        customerIdEditText = findViewById(R.id.customer_id_editText);
+        emailTextField = findViewById(R.id.email_editText);
+        mobileNumberTextField = findViewById(R.id.phone_number_editText);
+
+        notSubscribedLayout = findViewById(R.id.not_subscribed_layout);
+        subscribedLayout = findViewById(R.id.subscribed_layout);
+        notSubscribedTextView = findViewById(R.id.not_subscribed_textview);
+        subscribedTextView = findViewById(R.id.subscribed_textview);
+        notSubscribedLine = findViewById(R.id.not_subscribed_line);
+        subscribedLine = findViewById(R.id.subscribed_line);
+
+        customerIdLayout = findViewById(R.id.customer_id_layout);
+        emailLayout = findViewById(R.id.email_layout);
+        mobileNumberLayout = findViewById(R.id.mobile_number_layout);
+
+        spinner_type = findViewById(R.id.spinner_type);
+        authTypeSpinner = findViewById(R.id.auth_type_spinner);
+    }
+
+    private void showNotSubscribedFields() {
+        authTypeSpinner.setVisibility(View.VISIBLE);
+        emailLayout.setVisibility(View.VISIBLE);
+        mobileNumberLayout.setVisibility(View.VISIBLE);
+    }
+
+    private void hideAndClearCustomerId() {
+        customerIdLayout.setVisibility(View.GONE);
+        customerIdEditText.setText("");
+    }
+
+    private void hideAndClearNotSubscribedData() {
+        authTypeSpinner.setSelection(0);
+        authTypeSpinner.setVisibility(View.GONE);
+
+        hideAndClearPhoneAndEmail();
+    }
+
+    private void hideAndClearPhoneAndEmail() {
+        hideAndClearEmail();
+
+        hideAndClearPhone();
     }
 
     private void setViewAsNotSelected(TextView textView, View line) {

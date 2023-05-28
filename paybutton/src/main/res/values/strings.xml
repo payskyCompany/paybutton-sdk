@@ -70,4 +70,6 @@
     <string name="allow_light_scan">Open camera flash light to scan quickly.</string>
     <string name="invalid_ccv_value">Invalid CVC</string>
     <string name="processing">Processing</string>
+    <string name="save_for_future_use">Save for future use</string>
+    <string name="set_as_default">Set as default</string>
 </resources>

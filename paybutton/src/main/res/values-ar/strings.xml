@@ -62,5 +62,7 @@
     <string name="allow_light_scan">افتح فلاش الكاميرا لتصوير اسرع</string>
     <string name="invalid_ccv_value">رمز غير صحيح</string>
     <string name="processing">جار المعالجة</string>
+    <string name="save_for_future_use">Save for future use</string>
+    <string name="set_as_default">Set as default</string>
 
 </resources>
