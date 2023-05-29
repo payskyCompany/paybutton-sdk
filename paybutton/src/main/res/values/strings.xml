@@ -72,4 +72,6 @@
     <string name="processing">Processing</string>
     <string name="save_for_future_use">Save for future use</string>
     <string name="set_as_default">Set as default</string>
+    <string name="add_new_card">Add New Card</string>
+    <string name="back">Back</string>
 </resources>

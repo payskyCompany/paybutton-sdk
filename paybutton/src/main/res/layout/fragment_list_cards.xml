@@ -3,19 +3,44 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingStart="@dimen/_16sdp"
+    android:paddingTop="@dimen/_16sdp"
+    android:paddingEnd="@dimen/_16sdp"
     tools:context="io.paysky.ui.fragment.listcards.ListCardsFragment">
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/cards_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/add_new_card_button"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_34sdp"
+        android:layout_below="@+id/cards_list"
+        android:layout_marginTop="@dimen/_16sdp"
+        android:background="@drawable/paybutton_blue_border"
+        android:text="@string/add_new_card"
+        android:textColor="@color/blue100" />
 
     <Button
         android:id="@+id/proceed_button"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_34sdp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginTop="@dimen/_12sdp"
+        android:layout_above="@id/back_button"
         android:background="@drawable/button_blue_selector"
         android:text="@string/proceed"
         android:textColor="@android:color/white" />
+
+    <Button
+        android:id="@+id/back_button"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_34sdp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:background="@drawable/paybutton_black_border"
+        android:text="@string/back"
+        android:textColor="@android:color/black" />
+
 </RelativeLayout>

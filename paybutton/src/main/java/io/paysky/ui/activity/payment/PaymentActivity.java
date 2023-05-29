@@ -17,6 +17,7 @@ import com.example.paybutton.R;
 
 import io.paysky.data.model.PaymentData;
 import io.paysky.ui.base.BaseActivity;
+import io.paysky.ui.fragment.listcards.ListCardsFragment;
 import io.paysky.ui.fragment.manualpayment.ManualPaymentFragment;
 import io.paysky.ui.fragment.qr.QrCodePaymentFragment;
 import io.paysky.util.AllURLsStatus;
@@ -141,8 +142,7 @@ public class PaymentActivity extends BaseActivity implements View.OnClickListene
 
     public void showCardPaymentFragment(Bundle bundle) {
         if (paymentData.customerId != null) {
-            //todo move to list cards
-            //replaceFragmentAndRemoveOldFragment(ListCardsFragment.class, bundle);
+            replaceFragmentAndRemoveOldFragment(ListCardsFragment.class, bundle);
         } else {
             replaceFragmentAndRemoveOldFragment(ManualPaymentFragment.class, bundle);
         }

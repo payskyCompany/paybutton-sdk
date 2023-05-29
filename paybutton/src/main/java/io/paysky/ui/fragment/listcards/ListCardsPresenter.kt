@@ -17,7 +17,7 @@ class ListCardsPresenter(
     view: ListCardsView
 
 ) : BasePresenter<ListCardsView>() {
-    private val paymentData: PaymentData?
+    val paymentData: PaymentData?
 
     init {
         paymentData = arguments?.parcelable(AppConstant.BundleKeys.PAYMENT_DATA)
