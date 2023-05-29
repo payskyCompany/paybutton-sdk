@@ -38,15 +38,21 @@ class PaymentProcessingPresenter(
         paymentData?.let { payment ->
             cardPayment?.let { cardData ->
                 executeManualPayment(
-                    payment.secureHashKey,
-                    payment.currencyCode,
-                    payment.amountFormatted,
-                    payment.merchantId,
-                    payment.terminalId,
-                    cardData.cvv,
-                    cardData.expireDate,
-                    cardData.cardOwnerName,
-                    cardData.cardNumber
+                    secureHash = payment.secureHashKey,
+                    currencyCode = payment.currencyCode,
+                    payAmount = payment.amountFormatted,
+                    merchantId = payment.merchantId,
+                    terminalId = payment.terminalId,
+                    ccv = cardData.cvv,
+                    expiryDate = cardData.expireDate,
+                    cardHolder = cardData.cardOwnerName,
+                    cardNumber = cardData.cardNumber,
+                    isSaveCard = cardData.isSaveCard,
+                    isDefault = cardData.isDefault,
+                    mobileNumber = payment.customerMobile,
+                    email = payment.customerEmail,
+                    customerId = payment.customerId,
+                    customerSessionId = payment.customerSession
                 )
             } ?: {
                 Log.d("Make Payment", "makePayment: card payment null")
@@ -66,7 +72,13 @@ class PaymentProcessingPresenter(
         ccv: String,
         expiryDate: String,
         cardHolder: String,
-        cardNumber: String
+        cardNumber: String,
+        isSaveCard: Boolean,
+        isDefault: Boolean,
+        mobileNumber: String?,
+        email: String?,
+        customerId: String?,
+        customerSessionId: String?
     ) {
         // check internet.
         if (!view.isInternetAvailable) {
@@ -90,6 +102,14 @@ class PaymentProcessingPresenter(
         paymentRequest.dateTimeLocalTrxn = AppUtils.getDateTimeLocalTrxn()
         paymentRequest.merchantId = merchantId
         paymentRequest.terminalId = terminalId
+
+        paymentRequest.isSaveCard = isSaveCard
+        paymentRequest.isDefaultCard = isDefault
+        paymentRequest.mobileNo = mobileNumber
+        paymentRequest.email = email
+        paymentRequest.tokenCustomerId = customerId
+        paymentRequest.tokenCustomerSession = customerSessionId
+
         paymentRequest.returnURL = ApiLinks.PAYMENT_LINK
         // create secure hash.
         paymentRequest.secureHash = HashGenerator.encode(
@@ -159,6 +179,7 @@ class PaymentProcessingPresenter(
                 override fun onFail(error: Throwable) {
                     // payment failed.
                     if (isViewDetached) return
+                    view.dismissProgress()
                     //view.dismissProgress()
                     val transactionException = TransactionException()
                     transactionException.errorMessage = error.message

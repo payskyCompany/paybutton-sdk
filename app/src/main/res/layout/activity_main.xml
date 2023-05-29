@@ -116,7 +116,7 @@
                     android:id="@+id/phone_number_editText"
                     android:layout_width="0dp"
                     android:hint="@string/mobile_hint"
-                    android:maxEms="20"
+                    android:maxLength="20"
                     android:layout_height="wrap_content"
                     android:layout_weight="7"
                     android:inputType="phone" />
@@ -341,6 +341,7 @@
                 android:background="@drawable/button_blue_selector"
                 android:gravity="center"
                 android:text="@string/submit"
+                android:enabled="false"
                 android:textColor="#FFF"
                 android:textSize="@dimen/_14ssp" />
 

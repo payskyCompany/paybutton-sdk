@@ -1,6 +1,5 @@
 package io.paysky.ui.fragment.qr;
 
-
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
@@ -28,8 +27,6 @@ import io.paysky.util.AppConstant;
 import io.paysky.util.AppUtils;
 import io.paysky.util.ToastUtils;
 import io.paysky.util.TransactionManager;
-import timber.log.Timber;
-
 
 public class QrCodePaymentFragment extends BaseFragment implements QrView, View.OnClickListener {
 
@@ -55,7 +52,6 @@ public class QrCodePaymentFragment extends BaseFragment implements QrView, View.
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-        Timber.tag("QrCodePaymentFragment").d("onCreate: ");
         super.onCreate(savedInstanceState);
         activity = (PaymentActivity) getActivity();
         presenter = new QrPresenter(getArguments());
@@ -187,7 +183,7 @@ public class QrCodePaymentFragment extends BaseFragment implements QrView, View.
 
     @Override
     public void showInfoToast(String message) {
-        ToastUtils.showLongToast(activity , message);
+        ToastUtils.showLongToast(activity, message);
     }
 
     @Override
@@ -202,8 +198,8 @@ public class QrCodePaymentFragment extends BaseFragment implements QrView, View.
 
     @Override
     public void disableR2pViews() {
-         mobileNumberEditText.setEnabled(false);
-         requestPaymentButton.setEnabled(false);
+        mobileNumberEditText.setEnabled(false);
+        requestPaymentButton.setEnabled(false);
         sendOtpButton.setEnabled(false);
     }
 

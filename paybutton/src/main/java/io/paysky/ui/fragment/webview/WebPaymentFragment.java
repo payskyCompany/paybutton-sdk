@@ -1,13 +1,11 @@
 package io.paysky.ui.fragment.webview;
 
-
 import android.annotation.TargetApi;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,7 +58,6 @@ public class WebPaymentFragment extends BaseFragment implements WebPaymentView {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-        Log.d("WebPaymentFragment", "onCreate: ");
         super.onCreate(savedInstanceState);
 
         presenter = new WebPaymentPresenter();

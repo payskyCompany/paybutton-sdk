@@ -53,7 +53,7 @@
             android:layout_height="@dimen/_34sdp"
             android:layout_marginStart="@dimen/_4sdp"
             android:layout_weight="1"
-            android:background="@drawable/baybutton_proceed_button"
+            android:background="@drawable/paybutton_green_button"
             android:text="@string/try_again" />
     </LinearLayout>
 

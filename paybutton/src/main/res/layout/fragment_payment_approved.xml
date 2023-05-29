@@ -5,7 +5,7 @@
 
     <include
         layout="@layout/print_receipt_layout"
-        android:layout_width="384px"
+        android:layout_width="@dimen/_384sdp"
         android:layout_height="wrap_content"
         android:visibility="invisible" />
 
@@ -75,7 +75,7 @@
             android:layout_marginLeft="@dimen/_10sdp"
             android:layout_marginRight="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_4sdp"
-            android:background="@drawable/baybutton_proceed_button"
+            android:background="@drawable/paybutton_green_button"
             android:text="@string/print" />
 
         <LinearLayout

@@ -1,8 +1,5 @@
 package io.paysky.data.network;
 
-import android.util.Log;
-
-import com.example.paybutton.BuildConfig;
 import com.ihsanbal.logging.Level;
 import com.ihsanbal.logging.LoggingInterceptor;
 
@@ -13,6 +10,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import io.paysky.data.model.request.CheckTransactionStatusRequest;
+import io.paysky.data.model.request.GetSessionRequest;
 import io.paysky.data.model.request.ManualPaymentRequest;
 import io.paysky.data.model.request.MerchantInfoRequest;
 import io.paysky.data.model.request.QrGeneratorRequest;
@@ -22,6 +20,7 @@ import io.paysky.data.model.request.TransactionStatusRequest;
 import io.paysky.data.model.response.CheckTransactionStatusResponse;
 import io.paysky.data.model.response.DateTransactionsItem;
 import io.paysky.data.model.response.GenerateQrCodeResponse;
+import io.paysky.data.model.response.GetSessionResponse;
 import io.paysky.data.model.response.ManualPaymentResponse;
 import io.paysky.data.model.response.MerchantInfoResponse;
 import io.paysky.data.model.response.RequestToPayResponse;
@@ -30,7 +29,6 @@ import io.paysky.data.model.response.TransactionStatusResponse;
 import io.paysky.data.model.response.TransactionsItem;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -66,11 +64,14 @@ public class ApiConnection {
                 .build()
                 .create(ApiInterface.class);
     }
-    public static void executePayment(ManualPaymentRequest manualPaymentRequest, final ApiResponseListener<ManualPaymentResponse> listener) {
+
+    public static void executePayment(ManualPaymentRequest manualPaymentRequest,
+                                      final ApiResponseListener<ManualPaymentResponse> listener) {
         createConnection().executeManualPayment(manualPaymentRequest)
                 .enqueue(new Callback<ManualPaymentResponse>() {
                     @Override
-                    public void onResponse(Call<ManualPaymentResponse> call, Response<ManualPaymentResponse> response) {
+                    public void onResponse(Call<ManualPaymentResponse> call,
+                                           Response<ManualPaymentResponse> response) {
                         if (response.isSuccessful()) {
                             listener.onSuccess(response.body());
                         } else {
@@ -85,11 +86,13 @@ public class ApiConnection {
                 });
     }
 
-    public static void sendReceiptByMail(SendReceiptByMailRequest mailRequest, final ApiResponseListener<SendReceiptByMailResponse> listener) {
+    public static void sendReceiptByMail(SendReceiptByMailRequest mailRequest,
+                                         final ApiResponseListener<SendReceiptByMailResponse> listener) {
         createConnection().sendReceiptByMail(mailRequest)
                 .enqueue(new Callback<SendReceiptByMailResponse>() {
                     @Override
-                    public void onResponse(Call<SendReceiptByMailResponse> call, Response<SendReceiptByMailResponse> response) {
+                    public void onResponse(Call<SendReceiptByMailResponse> call,
+                                           Response<SendReceiptByMailResponse> response) {
                         if (response.isSuccessful()) {
                             listener.onSuccess(response.body());
                         } else {
@@ -104,11 +107,13 @@ public class ApiConnection {
                 });
     }
 
-    public static void generateQrCode(QrGeneratorRequest request, final ApiResponseListener<GenerateQrCodeResponse> listener) {
+    public static void generateQrCode(QrGeneratorRequest request,
+                                      final ApiResponseListener<GenerateQrCodeResponse> listener) {
         createConnection().generateQrCode(request)
                 .enqueue(new Callback<GenerateQrCodeResponse>() {
                     @Override
-                    public void onResponse(Call<GenerateQrCodeResponse> call, Response<GenerateQrCodeResponse> response) {
+                    public void onResponse(Call<GenerateQrCodeResponse> call,
+                                           Response<GenerateQrCodeResponse> response) {
                         if (response.isSuccessful()) {
                             listener.onSuccess(response.body());
                         } else {
@@ -123,11 +128,13 @@ public class ApiConnection {
                 });
     }
 
-    public static void checkTransactionPaymentStatus(TransactionStatusRequest request, final ApiResponseListener<TransactionStatusResponse> listener) {
+    public static void checkTransactionPaymentStatus(TransactionStatusRequest request,
+                                                     final ApiResponseListener<TransactionStatusResponse> listener) {
         createConnection().checkTransactionStatus(request)
                 .enqueue(new Callback<TransactionStatusResponse>() {
                     @Override
-                    public void onResponse(Call<TransactionStatusResponse> call, Response<TransactionStatusResponse> response) {
+                    public void onResponse(Call<TransactionStatusResponse> call,
+                                           Response<TransactionStatusResponse> response) {
                         if (response.isSuccessful()) {
                             listener.onSuccess(response.body());
                         } else {
@@ -143,7 +150,8 @@ public class ApiConnection {
     }
 
 
-    public static void requestToPay(RequestToPayRequest requestToPayRequest, final ApiResponseListener<RequestToPayResponse> listener) {
+    public static void requestToPay(RequestToPayRequest requestToPayRequest,
+                                    final ApiResponseListener<RequestToPayResponse> listener) {
         createConnection().requestToPay(requestToPayRequest)
                 .enqueue(new Callback<RequestToPayResponse>() {
                     @Override
@@ -159,8 +167,8 @@ public class ApiConnection {
     }
 
 
-
-    public static void getMerchantInfo(MerchantInfoRequest request, final ApiResponseListener<MerchantInfoResponse> listener) {
+    public static void getMerchantInfo(MerchantInfoRequest request,
+                                       final ApiResponseListener<MerchantInfoResponse> listener) {
         createConnection().getMerchantInfo(request)
                 .enqueue(new Callback<MerchantInfoResponse>() {
                     @Override
@@ -173,6 +181,26 @@ public class ApiConnection {
                         listener.onFail(t);
                     }
                 });
+    }
+
+    public static void getSession(GetSessionRequest getSessionRequest,
+                                  final ApiResponseListener<GetSessionResponse> listener) {
+        createConnection().getSession(getSessionRequest)
+                .enqueue(new Callback<GetSessionResponse>() {
+                             @Override
+                             public void onResponse(Call<GetSessionResponse> call,
+                                                    Response<GetSessionResponse> response) {
+                                 if (response.isSuccessful()) {
+                                     listener.onSuccess(response.body());
+                                 }
+                             }
+
+                             @Override
+                             public void onFailure(Call<GetSessionResponse> call, Throwable t) {
+                                 listener.onFail(t);
+                             }
+                         }
+                );
     }
 
 //    public static void compose3dsTransaction(Compose3dsTransactionRequest request, final ApiResponseListener<Compose3dsTransactionResponse> listener) {

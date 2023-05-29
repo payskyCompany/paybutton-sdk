@@ -53,7 +53,7 @@ public class PaymentActivity extends BaseActivity implements View.OnClickListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         PrefsUtils.initialize(this);
-        LocaleHelper.setLocale(this , LocaleHelper.getLocale());
+        LocaleHelper.setLocale(this, LocaleHelper.getLocale());
         makeActivityFullScreen();
         AppUtils.preventScreenshot(this);
         setContentView(R.layout.activity_pay);
@@ -140,7 +140,12 @@ public class PaymentActivity extends BaseActivity implements View.OnClickListene
 
 
     public void showCardPaymentFragment(Bundle bundle) {
-        replaceFragmentAndRemoveOldFragment(ManualPaymentFragment.class, bundle);
+        if (paymentData.customerId != null) {
+            //todo move to list cards
+            //replaceFragmentAndRemoveOldFragment(ListCardsFragment.class, bundle);
+        } else {
+            replaceFragmentAndRemoveOldFragment(ManualPaymentFragment.class, bundle);
+        }
     }
 
 

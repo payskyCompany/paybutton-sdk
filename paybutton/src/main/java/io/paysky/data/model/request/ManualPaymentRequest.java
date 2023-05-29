@@ -6,10 +6,6 @@ import javax.annotation.Generated;
 
 @Generated("com.robohorse.robopojogenerator")
 public class ManualPaymentRequest  extends BaseRequest{
-
-    @SerializedName("MobileNo")
-    public String mobileNo;
-
     @SerializedName("cvv2")
     public String cvv2;
 
@@ -80,6 +76,7 @@ public class ManualPaymentRequest  extends BaseRequest{
 
     @SerializedName("ThreeDSXID")
     public String threeDSXID;
+
     @SerializedName("MerchantReference")
     public String MerchantReference;
 
@@ -89,4 +86,27 @@ public class ManualPaymentRequest  extends BaseRequest{
     @SerializedName("ThreeDSECI")
     public String threeDSECI;
 
+    @SerializedName("IsSaveCard")
+    public boolean isSaveCard;
+
+    @SerializedName("IsDefaultCard")
+    public boolean isDefaultCard;
+
+    @SerializedName("TokenCustomerId")
+    public String tokenCustomerId;
+
+    @SerializedName("TokenCustomerSession")
+    public String tokenCustomerSession;
+
+    @SerializedName("TokenCardId")
+    public String tokenCardId;
+
+    @SerializedName("MobileNo")
+    public String mobileNo;
+
+    @SerializedName("email")
+    public String email;
+
+    @SerializedName("CardHolderName")
+    public String cardHolderName;
 }

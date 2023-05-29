@@ -1,6 +1,5 @@
 package io.paysky.ui.fragment.manualpayment;
 
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -33,7 +32,6 @@ import io.paysky.util.AppUtils;
 import io.paysky.util.CardsValidation;
 import io.paysky.util.LocaleHelper;
 import io.paysky.util.ToastUtils;
-
 
 public class ManualPaymentFragment extends BaseFragment implements View.OnClickListener {
     //GUI.
@@ -146,8 +144,6 @@ public class ManualPaymentFragment extends BaseFragment implements View.OnClickL
 
         AppUtils.hideKeyboard(proceedButton);
 
-        //presenter.makePayment(cardNumber, expireDate, cardOwnerName, ccv);
-
         //move to processing screen with data
         CardPaymentParameters cardPaymentParameters =
                 new CardPaymentParameters(
@@ -158,6 +154,7 @@ public class ManualPaymentFragment extends BaseFragment implements View.OnClickL
                         saveForLaterCheckBox.isChecked(),
                         setDefaultCheckBox.isChecked()
                 );
+
         Bundle bundle = new Bundle();
         bundle.putParcelable(AppConstant.BundleKeys.PAYMENT_DATA, paymentData);
         bundle.putParcelable(AppConstant.BundleKeys.CARD_DATA, cardPaymentParameters);
@@ -211,8 +208,8 @@ public class ManualPaymentFragment extends BaseFragment implements View.OnClickL
             String date = sdf.format(new Date());
             String month = date.substring(0, date.indexOf("/"));
             String year = date.substring(date.indexOf("/") + 1);
-            int monthNumber = Integer.valueOf(month);
-            int yearNumber = Integer.valueOf(year);
+            int monthNumber = Integer.parseInt(month);
+            int yearNumber = Integer.parseInt(year);
             if (enteredYear < yearNumber) {
                 // invalid year.
                 isValidInputs = false;

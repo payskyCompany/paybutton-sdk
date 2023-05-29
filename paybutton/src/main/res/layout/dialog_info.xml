@@ -44,7 +44,7 @@
                 android:layout_marginLeft="@dimen/_6sdp"
                 android:layout_marginRight="@dimen/_6sdp"
                 android:layout_weight="1"
-                android:background="@drawable/baybutton_proceed_border_button"
+                android:background="@drawable/paybutton_green_border"
                 android:textColor="#04a48e"
                 android:visibility="gone"
                 android:text="@string/cancel" />
@@ -57,7 +57,7 @@
                 android:layout_marginRight="@dimen/_6sdp"
                 android:layout_weight="1"
                 android:visibility="gone"
-                android:background="@drawable/baybutton_proceed_button"
+                android:background="@drawable/paybutton_green_button"
                 android:text="@string/ok" />
         </LinearLayout>
 

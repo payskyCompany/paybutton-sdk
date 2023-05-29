@@ -1,8 +1,6 @@
 package io.paysky.ui.fragment.paymentsuccess;
 
-
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +22,6 @@ import io.paysky.util.AppUtils;
 import io.paysky.util.PrintReceiptListener;
 import io.paysky.util.ReceiptManager;
 import io.paysky.util.ToastUtils;
-
 
 public class PaymentApprovedFragment extends BaseFragment implements View.OnClickListener, PrintReceiptListener, PaymentApprovedView {
 
@@ -48,7 +45,6 @@ public class PaymentApprovedFragment extends BaseFragment implements View.OnClic
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-        Log.d("PaymentApprovedFragment", "onCreate: ");
         super.onCreate(savedInstanceState);
         activity = (PaymentActivity) getActivity();
         extractBundle();

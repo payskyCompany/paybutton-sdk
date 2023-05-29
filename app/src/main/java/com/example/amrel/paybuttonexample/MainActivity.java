@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity
             amountEditText, secureHashKeyEditText, transactionRefNumberEditText,
             customerIdEditText, emailTextField, mobileNumberTextField;
     private TextView paymentStatusTextView;
+    private TextView payTextView;
     private EditText currencyEditText;
     private Spinner spinner_type, authTypeSpinner;
 
@@ -121,9 +122,11 @@ public class MainActivity extends AppCompatActivity
                     if (i == MOBILE_INDEX) {
                         hideAndClearEmail();
                         mobileNumberLayout.setVisibility(View.VISIBLE);
+                        payTextView.setEnabled(true);
                     } else if (i == EMAIL_INDEX) {
                         hideAndClearPhone();
                         emailLayout.setVisibility(View.VISIBLE);
+                        payTextView.setEnabled(true);
                     }
                 } else {
                     hideAndClearPhoneAndEmail();
@@ -149,7 +152,6 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void setupPayButton() {
-        TextView payTextView = (TextView) findViewById(R.id.pay_textView);
         payTextView.setOnClickListener(v -> {
             paymentStatusTextView.setText("");
             String terminalId = terminalIdEditText.getText().toString().trim();
@@ -269,7 +271,7 @@ public class MainActivity extends AppCompatActivity
                     if (email.isEmpty()) {
                         emailTextField.setError(getString(R.string.required));
                         hasErrors = true;
-                    } else if (android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                    } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
                         emailTextField.setError(getString(R.string.invalid_email));
                         hasErrors = true;
                     }
@@ -290,6 +292,8 @@ public class MainActivity extends AppCompatActivity
             //show not subscribed fields
             showNotSubscribedFields();
 
+            payTextView.setEnabled(false);
+
             setViewAsSelected(notSubscribedTextView, notSubscribedLine);
             setViewAsNotSelected(subscribedTextView, subscribedLine);
         });
@@ -301,6 +305,8 @@ public class MainActivity extends AppCompatActivity
 
             //show customer id
             customerIdLayout.setVisibility(View.VISIBLE);
+
+            payTextView.setEnabled(true);
 
             setViewAsSelected(subscribedTextView, subscribedLine);
             setViewAsNotSelected(notSubscribedTextView, notSubscribedLine);
@@ -373,6 +379,7 @@ public class MainActivity extends AppCompatActivity
 
         spinner_type = findViewById(R.id.spinner_type);
         authTypeSpinner = findViewById(R.id.auth_type_spinner);
+        payTextView = findViewById(R.id.pay_textView);
     }
 
     private void showNotSubscribedFields() {

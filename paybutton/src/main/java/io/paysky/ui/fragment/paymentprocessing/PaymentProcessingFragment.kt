@@ -14,12 +14,10 @@ import io.paysky.ui.fragment.paymentsuccess.PaymentApprovedFragment
 import io.paysky.ui.fragment.webview.WebPaymentFragment
 import io.paysky.util.AppConstant
 import io.paysky.util.ToastUtils
-import timber.log.Timber
 
 class PaymentProcessingFragment : BaseFragment(), PaymentProcessingView {
     private lateinit var presenter: PaymentProcessingPresenter
     override fun onCreate(savedInstanceState: Bundle?) {
-        Timber.tag("PaymentProcessFragment").d("onCreate: ")
         super.onCreate(savedInstanceState)
         activity = getActivity() as PaymentActivity?
         // get data from bundle.
@@ -46,29 +44,29 @@ class PaymentProcessingFragment : BaseFragment(), PaymentProcessingView {
     }
 
     override fun showTransactionApprovedFragment(
-        transactionNumber: String,
-        approvalCode: String,
-        retrievalRefNr: String,
-        cardHolderName: String,
+        transactionNo: String,
+        authCode: String,
+        receiptNumber: String,
+        cardHolder: String,
         cardNumber: String,
-        systemTraceNumber: String,
+        systemReference: String,
         paymentData: PaymentData?
     ) {
         val bundle = Bundle()
         val receiptData = ReceiptData()
-        receiptData.rrn = transactionNumber
-        receiptData.authNumber = approvalCode
+        receiptData.rrn = transactionNo
+        receiptData.authNumber = authCode
         receiptData.channelName = AppConstant.TransactionChannelName.CARD
-        receiptData.refNumber = retrievalRefNr
-        receiptData.receiptNumber = retrievalRefNr
+        receiptData.refNumber = receiptNumber
+        receiptData.receiptNumber = receiptNumber
         receiptData.amount = paymentData?.amountFormatted
-        receiptData.cardHolderName = cardHolderName
+        receiptData.cardHolderName = cardHolder
         receiptData.cardNumber = cardNumber
         receiptData.merchantName = paymentData?.merchantName
         receiptData.merchantId = paymentData?.merchantId
         receiptData.terminalId = paymentData?.terminalId
         receiptData.paymentType = ReceiptData.PaymentDoneBy.MANUAL.toString()
-        receiptData.stan = systemTraceNumber
+        receiptData.stan = systemReference
         receiptData.transactionType = ReceiptData.TransactionType.SALE.name
         receiptData.secureHashKey = paymentData?.secureHashKey
         bundle.putParcelable(AppConstant.BundleKeys.RECEIPT, receiptData)
