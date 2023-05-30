@@ -56,8 +56,8 @@ public class ManualPaymentRequest  extends BaseRequest{
     @SerializedName("TerminalId")
     public String terminalId;
 
-    /*@SerializedName("IsWebRequest")
-    public boolean isWebRequest = true;*/
+    @SerializedName("IsWebRequest")
+    public boolean isWebRequest = true;
 
     @SerializedName("VerToken")
     public String verToken;

@@ -165,8 +165,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="7"
-                    android:digits="abcdefghijklmnopqrstuvwxyz1234567890"
-                    android:inputType="number|text" />
+                    android:digits="abcdefghijklmnopqrstuvwxyz1234567890-" />
             </LinearLayout>
 
             <LinearLayout
