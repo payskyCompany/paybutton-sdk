@@ -3,6 +3,7 @@ package com.example.amrel.paybuttonexample;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -77,7 +78,8 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void initializeAuthTypeSpinner() {
-        ArrayAdapter<String> authTypeAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, authenticationTypes) {
+        ArrayAdapter<String> authTypeAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, authenticationTypes) {
             @Override
             public boolean isEnabled(int position) {
                 return position != 0;
@@ -87,6 +89,7 @@ public class MainActivity extends AppCompatActivity
             public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
                 View view = super.getDropDownView(position, convertView, parent);
                 TextView textView = (TextView) view;
+                textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
                 if (position == 0) {
                     // Set the hint text color gray
                     textView.setTextColor(getResources().getColor(R.color.gray200));
@@ -101,6 +104,7 @@ public class MainActivity extends AppCompatActivity
             public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
                 View view = super.getDropDownView(position, convertView, parent);
                 TextView textView = (TextView) view;
+                textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
                 if (position == 0) {
                     // Set the hint text color gray
                     textView.setTextColor(getResources().getColor(R.color.gray200));
@@ -110,7 +114,7 @@ public class MainActivity extends AppCompatActivity
                 return view;
             }
         };
-        authTypeAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+        authTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         authTypeSpinner.setAdapter(authTypeAdapter);
 
 
