@@ -109,6 +109,7 @@ class PaymentProcessingPresenter(
         paymentRequest.email = email
         paymentRequest.tokenCustomerId = customerId
         paymentRequest.tokenCustomerSession = customerSessionId
+        paymentRequest.cardHolderName = cardHolder
 
         paymentRequest.returnURL = ApiLinks.PAYMENT_LINK
         // create secure hash.
@@ -134,7 +135,7 @@ class PaymentProcessingPresenter(
                             transactionException.errorMessage = response.mWMessage
                             TransactionManager.setTransactionException(transactionException)
                             val bundle = Bundle()
-                            bundle.putString("decline_cause", response.mWMessage)
+                            bundle.putString(AppConstant.BundleKeys.DECLINE_CAUSE, response.mWMessage)
                             bundle.putString("opened_by", "manual_payment")
                             view.showPaymentFailedFragment(bundle)
                         } else {
@@ -143,7 +144,7 @@ class PaymentProcessingPresenter(
                                 transactionException.errorMessage = response?.message
                                 TransactionManager.setTransactionException(transactionException)
                                 val bundle = Bundle()
-                                bundle.putString("decline_cause", response?.message)
+                                bundle.putString(AppConstant.BundleKeys.DECLINE_CAUSE, response?.message)
                                 bundle.putString("opened_by", "manual_payment")
                                 view.showPaymentFailedFragment(bundle)
                             } else {

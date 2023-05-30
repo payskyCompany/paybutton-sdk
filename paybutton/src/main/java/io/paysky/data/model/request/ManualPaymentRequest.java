@@ -56,8 +56,8 @@ public class ManualPaymentRequest  extends BaseRequest{
     @SerializedName("TerminalId")
     public String terminalId;
 
-    @SerializedName("IsWebRequest")
-    public boolean isWebRequest = true;
+    /*@SerializedName("IsWebRequest")
+    public boolean isWebRequest = true;*/
 
     @SerializedName("VerToken")
     public String verToken;
@@ -71,8 +71,8 @@ public class ManualPaymentRequest  extends BaseRequest{
     @SerializedName("VerType")
     public String verType;
 
-    @SerializedName("Message")
-    public String message;
+    /*@SerializedName("Message")
+    public String message;*/
 
     @SerializedName("ThreeDSXID")
     public String threeDSXID;
@@ -80,8 +80,8 @@ public class ManualPaymentRequest  extends BaseRequest{
     @SerializedName("MerchantReference")
     public String MerchantReference;
 
-    @SerializedName("Success")
-    public boolean success;
+    /*@SerializedName("Success")
+    public boolean success;*/
 
     @SerializedName("ThreeDSECI")
     public String threeDSECI;

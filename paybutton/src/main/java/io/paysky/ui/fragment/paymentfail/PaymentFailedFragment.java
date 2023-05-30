@@ -15,6 +15,7 @@ import com.example.paybutton.R;
 
 import io.paysky.ui.activity.payment.PaymentActivity;
 import io.paysky.ui.base.BaseFragment;
+import io.paysky.util.AppConstant;
 import io.paysky.util.AppUtils;
 
 
@@ -36,7 +37,8 @@ public class PaymentFailedFragment extends BaseFragment implements View.OnClickL
     }
 
     private void extractBundle() {
-        declineCause = getArguments().getString("decline_cause");
+        assert getArguments() != null;
+        declineCause = getArguments().getString(AppConstant.BundleKeys.DECLINE_CAUSE);
     }
 
     @Override

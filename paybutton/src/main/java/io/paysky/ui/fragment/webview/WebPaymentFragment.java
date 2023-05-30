@@ -171,15 +171,12 @@ public class WebPaymentFragment extends BaseFragment implements WebPaymentView {
                             cardTransaction.amount = paymentData.executedTransactionAmount;
                             TransactionManager.setCardTransaction(cardTransaction);
 
-
                             activity.replaceFragmentAndRemoveOldFragment(PaymentApprovedFragment.class, bundle);
-
-
                         } else {
-
+                            String cause = jsonObject.getString("Message");
+                            if (!cause.isEmpty())
+                                bundle.putString(AppConstant.BundleKeys.DECLINE_CAUSE, cause);
                             activity.replaceFragmentAndRemoveOldFragment(PaymentFailedFragment.class, bundle);
-
-
                         }
 
 

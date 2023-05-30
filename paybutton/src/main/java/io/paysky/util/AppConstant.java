@@ -14,6 +14,7 @@ public interface AppConstant {
         String TRANSACTION_REFERENCE_NUMBER = "transaction_reference_number";
         String URL_ENUM_KEY = "enumKey";
         String CARD_DATA = "card_data";
+        String DECLINE_CAUSE = "decline_cause";
     }
 
 
