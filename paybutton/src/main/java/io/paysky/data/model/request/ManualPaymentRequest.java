@@ -89,4 +89,7 @@ public class ManualPaymentRequest  extends BaseRequest{
     @SerializedName("ThreeDSECI")
     public String threeDSECI;
 
+    @SerializedName("CardHolderName")
+    public String cardHolderName;
+
 }
