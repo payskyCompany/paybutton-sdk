@@ -66,5 +66,6 @@
     <string name="set_as_default">Set as default</string>
     <string name="add_new_card">Add New Card</string>
     <string name="back">Back</string>
+    <string name="mange_cards">Mange cards</string>
 
 </resources>

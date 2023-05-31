@@ -6,17 +6,20 @@ package io.paysky.data.network;
 
 public class ApiLinks {
 
-    public static final String CUBE_GATEWAY = "cube/PayLink.svc/";
+    private static final String CUBE_GATEWAY = "cube/PayLink.svc/";
+    private static final String API = "api/";
 
-    public static final String EXECUTE_PAYMENT = CUBE_GATEWAY + "api/PayByCard";
-    public static final String SEND_RECEIPT_BY_MAIL = CUBE_GATEWAY + "api/SendReceiptToEmail";
-    public static final String GENERATE_QRCODE = CUBE_GATEWAY + "api/GenerateQR";
-    public static final String CHECK_PAYMENT_STATUS = CUBE_GATEWAY + "api/CheckTxnStatus";
-    public static final String SMS_PAYMENT = CUBE_GATEWAY + "api/RequestToPay";
-    public static final String MERCHANT_INFO = CUBE_GATEWAY + "api/CheckPaymentMethod";
-    public static final String CHECK_TRANSACTION_STATUS = CUBE_GATEWAY + "api/FilterTransactions";
+    public static final String EXECUTE_PAYMENT = CUBE_GATEWAY + API + "PayByCard";
+    public static final String SEND_RECEIPT_BY_MAIL = CUBE_GATEWAY + API + "SendReceiptToEmail";
+    public static final String GENERATE_QRCODE = CUBE_GATEWAY + API + "GenerateQR";
+    public static final String CHECK_PAYMENT_STATUS = CUBE_GATEWAY + API + "CheckTxnStatus";
+    public static final String SMS_PAYMENT = CUBE_GATEWAY + API + "RequestToPay";
+    public static final String MERCHANT_INFO = CUBE_GATEWAY + API + "CheckPaymentMethod";
+    public static final String CHECK_TRANSACTION_STATUS = CUBE_GATEWAY + API + "FilterTransactions";
 
-    public static final String Get_Session_For_Customer_Token = CUBE_GATEWAY + "api/GetSessionForCustomerToken";
+    public static final String Get_Session_For_Customer_Token = CUBE_GATEWAY + API + "GetSessionForCustomerToken";
+
+    public static final String LIST_SAVED_CARDS_FOR_CUSTOMER = CUBE_GATEWAY + API + "GetAllCardsForCustomerToken";
 
     public static final String GRAY_LINK = "https://grey.paysky.io/";
     public static final String CUBE = "https://cube.paysky.io/";

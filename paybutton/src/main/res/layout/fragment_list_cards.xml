@@ -8,10 +8,38 @@
     android:paddingEnd="@dimen/_16sdp"
     tools:context="io.paysky.ui.fragment.listcards.ListCardsFragment">
 
+    <TextView
+        android:id="@+id/select_card"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:text="@string/select_card"
+        android:layout_alignParentStart="true"
+        android:gravity="center_vertical"
+        android:layout_alignTop="@id/manage_cards_button"
+        android:layout_alignBottom="@id/manage_cards_button"
+        android:textColor="@color/black100"
+        android:textSize="@dimen/_14ssp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/manage_cards_button"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/_34sdp"
+        android:layout_alignParentEnd="true"
+        android:background="@drawable/paybutton_blue_border"
+        android:paddingHorizontal="@dimen/_16sdp"
+        android:paddingVertical="@dimen/_8sdp"
+        android:text="@string/mange_cards"
+        android:textColor="@color/blue100" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/cards_list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_below="@id/select_card"
+        android:layout_marginTop="@dimen/_24sdp"
+        tools:listitem="@layout/item_saved_card" />
 
     <Button
         android:id="@+id/add_new_card_button"
