@@ -5,11 +5,11 @@
     <string name="merchant_id">Merchant ID</string>
     <string name="terminal_id">Terminal ID</string>
     <string name="amount">Amount</string>
-    <string name="currency">Currency</string>
+    <string name="currency">Currency Code</string>
     <string name="pay">Pay</string>
     <string name="testing_type">Testing Environment</string>
     <string name="environment_type">Testing URLs</string>
-    <string name="secure_hash_key">SecureHash</string>
+    <string name="secure_hash_key">Secret Hash Key</string>
     <string name="submit">Submit</string>
     <string name="not_subscribed">Not Subscribed</string>
     <string name="subscribed">Subscribed</string>

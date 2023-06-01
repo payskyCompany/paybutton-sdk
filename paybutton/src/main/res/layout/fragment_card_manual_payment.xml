@@ -145,7 +145,6 @@
                 android:button="@android:color/transparent"
                 android:drawableStart="@drawable/checkbox_state"
                 android:drawablePadding="@dimen/_10sdp"
-                android:enabled="false"
                 android:text="@string/set_as_default"
                 android:textColor="?android:textColorHint" />
 
