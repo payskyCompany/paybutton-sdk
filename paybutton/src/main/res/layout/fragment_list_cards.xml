@@ -30,7 +30,7 @@
         android:background="@drawable/paybutton_blue_border"
         android:paddingHorizontal="@dimen/_16sdp"
         android:paddingVertical="@dimen/_8sdp"
-        android:text="@string/mange_cards"
+        android:text="@string/manage_cards"
         android:textColor="@color/blue100" />
 
     <androidx.recyclerview.widget.RecyclerView
