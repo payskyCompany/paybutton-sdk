@@ -39,10 +39,9 @@ class SavedCardViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     fun setCardData(cardItem: CardItem) {
         maskedCardNumber.text = cardItem.maskedCardNumber
         cardName.text = cardItem.displayName
-        if (cardItem.isDefultCard) {
+        if (cardItem.isSelected) {
             selectCard.isChecked = true
         }
-
     }
 
     private val cvv: EditText = itemView.findViewById(R.id.ccv_editText)
@@ -51,4 +50,13 @@ class SavedCardViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val cardName: TextView = itemView.findViewById(R.id.card_name_textview)
     private val selectCard: RadioButton = itemView.findViewById(R.id.card_selected_radio_button)
 
+    init {
+        selectCard.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                cvv.visibility = View.VISIBLE
+            } else {
+                cvv.visibility = View.INVISIBLE
+            }
+        }
+    }
 }

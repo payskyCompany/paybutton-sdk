@@ -22,5 +22,7 @@ data class CardItem(
     var postfix: String?,
 
     @SerializedName("Token")
-    var token: String
+    var token: String,
+    var isSelected: Boolean = false,
+    var isError: Boolean = false
 )

@@ -4,6 +4,7 @@ import android.os.Bundle
 import io.paysky.data.model.PaymentData
 import io.paysky.data.model.request.GetSessionRequest
 import io.paysky.data.model.request.ListSavedCardsRequest
+import io.paysky.data.model.response.CardItem
 import io.paysky.data.model.response.GetSessionResponse
 import io.paysky.data.model.response.ListSavedCardsResponse
 import io.paysky.data.network.ApiConnection
@@ -114,7 +115,9 @@ class ListCardsPresenter(
                     override fun onSuccess(response: ListSavedCardsResponse?) {
                         view.dismissProgress()
                         response?.let {
+                            //todo check why not updated
                             if (it.success) {
+                                it.cardsLists = setDefaultCardSelected(it.cardsLists)
                                 view.showSavedCards(it.cardsLists)
                             } else {
                                 view.showToastError(response.message!!)
@@ -131,5 +134,14 @@ class ListCardsPresenter(
                 }
             )
         }
+    }
+
+    private fun setDefaultCardSelected(cardsList: List<CardItem>): List<CardItem> {
+        cardsList.forEach {
+            if (it.isDefultCard) {
+                it.isSelected = true
+            }
+        }
+        return cardsList
     }
 }
