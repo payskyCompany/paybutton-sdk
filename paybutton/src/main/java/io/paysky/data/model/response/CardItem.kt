@@ -4,25 +4,26 @@ import com.google.gson.annotations.SerializedName
 
 data class CardItem(
     @SerializedName("Brand")
-    var brand: String?,
+    val brand: String?,
 
     @SerializedName("CardId")
-    var cardId: String,
+    val cardId: String,
 
     @SerializedName("DisplayName")
-    var displayName: String,
+    val displayName: String,
 
-    @SerializedName("IsDefultCard")
-    var isDefultCard: Boolean,
+    @SerializedName("IsDefaultCard")
+    val isDefaultCard: Boolean,
 
     @SerializedName("MaskedCardNumber")
-    var maskedCardNumber: String,
+    val maskedCardNumber: String,
 
     @SerializedName("Postfix")
-    var postfix: String?,
+    val postfix: String?,
 
     @SerializedName("Token")
-    var token: String,
+    val token: String,
     var isSelected: Boolean = false,
-    var isError: Boolean = false
+    var isError: Boolean = false,
+    var cvv: String
 )

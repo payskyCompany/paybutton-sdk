@@ -21,6 +21,7 @@ class ListCardsPresenter(
 
 ) : BasePresenter<ListCardsView>() {
     val paymentData: PaymentData?
+    val cardsList = mutableListOf<CardItem>()
 
     init {
         paymentData = arguments?.parcelable(AppConstant.BundleKeys.PAYMENT_DATA)
@@ -117,8 +118,10 @@ class ListCardsPresenter(
                         response?.let {
                             //todo check why not updated
                             if (it.success) {
-                                it.cardsLists = setDefaultCardSelected(it.cardsLists)
-                                view.showSavedCards(it.cardsLists)
+                                cardsList.clear()
+                                cardsList.addAll(it.cardsLists)
+                                setDefaultCardSelected()
+                                view.showSavedCards(cardsList)
                             } else {
                                 view.showToastError(response.message!!)
                             }
@@ -136,12 +139,11 @@ class ListCardsPresenter(
         }
     }
 
-    private fun setDefaultCardSelected(cardsList: List<CardItem>): List<CardItem> {
-        cardsList.forEach {
-            if (it.isDefultCard) {
-                it.isSelected = true
-            }
-        }
-        return cardsList
+    private fun setDefaultCardSelected() {
+        cardsList.find { it.isDefaultCard }?.isSelected = true
+    }
+
+    fun payByTokenizedCard(token: String, cvv: String) {
+
     }
 }

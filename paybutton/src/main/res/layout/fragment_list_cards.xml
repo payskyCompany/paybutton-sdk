@@ -3,9 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingStart="@dimen/_16sdp"
     android:paddingTop="@dimen/_16sdp"
-    android:paddingEnd="@dimen/_16sdp"
     tools:context="io.paysky.ui.fragment.listcards.ListCardsFragment">
 
     <TextView

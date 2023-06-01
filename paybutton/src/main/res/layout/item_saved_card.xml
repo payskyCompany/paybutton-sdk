@@ -46,7 +46,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_16sdp"
-        android:layout_weight="2"
+        android:layout_weight="2.5"
         android:background="@drawable/cvv_border_background"
         android:drawableEnd="@drawable/ic_cvv"
         android:drawablePadding="@dimen/_13sdp"

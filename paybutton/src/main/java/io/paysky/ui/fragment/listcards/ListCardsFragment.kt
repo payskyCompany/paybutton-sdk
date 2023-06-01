@@ -18,8 +18,9 @@ import io.paysky.util.ToastUtils
 class ListCardsFragment : BaseFragment(), ListCardsView {
     private lateinit var presenter: ListCardsPresenter
     private lateinit var addNewCardButton: Button
+    private lateinit var proceedButton: Button
     private lateinit var cardsList: RecyclerView
-    private val adapter= SavedCardsAdapter()
+    private lateinit var adapter: SavedCardsAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,9 +50,18 @@ class ListCardsFragment : BaseFragment(), ListCardsView {
             activity.replaceFragmentAndAddOldToBackStack(ManualPaymentFragment::class.java, bundle)
         }
 
+
+        adapter = SavedCardsAdapter {
+            presenter.payByTokenizedCard(it.token, it.cvv)
+        }
         cardsList = view.findViewById(R.id.cards_list)
         cardsList.layoutManager = LinearLayoutManager(this.context)
         cardsList.adapter = adapter
+
+        proceedButton = view.findViewById(R.id.proceed_button)
+        proceedButton.setOnClickListener {
+            adapter.submit()
+        }
     }
 
     override fun sessionIdFetchedSuccessfully() {
