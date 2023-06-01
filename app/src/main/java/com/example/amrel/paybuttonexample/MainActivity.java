@@ -388,8 +388,6 @@ public class MainActivity extends AppCompatActivity
 
     private void showNotSubscribedFields() {
         authTypeSpinner.setVisibility(View.VISIBLE);
-        emailLayout.setVisibility(View.VISIBLE);
-        mobileNumberLayout.setVisibility(View.VISIBLE);
     }
 
     private void hideAndClearCustomerId() {
