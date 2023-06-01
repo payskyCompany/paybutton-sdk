@@ -66,7 +66,6 @@
     <string name="cancel">Cancel</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="allow_light_scan">Open camera flash light to scan quickly.</string>
     <string name="invalid_ccv_value">Invalid CVC</string>
     <string name="processing">Processing</string>
