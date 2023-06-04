@@ -7,7 +7,7 @@ data class CardItem(
     val brand: String?,
 
     @SerializedName("CardId")
-    val cardId: String,
+    val cardId: Int,
 
     @SerializedName("DisplayName")
     val displayName: String,
@@ -25,5 +25,5 @@ data class CardItem(
     val token: String,
     var isSelected: Boolean = false,
     var isError: Boolean = false,
-    var cvv: String
+    var cvv: String?
 )

@@ -116,7 +116,6 @@ class ListCardsPresenter(
                     override fun onSuccess(response: ListSavedCardsResponse?) {
                         view.dismissProgress()
                         response?.let {
-                            //todo check why not updated
                             if (it.success) {
                                 cardsList.clear()
                                 cardsList.addAll(it.cardsLists)
@@ -141,9 +140,5 @@ class ListCardsPresenter(
 
     private fun setDefaultCardSelected() {
         cardsList.find { it.isDefaultCard }?.isSelected = true
-    }
-
-    fun payByTokenizedCard(token: String, cvv: String) {
-
     }
 }

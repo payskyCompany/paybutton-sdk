@@ -38,10 +38,13 @@ class SavedCardsAdapter(val onSubmitDataValid: (CardItem) -> Unit) :
 
     fun submit() {
         if (selectedItemPosition != -1) {
-            if (savedCardsList[selectedItemPosition].cvv.isEmpty()) {
+            if (savedCardsList[selectedItemPosition].cvv.isNullOrEmpty()) {
                 savedCardsList[selectedItemPosition].isError = true
+                notifyItemChanged(selectedItemPosition)
             } else {
+                savedCardsList[selectedItemPosition].isError = false
                 onSubmitDataValid(savedCardsList[selectedItemPosition])
+                notifyItemChanged(selectedItemPosition)
             }
         }
     }
@@ -54,6 +57,11 @@ class SavedCardsAdapter(val onSubmitDataValid: (CardItem) -> Unit) :
             if (cardItem.isSelected) {
                 selectedItemPosition = position
                 selectCard.isChecked = true
+            }
+            if (cardItem.isError) {
+                cvv.setBackgroundResource(R.drawable.error_border_background)
+            } else {
+                cvv.setBackgroundResource(R.drawable.cvv_border_background)
             }
         }
 
@@ -75,6 +83,10 @@ class SavedCardsAdapter(val onSubmitDataValid: (CardItem) -> Unit) :
 
             cvv.doAfterTextChanged {
                 savedCardsList[position].cvv = it.toString()
+                if (it.isNullOrEmpty()) {
+                    savedCardsList[position].isError = false
+                    notifyItemChanged(position)
+                }
             }
         }
     }
@@ -86,5 +98,8 @@ class SavedCardsAdapter(val onSubmitDataValid: (CardItem) -> Unit) :
         savedCardsList[position] =
             savedCardsList[position].copy(isSelected = true)
         this.selectedItemPosition = position
+
+        notifyItemChanged(position)
+        notifyItemChanged(selectedItemPosition)
     }
 }

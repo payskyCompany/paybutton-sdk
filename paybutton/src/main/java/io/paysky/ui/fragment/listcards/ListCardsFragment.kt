@@ -8,10 +8,12 @@ import android.widget.Button
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.paybutton.R
+import io.paysky.data.model.TokenizedCardPaymentParameters
 import io.paysky.data.model.response.CardItem
 import io.paysky.ui.activity.payment.PaymentActivity
 import io.paysky.ui.base.BaseFragment
 import io.paysky.ui.fragment.manualpayment.ManualPaymentFragment
+import io.paysky.ui.fragment.paymentprocessing.PaymentProcessingFragment
 import io.paysky.util.AppConstant
 import io.paysky.util.ToastUtils
 
@@ -52,7 +54,8 @@ class ListCardsFragment : BaseFragment(), ListCardsView {
 
 
         adapter = SavedCardsAdapter {
-            presenter.payByTokenizedCard(it.token, it.cvv)
+            //presenter.payByTokenizedCard(it.token, it.cvv!!)
+            moveToPaymentProcessing(it.cardId, it.cvv!!)
         }
         cardsList = view.findViewById(R.id.cards_list)
         cardsList.layoutManager = LinearLayoutManager(this.context)
@@ -62,6 +65,14 @@ class ListCardsFragment : BaseFragment(), ListCardsView {
         proceedButton.setOnClickListener {
             adapter.submit()
         }
+    }
+
+    private fun moveToPaymentProcessing(cardId: Int, cvv: String) {
+        val tokenizedCardPaymentParameters = TokenizedCardPaymentParameters(cardId, cvv)
+        val bundle = Bundle();
+        bundle.putParcelable(AppConstant.BundleKeys.PAYMENT_DATA, presenter.paymentData)
+        bundle.putParcelable(AppConstant.BundleKeys.TOKENIZED_CARD, tokenizedCardPaymentParameters)
+        activity.replaceFragmentAndRemoveOldFragment(PaymentProcessingFragment::class.java, bundle)
     }
 
     override fun sessionIdFetchedSuccessfully() {

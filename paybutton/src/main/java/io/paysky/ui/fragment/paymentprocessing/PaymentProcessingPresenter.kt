@@ -5,6 +5,7 @@ import android.util.Log
 import io.paysky.data.model.CardPaymentParameters
 import io.paysky.data.model.PaymentData
 import io.paysky.data.model.SuccessfulCardTransaction
+import io.paysky.data.model.TokenizedCardPaymentParameters
 import io.paysky.data.model.request.ManualPaymentRequest
 import io.paysky.data.model.response.ManualPaymentResponse
 import io.paysky.data.network.ApiConnection
@@ -25,13 +26,26 @@ class PaymentProcessingPresenter(
     BasePresenter<PaymentProcessingView>() {
     private val paymentData: PaymentData?
     private val cardPayment: CardPaymentParameters?
+    private val tokenizedCard: TokenizedCardPaymentParameters?
 
     init {
         paymentData = arguments?.parcelable(AppConstant.BundleKeys.PAYMENT_DATA)
+
         cardPayment = arguments?.parcelable(AppConstant.BundleKeys.CARD_DATA)
+        tokenizedCard = arguments?.parcelable(AppConstant.BundleKeys.TOKENIZED_CARD)
+
         TransactionManager.setTransactionType(TransactionManager.TransactionType.MANUAL)
         attachView(view)
-        makePayment()
+
+        if (cardPayment != null) {
+            makePayment()
+        } else {
+            makeTokenizedCardPayment()
+        }
+    }
+
+    private fun makeTokenizedCardPayment() {
+        TODO("Not yet implemented")
     }
 
     private fun makePayment() {
@@ -135,7 +149,10 @@ class PaymentProcessingPresenter(
                             transactionException.errorMessage = response.mWMessage
                             TransactionManager.setTransactionException(transactionException)
                             val bundle = Bundle()
-                            bundle.putString(AppConstant.BundleKeys.DECLINE_CAUSE, response.mWMessage)
+                            bundle.putString(
+                                AppConstant.BundleKeys.DECLINE_CAUSE,
+                                response.mWMessage
+                            )
                             bundle.putString("opened_by", "manual_payment")
                             view.showPaymentFailedFragment(bundle)
                         } else {
@@ -144,7 +161,10 @@ class PaymentProcessingPresenter(
                                 transactionException.errorMessage = response?.message
                                 TransactionManager.setTransactionException(transactionException)
                                 val bundle = Bundle()
-                                bundle.putString(AppConstant.BundleKeys.DECLINE_CAUSE, response?.message)
+                                bundle.putString(
+                                    AppConstant.BundleKeys.DECLINE_CAUSE,
+                                    response?.message
+                                )
                                 bundle.putString("opened_by", "manual_payment")
                                 view.showPaymentFailedFragment(bundle)
                             } else {
