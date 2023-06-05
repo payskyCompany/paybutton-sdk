@@ -87,10 +87,10 @@ public class ManualPaymentRequest extends BaseRequest {
     public String threeDSECI;
 
     @SerializedName("IsSaveCard")
-    public boolean isSaveCard;
+    public Boolean isSaveCard = null;
 
     @SerializedName("IsDefaultCard")
-    public boolean isDefaultCard;
+    public Boolean isDefaultCard = null;
 
     @SerializedName("TokenCustomerId")
     public String tokenCustomerId;
