@@ -22,8 +22,8 @@
     <string name="invalid_ccv">رمز الحماية يجب ان يكون 3 ارقام.</string>
     <string name="please_wait">برجاء الانتظار…</string>
     <string name="error_try_again">خطأ فى الاتصال,حاول مرة أخرى.</string>
-    <string name="auth_number">رقم الموافقة </string>
-    <string name="trx_id">رقم المعاملة </string>
+    <string name="auth_number">رقم الموافقة: </string>
+    <string name="trx_id">رقم المعاملة: </string>
     <string name="close">اغلاق</string>
     <string name="send_notification">ارسال إيصال</string>
     <string name="email_hint">البريد الالكترونى</string>
@@ -75,5 +75,11 @@
     <string name="select_card">أختر البطاقة</string>
     <string name="manage_cards">إدارة البطاقات</string>
     <string name="cvv_number_required">رقم CVV مطلوب</string>
+    <string name="save_for_future_use">Save for future use</string>
+    <string name="set_as_default">Set as default</string>
+    <string name="add_new_card">Add New Card</string>
+    <string name="back">Back</string>
+    <string name="auth_number_fromatted">رقم الموافقة: #%s</string>
+    <string name="trx_id_formatted">رقم المعاملة: #%s</string>
 
 </resources>
