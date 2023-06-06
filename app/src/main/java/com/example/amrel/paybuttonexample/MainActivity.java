@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity
         initializeAuthTypeSpinner();
 
         //todo comment before create a version
-        setDefaultData();
+        //setDefaultData();
 
         setupPayButton();
         setupSubscribedNotSubscribedView();
