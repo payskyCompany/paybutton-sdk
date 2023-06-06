@@ -74,5 +74,6 @@
     <string name="cvv">CVV</string>
     <string name="select_card">أختر البطاقة</string>
     <string name="manage_cards">إدارة البطاقات</string>
+    <string name="cvv_number_required">رقم CVV مطلوب</string>
 
 </resources>

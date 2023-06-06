@@ -76,4 +76,5 @@
     <string name="cvv">CVV</string>
     <string name="select_card">Select card</string>
     <string name="manage_cards">Manage cards</string>
+    <string name="cvv_number_required">CVV Number Required</string>
 </resources>
