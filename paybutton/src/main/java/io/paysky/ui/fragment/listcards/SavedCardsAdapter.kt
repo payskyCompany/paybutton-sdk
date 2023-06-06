@@ -7,11 +7,15 @@ import android.widget.EditText
 import android.widget.RadioButton
 import android.widget.TextView
 import androidx.core.widget.doAfterTextChanged
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.paybutton.R
 import io.paysky.data.model.response.CardItem
 
-class SavedCardsAdapter(val onSubmitDataValid: (CardItem) -> Unit) :
+
+class SavedCardsAdapter(
+    val onSubmitDataValid: (CardItem) -> Unit
+) :
     RecyclerView.Adapter<SavedCardsAdapter.SavedCardViewHolder>() {
     private val savedCardsList = mutableListOf<CardItem>()
     private var selectedItemPosition = -1
@@ -31,9 +35,12 @@ class SavedCardsAdapter(val onSubmitDataValid: (CardItem) -> Unit) :
     }
 
     fun setItems(cardsLists: List<CardItem>) {
+        val diffCallback = CardsCallback(this.savedCardsList, cardsLists)
+        val diffResult = DiffUtil.calculateDiff(diffCallback)
+
         savedCardsList.clear()
         savedCardsList.addAll(cardsLists)
-        notifyDataSetChanged()
+        diffResult.dispatchUpdatesTo(this)
     }
 
     fun submit() {
@@ -51,42 +58,27 @@ class SavedCardsAdapter(val onSubmitDataValid: (CardItem) -> Unit) :
 
     inner class SavedCardViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private var position: Int = -1
-        fun setCardData(cardItem: CardItem, position: Int) {
-            maskedCardNumber.text = cardItem.maskedCardNumber
-            cardName.text = cardItem.displayName
-            if (cardItem.isSelected) {
-                selectedItemPosition = position
-                selectCard.isChecked = true
-            }
-            if (cardItem.isError) {
-                cvv.setBackgroundResource(R.drawable.error_border_background)
-            } else {
-                cvv.setBackgroundResource(R.drawable.cvv_border_background)
-            }
-        }
-
         private val cvv: EditText = itemView.findViewById(R.id.ccv_editText)
         private val maskedCardNumber: TextView =
             itemView.findViewById(R.id.masked_card_number_text_view)
         private val cardName: TextView = itemView.findViewById(R.id.card_name_textview)
         private val selectCard: RadioButton = itemView.findViewById(R.id.card_selected_radio_button)
 
-        init {
-            selectCard.setOnCheckedChangeListener { _, isChecked ->
-                if (isChecked) {
-                    cvv.visibility = View.VISIBLE
-                } else {
-                    updateSelectedCard(position)
-                    cvv.visibility = View.INVISIBLE
-                }
+        fun setCardData(cardItem: CardItem, position: Int) {
+            maskedCardNumber.text = cardItem.maskedCardNumber
+            cardName.text = cardItem.displayName
+            if (cardItem.isSelected) {
+                selectedItemPosition = position
+                selectCard.isChecked = true
+                cvv.setText(cardItem.cvv ?: "")
             }
+        }
 
-            cvv.doAfterTextChanged {
-                savedCardsList[position].cvv = it.toString()
-                if (it.isNullOrEmpty()) {
-                    savedCardsList[position].isError = false
-                    notifyItemChanged(position)
-                }
+        private fun updateCvvBackground(cardItem: CardItem) {
+            if (cardItem.isError) {
+                cvv.setBackgroundResource(R.drawable.error_border_background)
+            } else {
+                cvv.setBackgroundResource(R.drawable.cvv_border_background)
             }
         }
     }
@@ -94,9 +86,9 @@ class SavedCardsAdapter(val onSubmitDataValid: (CardItem) -> Unit) :
     private fun updateSelectedCard(position: Int) {
         savedCardsList[selectedItemPosition] =
             savedCardsList[selectedItemPosition].copy(isSelected = false, isError = false)
-
         savedCardsList[position] =
             savedCardsList[position].copy(isSelected = true)
+
         this.selectedItemPosition = position
 
         notifyItemChanged(position)

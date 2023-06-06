@@ -16,6 +16,7 @@ import io.paysky.ui.fragment.manualpayment.ManualPaymentFragment
 import io.paysky.ui.fragment.paymentprocessing.PaymentProcessingFragment
 import io.paysky.util.AppConstant
 import io.paysky.util.ToastUtils
+import io.paysky.util.hideSoftKeyboard
 
 class ListCardsFragment : BaseFragment(), ListCardsView {
     private lateinit var presenter: ListCardsPresenter
@@ -68,8 +69,9 @@ class ListCardsFragment : BaseFragment(), ListCardsView {
     }
 
     private fun moveToPaymentProcessing(cardId: Int, cvv: String) {
+        hideSoftKeyboard(activity)
         val tokenizedCardPaymentParameters = TokenizedCardPaymentParameters(cardId, cvv)
-        val bundle = Bundle();
+        val bundle = Bundle()
         bundle.putParcelable(AppConstant.BundleKeys.PAYMENT_DATA, presenter.paymentData)
         bundle.putParcelable(AppConstant.BundleKeys.TOKENIZED_CARD, tokenizedCardPaymentParameters)
         activity.replaceFragmentAndRemoveOldFragment(PaymentProcessingFragment::class.java, bundle)
