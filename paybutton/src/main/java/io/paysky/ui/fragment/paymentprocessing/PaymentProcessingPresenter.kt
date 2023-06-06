@@ -54,7 +54,9 @@ class PaymentProcessingPresenter(
                     merchantId = payment.merchantId,
                     terminalId = payment.terminalId,
                     ccv = tokenizedCardParams.cvv,
-                    cardId = tokenizedCardParams.TokenCardId
+                    cardId = tokenizedCardParams.TokenCardId,
+                    customerId = payment.customerId,
+                    customerSessionId = payment.customerSession
                 )
             }
         }
@@ -67,7 +69,9 @@ class PaymentProcessingPresenter(
         merchantId: String,
         terminalId: String,
         ccv: String,
-        cardId: Int
+        cardId: Int,
+        customerId: String,
+        customerSessionId: String
     ) {
         // check internet.
         if (!view.isInternetAvailable) {
@@ -90,6 +94,8 @@ class PaymentProcessingPresenter(
         paymentRequest.merchantId = merchantId
         paymentRequest.terminalId = terminalId
         paymentRequest.tokenCardId = cardId.toString()
+        paymentRequest.tokenCustomerId = customerId
+        paymentRequest.tokenCustomerSession = customerSessionId
 
         paymentRequest.returnURL = ApiLinks.PAYMENT_LINK
         // create secure hash.

@@ -23,6 +23,7 @@ data class CardItem(
 
     @SerializedName("Token")
     val token: String,
+
     var isSelected: Boolean = false,
     var isError: Boolean = false,
     var cvv: String?
