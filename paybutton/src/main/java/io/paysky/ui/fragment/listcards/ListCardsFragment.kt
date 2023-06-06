@@ -64,7 +64,8 @@ class ListCardsFragment : BaseFragment(), ListCardsView {
                 mHandler.post {
                     adapter.notifyItemChanged(it)
                 }
-            }
+            },
+            activity = activity
         )
         cardsList = view.findViewById(R.id.cards_list)
         cardsList.layoutManager = LinearLayoutManager(this.context)

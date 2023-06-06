@@ -1,9 +1,9 @@
 package io.paysky.ui.fragment.listcards
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.RadioButton
 import android.widget.TextView
@@ -12,11 +12,14 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.paybutton.R
 import io.paysky.data.model.response.CardItem
+import io.paysky.ui.activity.payment.PaymentActivity
+import io.paysky.util.hideSoftKeyboard
 
 
 class SavedCardsAdapter(
     val onSubmitDataValid: (CardItem) -> Unit,
-    val onChangeItem: (Int) -> Unit
+    val onChangeItem: (Int) -> Unit,
+    val activity: PaymentActivity
 ) :
     RecyclerView.Adapter<SavedCardsAdapter.SavedCardViewHolder>() {
     private val savedCardsList = mutableListOf<CardItem>()
@@ -67,12 +70,6 @@ class SavedCardsAdapter(
         private val selectCard: RadioButton = itemView.findViewById(R.id.card_selected_radio_button)
 
         fun setCardData(cardItem: CardItem, position: Int) {
-            selectCard.setOnClickListener {
-                Log.d("TAG_1", "setCardData: isClicked")
-                if (!selectCard.isChecked){
-                    updateSelectedCard(position)
-                }
-            }
             selectCard.setOnCheckedChangeListener { _, isChecked ->
                 if (isChecked) {
                     updateSelectedCard(position)
@@ -99,6 +96,12 @@ class SavedCardsAdapter(
                 selectCard.isChecked = false
                 cvv.visibility = View.INVISIBLE
                 cvv.setText("")
+            }
+            cvv.setOnEditorActionListener { _, actionId, _ ->
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    hideSoftKeyboard(activity = activity)
+                    true
+                } else false
             }
         }
 
