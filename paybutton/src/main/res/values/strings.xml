@@ -11,7 +11,7 @@
     <string name="card_number">Card number</string>
     <string name="name_on_card">Card holder name</string>
     <string name="expire_date">Expiry Date</string>
-    <string name="cvc">CVC</string>
+    <string name="cvc">CVV</string>
     <string name="proceed">Proceed</string>
     <string name="error">Error</string>
     <string name="check_internet_connection">Check internet connection and try again.</string>
