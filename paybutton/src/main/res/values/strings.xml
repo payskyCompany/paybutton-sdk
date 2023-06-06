@@ -74,4 +74,6 @@
     <string name="set_as_default">Set as default</string>
     <string name="add_new_card">Add New Card</string>
     <string name="back">Back</string>
+    <string name="auth_number_fromatted">Auth Code: #%s</string>
+    <string name="trx_id_formatted">Transaction No: #%s</string>
 </resources>
