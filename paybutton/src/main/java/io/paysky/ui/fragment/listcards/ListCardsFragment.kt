@@ -22,13 +22,15 @@ class ListCardsFragment : BaseFragment(), ListCardsView {
     private lateinit var presenter: ListCardsPresenter
     private lateinit var addNewCardButton: Button
     private lateinit var proceedButton: Button
+    private lateinit var backButton: Button
     private lateinit var cardsList: RecyclerView
     private lateinit var adapter: SavedCardsAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         activity = getActivity() as PaymentActivity?
-        // get data from bundle.
+        activity.setHeaderIconClickListener { activity.finish() }
+
         presenter = ListCardsPresenter(arguments, this)
     }
 
@@ -53,11 +55,17 @@ class ListCardsFragment : BaseFragment(), ListCardsView {
             activity.replaceFragmentAndAddOldToBackStack(ManualPaymentFragment::class.java, bundle)
         }
 
-
-        adapter = SavedCardsAdapter {
-            //presenter.payByTokenizedCard(it.token, it.cvv!!)
-            moveToPaymentProcessing(it.cardId, it.cvv!!)
-        }
+        adapter = SavedCardsAdapter(
+            onSubmitDataValid = {
+                moveToPaymentProcessing(it.cardId, it.cvv!!)
+            },
+            onChangeItem = {
+                val mHandler = activity.window.decorView.handler
+                mHandler.post {
+                    adapter.notifyItemChanged(it)
+                }
+            }
+        )
         cardsList = view.findViewById(R.id.cards_list)
         cardsList.layoutManager = LinearLayoutManager(this.context)
         cardsList.adapter = adapter
@@ -65,6 +73,11 @@ class ListCardsFragment : BaseFragment(), ListCardsView {
         proceedButton = view.findViewById(R.id.proceed_button)
         proceedButton.setOnClickListener {
             adapter.submit()
+        }
+
+        backButton = view.findViewById(R.id.back_button)
+        backButton.setOnClickListener {
+            activity.finish()
         }
     }
 

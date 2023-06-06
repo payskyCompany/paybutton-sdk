@@ -4,27 +4,28 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="@dimen/_24sdp"
+    android:paddingHorizontal="@dimen/_16sdp"
     android:gravity="center_vertical"
     android:orientation="horizontal">
 
+
     <RadioButton
         android:id="@+id/card_selected_radio_button"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/_35sdp"
+        android:layout_gravity="center_vertical"
         android:layout_height="wrap_content"
-        android:button="@null"
-        android:drawableStart="@drawable/radio_button_states" />
+        android:button="@drawable/radio_button_states"/>
 
     <androidx.appcompat.widget.AppCompatImageView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_16sdp"
         android:layout_weight="1"
         app:srcCompat="@drawable/ic_card" />
 
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_16sdp"
+        android:layout_marginStart="@dimen/_8sdp"
         android:layout_weight="3.5"
         android:orientation="vertical">
 
@@ -51,6 +52,7 @@
         android:drawableEnd="@drawable/ic_cvv"
         android:drawablePadding="@dimen/_13sdp"
         android:hint="@string/cvv"
+        android:inputType="number"
         android:maxLength="3"
         android:paddingHorizontal="@dimen/_8sdp"
         android:paddingVertical="@dimen/_8sdp"

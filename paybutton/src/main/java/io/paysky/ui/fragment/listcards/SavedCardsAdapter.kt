@@ -1,5 +1,6 @@
 package io.paysky.ui.fragment.listcards
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +15,8 @@ import io.paysky.data.model.response.CardItem
 
 
 class SavedCardsAdapter(
-    val onSubmitDataValid: (CardItem) -> Unit
+    val onSubmitDataValid: (CardItem) -> Unit,
+    val onChangeItem: (Int) -> Unit
 ) :
     RecyclerView.Adapter<SavedCardsAdapter.SavedCardViewHolder>() {
     private val savedCardsList = mutableListOf<CardItem>()
@@ -65,12 +67,38 @@ class SavedCardsAdapter(
         private val selectCard: RadioButton = itemView.findViewById(R.id.card_selected_radio_button)
 
         fun setCardData(cardItem: CardItem, position: Int) {
+            selectCard.setOnClickListener {
+                Log.d("TAG_1", "setCardData: isClicked")
+                if (!selectCard.isChecked){
+                    updateSelectedCard(position)
+                }
+            }
+            selectCard.setOnCheckedChangeListener { _, isChecked ->
+                if (isChecked) {
+                    updateSelectedCard(position)
+                }
+            }
+
+            cvv.doAfterTextChanged {
+                savedCardsList[position].cvv = it.toString()
+                if (!it.isNullOrEmpty()) {
+                    savedCardsList[position].isError = false
+                }
+                updateCvvBackground(cardItem)
+            }
+
+            this.position = position
             maskedCardNumber.text = cardItem.maskedCardNumber
             cardName.text = cardItem.displayName
             if (cardItem.isSelected) {
                 selectedItemPosition = position
                 selectCard.isChecked = true
+                cvv.visibility = View.VISIBLE
                 cvv.setText(cardItem.cvv ?: "")
+            } else {
+                selectCard.isChecked = false
+                cvv.visibility = View.INVISIBLE
+                cvv.setText("")
             }
         }
 
@@ -89,9 +117,9 @@ class SavedCardsAdapter(
         savedCardsList[position] =
             savedCardsList[position].copy(isSelected = true)
 
-        this.selectedItemPosition = position
+        onChangeItem(position)
+        onChangeItem(selectedItemPosition)
 
-        notifyItemChanged(position)
-        notifyItemChanged(selectedItemPosition)
+        this.selectedItemPosition = position
     }
 }
