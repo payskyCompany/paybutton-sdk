@@ -22,8 +22,6 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-
-
     packagingOptions {
         exclude 'META-INF/DEPENDENCIES'
         exclude 'META-INF/LICENSE'
@@ -34,6 +32,22 @@ android {
         exclude 'META-INF/notice.txt'
         exclude 'META-INF/ASL2.0'
         exclude 'META-INF/INDEX.LIST'
+    }
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            def SEP = "_"
+            def DASH = "-"
+            def ver = "V"
+            def LEFT_BRACKET = "("
+            def RIGHT_BRACKET = ")"
+            def buildType = variant.buildType.name
+            def versionName = variant.versionName
+            def versionCode = variant.versionCode
+            def newApkName = "paybutton" + DASH + buildType + SEP + ver + versionName
+            newApkName += LEFT_BRACKET + versionCode + RIGHT_BRACKET + ".apk"
+
+            outputFileName = new File(newApkName)
+        }
     }
 }
 
