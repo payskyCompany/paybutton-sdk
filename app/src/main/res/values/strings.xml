@@ -5,10 +5,22 @@
     <string name="merchant_id">Merchant ID</string>
     <string name="terminal_id">Terminal ID</string>
     <string name="amount">Amount</string>
-    <string name="currency">Currency</string>
+    <string name="currency">Currency Code</string>
     <string name="pay">Pay</string>
     <string name="testing_type">Testing Environment</string>
     <string name="environment_type">Testing URLs</string>
-    <string name="secure_hash_key">SecureHash</string>
+    <string name="secure_hash_key">Secret Hash Key</string>
+    <string name="submit">Submit</string>
+    <string name="not_subscribed">Not Subscribed</string>
+    <string name="subscribed">Subscribed</string>
+    <string name="trnx_ref_number">Trnx Ref Number</string>
+    <string name="customer_id">Customer ID</string>
+    <string name="email_address">Email address</string>
+    <string name="mobile_number_hint">Mobile Number</string>
+    <string name="mobile_hint" translatable="false">00201xxxxxxxx</string>
+    <string name="invalid_email">Invalid email address</string>
+    <string name="paybutton_version_formatted" translatable="false">
+        PaySDK - PayButton module - Ver.  %s
+    </string>
 
 </resources>

@@ -4,12 +4,19 @@
     <string name="merchant_id">رقم التاجر</string>
     <string name="terminal_id">نقطة البيع</string>
     <string name="amount">المبلغ</string>
-    <string name="currency">العملة</string>
+    <string name="currency">كود العملة</string>
     <string name="pay">ادفع</string>
     <string name="testing_type">Testing Environment</string>
     <string name="environment_type">الرابط</string>
     <string name="required">حقل مطلوب</string>
-    <string name="secure_hash_key">SecureHash</string>
+    <string name="secure_hash_key">Secret Hash Key</string>
     <string name="english">English</string>
-
+    <string name="submit">Submit</string>
+    <string name="not_subscribed">Not Subscribed</string>
+    <string name="subscribed">Subscribed</string>
+    <string name="trnx_ref_number">Trnx Ref Number</string>
+    <string name="customer_id">Customer ID</string>
+    <string name="email_address">البريد الألكتروني</string>
+    <string name="mobile_number_hint">رقم الموبايل</string>
+    <string name="invalid_email">البريد الالكترونى غير صحيح</string>
 </resources>

@@ -28,7 +28,7 @@ import io.paysky.util.ToastUtils;
 public class PayButton {
 
     private Context context;
-    private String merchantId, terminalId;
+    private String merchantId, terminalId, customerId, customerMobile, customerEmail;
     private double amount = 0.0;
     private int currencyCode = 0;
     private String merchantSecureHash;
@@ -78,6 +78,20 @@ public class PayButton {
         return this;
     }
 
+    public PayButton setCustomerId(String CustomerId) {
+        this.customerId = CustomerId;
+        return this;
+    }
+
+    public PayButton setCustomerMobile(String mobileNumber) {
+        this.customerMobile = mobileNumber;
+        return this;
+    }
+
+    public PayButton setCustomerEmail(String email) {
+        this.customerEmail = email;
+        return this;
+    }
 
     public void createTransaction(PaymentTransactionCallback transactionCallback) {
 
@@ -141,7 +155,12 @@ public class PayButton {
                 PaymentData paymentData = new PaymentData();
                 paymentData.merchantId = merchantId;
                 paymentData.terminalId = terminalId;
+                paymentData.customerId = customerId;
+                paymentData.isTokenized = response.isTokenized;
+                paymentData.isCard = response.isCard;
                 paymentData.transactionReferenceNumber = transactionReferenceNumber;
+                paymentData.customerEmail = customerEmail;
+                paymentData.customerMobile = customerMobile;
                 paymentData.merchantName = response.merchantName;
                 paymentData.is3dsEnabled = response.is3DS;
                 paymentData.isTahweel = response.isTahweel;
@@ -155,7 +174,7 @@ public class PayButton {
                 paymentData.amountFormatted = amount + "";
                 paymentData.paymentMethod = response.paymentMethod;
                 paymentData.secureHashKey = merchantSecureHash;
-                String[] c = {paymentData.currencyCode };
+                String[] c = {paymentData.currencyCode};
                 CurrencyCode currencyCode = CurrencyHelper.getCurrencyCode(context, c[0]);
                 if (currencyCode != null) {
                     paymentData.currencyName = currencyCode.currencyShortName;

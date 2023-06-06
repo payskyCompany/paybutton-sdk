@@ -17,7 +17,10 @@ import com.example.paybutton.R;
 
 import io.paysky.data.model.PaymentData;
 import io.paysky.ui.base.BaseActivity;
+import io.paysky.ui.fragment.listcards.ListCardsFragment;
 import io.paysky.ui.fragment.manualpayment.ManualPaymentFragment;
+import io.paysky.ui.fragment.paymentfail.PaymentFailedFragment;
+import io.paysky.ui.fragment.paymentsuccess.PaymentApprovedFragment;
 import io.paysky.ui.fragment.qr.QrCodePaymentFragment;
 import io.paysky.util.AllURLsStatus;
 import io.paysky.util.AppConstant;
@@ -53,7 +56,7 @@ public class PaymentActivity extends BaseActivity implements View.OnClickListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         PrefsUtils.initialize(this);
-        LocaleHelper.setLocale(this , LocaleHelper.getLocale());
+        LocaleHelper.setLocale(this, LocaleHelper.getLocale());
         makeActivityFullScreen();
         AppUtils.preventScreenshot(this);
         setContentView(R.layout.activity_pay);
@@ -75,7 +78,7 @@ public class PaymentActivity extends BaseActivity implements View.OnClickListene
 
 
     public void makeActivityFullScreen() {
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
     }
@@ -101,7 +104,7 @@ public class PaymentActivity extends BaseActivity implements View.OnClickListene
         languageTextView.setOnClickListener(this);
         TextView termsTextView = findViewById(R.id.terms_conditions_textView);
         termsTextView.setOnClickListener(this);
-        termsTextView.setOnClickListener(this);
+        //termsTextView.setOnClickListener(this);
         cardPaymentLayout = findViewById(R.id.card_payment_layout);
         qrPaymentLayout = findViewById(R.id.qr_payment_layout);
         cardPaymentLayout.setOnClickListener(this);
@@ -140,7 +143,11 @@ public class PaymentActivity extends BaseActivity implements View.OnClickListene
 
 
     public void showCardPaymentFragment(Bundle bundle) {
-        replaceFragmentAndRemoveOldFragment(ManualPaymentFragment.class, bundle);
+        if (paymentData.customerId != null) {
+            replaceFragmentAndRemoveOldFragment(ListCardsFragment.class, bundle);
+        } else {
+            replaceFragmentAndRemoveOldFragment(ManualPaymentFragment.class, bundle);
+        }
     }
 
 
@@ -259,7 +266,16 @@ public class PaymentActivity extends BaseActivity implements View.OnClickListene
     @Override
     public void onBackPressed() {
         if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
-            getSupportFragmentManager().popBackStack();
+
+            Fragment f = getSupportFragmentManager().findFragmentById(R.id.fragment_frame);
+
+            if (f instanceof PaymentApprovedFragment) {
+                finish();
+            } else if (f instanceof PaymentFailedFragment) {
+                finish();
+            } else {
+                getSupportFragmentManager().popBackStack();
+            }
         } else {
             super.onBackPressed();
         }

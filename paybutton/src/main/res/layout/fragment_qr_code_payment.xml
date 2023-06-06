@@ -72,7 +72,7 @@
                 android:layout_marginEnd="@dimen/_12sdp"
                 android:layout_marginStart="@dimen/_12sdp"
                 android:layout_marginTop="@dimen/_8sdp"
-                android:background="@drawable/baybutton_proceed_button"
+                android:background="@drawable/paybutton_green_button"
                 android:text="@string/send_otp" />
         </LinearLayout>
 
@@ -140,7 +140,7 @@
                     style="@style/buttonStyle"
                     android:layout_width="@dimen/_120sdp"
                     android:layout_height="@dimen/_31sdp"
-                    android:background="@drawable/baybutton_proceed_button"
+                    android:background="@drawable/paybutton_green_button"
                     android:text="@string/request_payment"
                     android:textSize="@dimen/_10sdp" />
             </LinearLayout>

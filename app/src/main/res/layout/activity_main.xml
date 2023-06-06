@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:fillViewport="true"
     android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:layout_margin="@dimen/_10sdp"
-    android:layout_height="match_parent">
+    android:fillViewport="true">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <LinearLayout
-            android:layout_marginBottom="@dimen/_20sdp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_20sdp"
             android:gravity="center"
             android:orientation="vertical"
             android:padding="8dp"
@@ -34,6 +34,139 @@
                 android:text="@string/app_name"
                 android:textSize="@dimen/_12ssp" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/not_subscribed_layout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/not_subscribed_textview"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/_8sdp"
+                        android:text="@string/not_subscribed"
+                        android:textAlignment="center"
+                        android:textColor="@color/blue100"
+                        android:textStyle="bold" />
+
+                    <View
+                        android:id="@+id/not_subscribed_line"
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_marginEnd="@dimen/_8sdp"
+                        android:background="@color/blue100" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/subscribed_layout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/subscribed_textview"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/_8sdp"
+                        android:text="@string/subscribed"
+                        android:textAlignment="center"
+                        android:textColor="@color/gray100"
+                        android:textStyle="normal" />
+
+                    <View
+                        android:id="@+id/subscribed_line"
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_marginEnd="@dimen/_8sdp"
+                        android:background="@color/gray100" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <Spinner
+                android:id="@+id/auth_type_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:id="@+id/mobile_number_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_4sdp"
+                    android:layout_weight="3"
+                    android:text="@string/mobile_number_hint"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/phone_number_editText"
+                    android:layout_width="0dp"
+                    android:hint="@string/mobile_hint"
+                    android:maxLength="20"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="7"
+                    android:inputType="phone" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/email_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_4sdp"
+                    android:layout_weight="3"
+                    android:text="@string/email_address"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/email_editText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="7"
+                    android:inputType="textEmailAddress" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/customer_id_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_4sdp"
+                    android:layout_weight="3"
+                    android:text="@string/customer_id"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/customer_id_editText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="7"
+                    android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890-" />
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -88,6 +221,29 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/_4sdp"
                     android:layout_weight="3"
+                    android:textSize="@dimen/_10sdp"
+                    android:text="@string/secure_hash_key"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/secureHash_editText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="7"
+                    android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_4sdp"
+                    android:layout_weight="3"
                     android:text="@string/amount"
                     android:textColor="@color/black"
                     android:textStyle="bold" />
@@ -119,9 +275,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="7"
-                    android:inputType="numberSigned" />
+                    android:inputType="numberDecimal" />
             </LinearLayout>
-
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -133,38 +288,38 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/_4sdp"
                     android:layout_weight="3"
-                    android:text="@string/secure_hash_key"
+                    android:text="@string/trnx_ref_number"
                     android:textColor="@color/black"
                     android:textStyle="bold" />
 
                 <EditText
-                    android:id="@+id/secureHash_editText"
+                    android:id="@+id/trnx_ref_number_editText"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="7" />
+                    android:layout_weight="7"
+                    android:inputType="number" />
             </LinearLayout>
 
-
             <LinearLayout
-                android:layout_marginTop="@dimen/_10sdp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_marginEnd="@dimen/_4sdp"
-                    android:textColor="@color/black"
-                    android:textStyle="bold"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_4sdp"
                     android:layout_weight="3"
-                    android:text="@string/environment_type" />
+                    android:text="@string/environment_type"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
 
                 <Spinner
-                    android:layout_gravity="center"
                     android:id="@+id/spinner_type"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:layout_weight="7"
                     android:gravity="center"
                     android:text="@string/pay"
@@ -178,12 +333,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_34sdp"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginEnd="8dp"
                 android:background="@drawable/button_blue_selector"
                 android:gravity="center"
-                android:text="@string/pay"
+                android:text="@string/submit"
+                android:enabled="false"
                 android:textColor="#FFF"
                 android:textSize="@dimen/_14ssp" />
 
@@ -201,8 +357,8 @@
             android:id="@+id/language_textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
             android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
             android:layout_gravity="start"
             android:layout_margin="8dp"
             android:drawableEnd="@drawable/ic_language"
@@ -215,8 +371,8 @@
             android:id="@+id/logo_imageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
             android:layout_margin="@dimen/_4sdp"
             android:src="@drawable/ic_pay_sky_logo2" />
     </RelativeLayout>

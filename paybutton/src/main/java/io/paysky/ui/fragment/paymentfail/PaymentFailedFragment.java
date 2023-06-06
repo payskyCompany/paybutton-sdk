@@ -15,12 +15,11 @@ import com.example.paybutton.R;
 
 import io.paysky.ui.activity.payment.PaymentActivity;
 import io.paysky.ui.base.BaseFragment;
+import io.paysky.util.AppConstant;
 import io.paysky.util.AppUtils;
 
 
 public class PaymentFailedFragment extends BaseFragment implements View.OnClickListener {
-
-
     //Objects,
     private PaymentActivity activity;
     //Variables.
@@ -38,7 +37,8 @@ public class PaymentFailedFragment extends BaseFragment implements View.OnClickL
     }
 
     private void extractBundle() {
-        declineCause = getArguments().getString("decline_cause");
+        assert getArguments() != null;
+        declineCause = getArguments().getString(AppConstant.BundleKeys.DECLINE_CAUSE);
     }
 
     @Override
@@ -78,7 +78,7 @@ public class PaymentFailedFragment extends BaseFragment implements View.OnClickL
         int viewId = view.getId();
         if (viewId == R.id.close_button) {
             activity.onBackPressed();
-        } else if(viewId==R.id.try_again_button) {
+        } else if (viewId == R.id.try_again_button) {
             activity.showManualPayment();
         }
     }

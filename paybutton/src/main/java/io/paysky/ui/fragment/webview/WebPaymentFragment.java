@@ -1,13 +1,11 @@
 package io.paysky.ui.fragment.webview;
 
-
 import android.annotation.TargetApi;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -69,6 +67,7 @@ public class WebPaymentFragment extends BaseFragment implements WebPaymentView {
 
     private void extractBundleData() {
         Bundle arguments = getArguments();
+        assert arguments != null;
         paymentData = arguments.getParcelable(AppConstant.BundleKeys.PAYMENT_DATA);
 
         url = arguments.getString("url");
@@ -172,12 +171,11 @@ public class WebPaymentFragment extends BaseFragment implements WebPaymentView {
                             cardTransaction.amount = paymentData.executedTransactionAmount;
                             TransactionManager.setCardTransaction(cardTransaction);
 
-
                             activity.replaceFragmentAndRemoveOldFragment(PaymentApprovedFragment.class, bundle);
-
-
                         } else {
-                            Log.d("JSON", jsonObject.toString());
+                            String cause = jsonObject.getString("Message");
+                            if (!cause.isEmpty())
+                                bundle.putString(AppConstant.BundleKeys.DECLINE_CAUSE, cause);
                             activity.replaceFragmentAndRemoveOldFragment(PaymentFailedFragment.class, bundle);
                         }
 

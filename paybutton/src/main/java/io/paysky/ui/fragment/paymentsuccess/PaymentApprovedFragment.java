@@ -1,6 +1,5 @@
 package io.paysky.ui.fragment.paymentsuccess;
 
-
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,7 +22,6 @@ import io.paysky.util.AppUtils;
 import io.paysky.util.PrintReceiptListener;
 import io.paysky.util.ReceiptManager;
 import io.paysky.util.ToastUtils;
-
 
 public class PaymentApprovedFragment extends BaseFragment implements View.OnClickListener, PrintReceiptListener, PaymentApprovedView {
 
@@ -91,12 +89,13 @@ public class PaymentApprovedFragment extends BaseFragment implements View.OnClic
         TextView approvedTextView = view.findViewById(R.id.approved_textView);
         AppUtils.showHtmlText(approvedTextView, R.string.transaction_success);
         TextView authNumberTextView = view.findViewById(R.id.auth_number_textView);
-        authNumberTextView.setText(getString(R.string.auth_number) + " #" + transactionData.authNumber);
+        authNumberTextView.setText(getString(R.string.auth_number_fromatted, transactionData.authNumber));
+
         TextView trxIdTextView = view.findViewById(R.id.trx_id_textView);
         if (transactionData.rrn.length() > 30) {
-            trxIdTextView.setText(getString(R.string.trx_id) + " #" + transactionData.stan.substring(transactionData.stan.length() - 6));
+            trxIdTextView.setText(getString(R.string.trx_id_formatted, transactionData.stan.substring(transactionData.stan.length() - 6)));
         } else {
-            trxIdTextView.setText(getString(R.string.trx_id) + " #" + transactionData.stan);
+            trxIdTextView.setText(getString(R.string.trx_id_formatted,transactionData.stan));
         }
         Button closeButton = view.findViewById(R.id.close_button);
         closeButton.setOnClickListener(this);
@@ -188,7 +187,7 @@ public class PaymentApprovedFragment extends BaseFragment implements View.OnClic
 
     @Override
     public void showErrorToast(int error) {
-        ToastUtils.showLongToast(activity,getString(error));
+        ToastUtils.showLongToast(activity, getString(error));
     }
 
     @Override

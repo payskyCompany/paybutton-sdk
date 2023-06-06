@@ -39,4 +39,10 @@ public class MerchantInfoResponse{
 
 	@SerializedName("IsValidPayByCardFromWeb")
 	public boolean isValidPayByCardFromWeb;
+
+	@SerializedName("IsTokenized")
+	public boolean isTokenized;
+
+	@SerializedName("IsCard")
+	public boolean isCard;
 }
