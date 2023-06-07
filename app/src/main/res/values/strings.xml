@@ -20,7 +20,7 @@
     <string name="mobile_hint" translatable="false">00201xxxxxxxx</string>
     <string name="invalid_email">Invalid email address</string>
     <string name="paybutton_version_formatted" translatable="false">
-        PaySDK - PayButton module - Ver.  %s
+        PaySky PayButton SDK - Version  %s
     </string>
 
 </resources>
