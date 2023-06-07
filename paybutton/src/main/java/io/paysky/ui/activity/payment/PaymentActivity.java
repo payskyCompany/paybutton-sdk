@@ -19,6 +19,8 @@ import io.paysky.data.model.PaymentData;
 import io.paysky.ui.base.BaseActivity;
 import io.paysky.ui.fragment.listcards.ListCardsFragment;
 import io.paysky.ui.fragment.manualpayment.ManualPaymentFragment;
+import io.paysky.ui.fragment.paymentfail.PaymentFailedFragment;
+import io.paysky.ui.fragment.paymentsuccess.PaymentApprovedFragment;
 import io.paysky.ui.fragment.qr.QrCodePaymentFragment;
 import io.paysky.util.AllURLsStatus;
 import io.paysky.util.AppConstant;
@@ -169,7 +171,6 @@ public class PaymentActivity extends BaseActivity implements View.OnClickListene
 
 
     public void replaceFragmentAndRemoveOldFragment(Class<? extends Fragment> fragmentClass, Bundle bundle) {
-
         replaceFragment(fragmentClass, bundle, false);
     }
 
@@ -265,7 +266,16 @@ public class PaymentActivity extends BaseActivity implements View.OnClickListene
     @Override
     public void onBackPressed() {
         if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
-            getSupportFragmentManager().popBackStack();
+
+            Fragment f = getSupportFragmentManager().findFragmentById(R.id.fragment_frame);
+
+            if (f instanceof PaymentApprovedFragment) {
+                finish();
+            } else if (f instanceof PaymentFailedFragment) {
+                finish();
+            } else {
+                getSupportFragmentManager().popBackStack();
+            }
         } else {
             super.onBackPressed();
         }

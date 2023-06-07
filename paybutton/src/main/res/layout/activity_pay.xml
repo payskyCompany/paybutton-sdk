@@ -172,14 +172,15 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_6sdp"
+                    android:layout_marginStart="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_6sdp"
-                    android:layout_marginEnd="@dimen/_6sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
                     android:baselineAligned="false">
 
                     <LinearLayout
                         android:id="@+id/card_payment_layout"
                         android:layout_width="0dp"
+                        android:layout_marginStart="@dimen/_6sdp"
                         android:layout_height="@dimen/_34sdp"
                         android:layout_marginEnd="@dimen/_6sdp"
                         android:layout_weight="1"
@@ -208,6 +209,7 @@
                         android:layout_width="0dp"
                         android:layout_height="@dimen/_34sdp"
                         android:layout_marginStart="@dimen/_6sdp"
+                        android:layout_marginEnd="@dimen/_6sdp"
                         android:layout_weight="1"
                         android:background="@drawable/payment_option_unselected"
                         android:button="@null"
