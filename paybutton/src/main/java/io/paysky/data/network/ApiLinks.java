@@ -16,10 +16,10 @@ public class ApiLinks {
     public static final String SMS_PAYMENT = CUBE_GATEWAY + API + "RequestToPay";
     public static final String MERCHANT_INFO = CUBE_GATEWAY + API + "CheckPaymentMethod";
     public static final String CHECK_TRANSACTION_STATUS = CUBE_GATEWAY + API + "FilterTransactions";
-
     public static final String Get_Session_For_Customer_Token = CUBE_GATEWAY + API + "GetSessionForCustomerToken";
-
     public static final String LIST_SAVED_CARDS_FOR_CUSTOMER = CUBE_GATEWAY + API + "GetAllCardsForCustomerToken";
+    public static final String DELETE_TOKENIZED_CARD = CUBE_GATEWAY + API + "RemoveToken";
+    public static final String CHANGE_DEFAULT_CARD = CUBE_GATEWAY + API + "ChangeDefaultToken";
 
     public static final String GRAY_LINK = "https://grey.paysky.io/";
     public static final String CUBE = "https://cube.paysky.io/";

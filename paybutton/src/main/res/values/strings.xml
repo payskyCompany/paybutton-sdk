@@ -78,4 +78,7 @@
     <string name="manage_cards">Manage cards</string>
     <string name="auth_number_fromatted">Auth Code: #%s</string>
     <string name="trx_id_formatted">Transaction No: #%s</string>
+    <string name="set_your_default_card">Set Your Default Card</string>
+    <string name="set_default">Set\nDefault</string>
+    <string name="card_details">Card Details</string>
 </resources>

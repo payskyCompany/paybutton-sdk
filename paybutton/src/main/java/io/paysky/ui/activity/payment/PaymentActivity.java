@@ -18,6 +18,7 @@ import com.example.paybutton.R;
 import io.paysky.data.model.PaymentData;
 import io.paysky.ui.base.BaseActivity;
 import io.paysky.ui.fragment.listcards.ListCardsFragment;
+import io.paysky.ui.fragment.managecards.ManageCardsFragment;
 import io.paysky.ui.fragment.manualpayment.ManualPaymentFragment;
 import io.paysky.ui.fragment.paymentfail.PaymentFailedFragment;
 import io.paysky.ui.fragment.paymentsuccess.PaymentApprovedFragment;
@@ -43,6 +44,7 @@ public class PaymentActivity extends BaseActivity implements View.OnClickListene
     private ImageView poweredByImageView;
     //Objects,
     public static Bitmap qrBitmap;
+    public View paymentInfoView;
     private PaymentData paymentData;
 
     private AllURLsStatus allURLsStatus;
@@ -109,8 +111,17 @@ public class PaymentActivity extends BaseActivity implements View.OnClickListene
         qrPaymentLayout = findViewById(R.id.qr_payment_layout);
         cardPaymentLayout.setOnClickListener(this);
         qrPaymentLayout.setOnClickListener(this);
+
+        paymentInfoView = findViewById(R.id.payment_info_layout);
     }
 
+    public void showPaymentInfo() {
+        paymentInfoView.setVisibility(View.VISIBLE);
+    }
+
+    public void hidePaymentInfo() {
+        paymentInfoView.setVisibility(View.GONE);
+    }
 
     public void showPaymentBasedOnPaymentOptions(int paymentOptions) {
         Bundle bundle = new Bundle();
@@ -273,6 +284,10 @@ public class PaymentActivity extends BaseActivity implements View.OnClickListene
                 finish();
             } else if (f instanceof PaymentFailedFragment) {
                 finish();
+            } else if (f instanceof ManageCardsFragment) {
+                Bundle bundle = new Bundle();
+                bundle.putParcelable(AppConstant.BundleKeys.PAYMENT_DATA, paymentData);
+                replaceFragmentAndRemoveOldFragment(ListCardsFragment.class, bundle);
             } else {
                 getSupportFragmentManager().popBackStack();
             }

@@ -74,11 +74,10 @@
     <string name="cvv">CVV</string>
     <string name="select_card">أختر البطاقة</string>
     <string name="manage_cards">إدارة البطاقات</string>
-    <string name="save_for_future_use">Save for future use</string>
-    <string name="set_as_default">Set as default</string>
-    <string name="add_new_card">Add New Card</string>
-    <string name="back">Back</string>
     <string name="auth_number_fromatted">رقم الموافقة: #%s</string>
     <string name="trx_id_formatted">رقم المعاملة: #%s</string>
+    <string name="set_your_default_card">قم بتعيين بطاقتك الافتراضية</string>
+    <string name="set_default">تعيين\كافتراضي</string>
+    <string name="card_details">بيانات البطاقة</string>
 
 </resources>

@@ -20,8 +20,7 @@ class SavedCardsAdapter(
     val onSubmitDataValid: (CardItem) -> Unit,
     val onChangeItem: (Int) -> Unit,
     val activity: PaymentActivity
-) :
-    RecyclerView.Adapter<SavedCardsAdapter.SavedCardViewHolder>() {
+) : RecyclerView.Adapter<SavedCardsAdapter.SavedCardViewHolder>() {
     private val savedCardsList = mutableListOf<CardItem>()
     private var selectedItemPosition = -1
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SavedCardViewHolder {

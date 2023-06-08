@@ -1,4 +1,4 @@
-package io.paysky.ui.fragment.listcards
+package io.paysky.ui.fragment.cardsOperations
 
 import android.os.Bundle
 import io.paysky.data.model.PaymentData
@@ -11,21 +11,18 @@ import io.paysky.data.network.ApiConnection
 import io.paysky.data.network.ApiResponseListener
 import io.paysky.ui.mvp.BasePresenter
 import io.paysky.util.AppConstant
-import io.paysky.util.AppUtils.getDateTimeLocalTrxn
+import io.paysky.util.AppUtils
 import io.paysky.util.HashGenerator
 import io.paysky.util.parcelable
 
-class ListCardsPresenter(
-    arguments: Bundle?,
-    view: ListCardsView
-
-) : BasePresenter<ListCardsView>() {
-    val paymentData: PaymentData?
+open class CardsPresenter<V : CardsView>(arguments: Bundle?, view: V) :
+    BasePresenter<V>() {
     val cardsList = mutableListOf<CardItem>()
+    val paymentData: PaymentData?
 
     init {
-        paymentData = arguments?.parcelable(AppConstant.BundleKeys.PAYMENT_DATA)
         attachView(view)
+        paymentData = arguments?.parcelable(AppConstant.BundleKeys.PAYMENT_DATA)
         getSessionToken()
     }
 
@@ -54,7 +51,7 @@ class ListCardsPresenter(
         view.showProgress()
         // create request body.
 
-        val dateTimeLocalTrxn = getDateTimeLocalTrxn()
+        val dateTimeLocalTrxn = AppUtils.getDateTimeLocalTrxn()
         val request = GetSessionRequest(
             customerId = customerId,
             merchantId = merchantId,
@@ -77,7 +74,7 @@ class ListCardsPresenter(
                     if (response != null) {
                         if (response.success) {
                             paymentData?.customerSession = response.sessionId!!
-                            view.sessionIdFetchedSuccessfully()
+                            listCustomerCards()
                         } else {
                             view.showToastError(response.message!!)
                         }
@@ -94,7 +91,8 @@ class ListCardsPresenter(
         )
     }
 
-    fun listCustomerCards() {
+
+    private fun listCustomerCards() {
         paymentData?.let { payment ->
             // check internet.
             if (!view.isInternetAvailable) {
@@ -102,7 +100,7 @@ class ListCardsPresenter(
                 return
             }
             view.showProgress()
-            val dateTimeLocalTrxn = getDateTimeLocalTrxn()
+            val dateTimeLocalTrxn = AppUtils.getDateTimeLocalTrxn()
             val request = ListSavedCardsRequest(
                 sessionId = payment.customerSession,
                 customerId = payment.customerId,
