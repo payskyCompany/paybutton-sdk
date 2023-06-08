@@ -30,7 +30,7 @@ class ManageCardsFragment : BaseFragment(), ManageCardsView {
             bundle.putParcelable(AppConstant.BundleKeys.PAYMENT_DATA, presenter.paymentData)
             activity.replaceFragmentAndRemoveOldFragment(ListCardsFragment::class.java, bundle)
         }
-        activity.hidePaymentInfo()
+        activity.hidePaymentInfoAndOptions()
     }
 
     override fun onCreateView(

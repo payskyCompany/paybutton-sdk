@@ -32,9 +32,9 @@ class ListCardsFragment : BaseFragment(), CardsView {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        activity = getActivity() as PaymentActivity?
+        activity = getActivity() as PaymentActivity
         activity.setHeaderIconClickListener { activity.finish() }
-        activity.showPaymentInfo()
+        activity.showPaymentInfoAndOptions()
 
         presenter = CardsPresenter(arguments, this)
     }

@@ -44,7 +44,7 @@ public class PaymentActivity extends BaseActivity implements View.OnClickListene
     private ImageView poweredByImageView;
     //Objects,
     public static Bitmap qrBitmap;
-    public View paymentInfoView;
+    public View paymentInfoView, paymentOptionsLayout;
     private PaymentData paymentData;
 
     private AllURLsStatus allURLsStatus;
@@ -113,14 +113,17 @@ public class PaymentActivity extends BaseActivity implements View.OnClickListene
         qrPaymentLayout.setOnClickListener(this);
 
         paymentInfoView = findViewById(R.id.payment_info_layout);
+        paymentOptionsLayout = findViewById(R.id.payment_options_layout);
     }
 
-    public void showPaymentInfo() {
+    public void showPaymentInfoAndOptions() {
         paymentInfoView.setVisibility(View.VISIBLE);
+        paymentOptionsLayout.setVisibility(View.VISIBLE);
     }
 
-    public void hidePaymentInfo() {
+    public void hidePaymentInfoAndOptions() {
         paymentInfoView.setVisibility(View.GONE);
+        paymentOptionsLayout.setVisibility(View.GONE);
     }
 
     public void showPaymentBasedOnPaymentOptions(int paymentOptions) {

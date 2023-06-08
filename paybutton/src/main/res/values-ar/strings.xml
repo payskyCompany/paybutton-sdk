@@ -12,7 +12,7 @@
     <string name="name_on_card">اسم صاحب البطاقة</string>
     <string name="expire_date">تاريخ الانتهاء</string>
     <string name="cvc">رمز الحماية</string>
-    <string name="proceed">تأكيد</string>
+    <string name="proceed">متابعة</string>
     <string name="error">خطأ</string>
     <string name="check_internet_connection">تحقق من الاتصال بالانترنت,وحاول مرة أخرى.</string>
     <string name="ok">موافق</string>
@@ -78,7 +78,7 @@
     <string name="auth_number_fromatted">رقم الموافقة: #%s</string>
     <string name="trx_id_formatted">رقم المعاملة: #%s</string>
     <string name="set_your_default_card">قم بتعيين بطاقتك الافتراضية</string>
-    <string name="set_default">تعيين\كافتراضي</string>
+    <string name="set_default">تعيين\nكافتراضي</string>
     <string name="card_details">بيانات البطاقة</string>
 
 </resources>
