@@ -1,46 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingStart="@dimen/_16sdp"
-    android:paddingTop="@dimen/_16sdp"
-    android:paddingEnd="@dimen/_16sdp"
-    tools:context="io.paysky.ui.fragment.listcards.ListCardsFragment">
+    android:layout_height="wrap_content">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/cards_list"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/_16sdp"
+        tools:context="io.paysky.ui.fragment.listcards.ListCardsFragment">
 
-    <Button
-        android:id="@+id/add_new_card_button"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_34sdp"
-        android:layout_below="@+id/cards_list"
-        android:layout_marginTop="@dimen/_16sdp"
-        android:background="@drawable/paybutton_blue_border"
-        android:text="@string/add_new_card"
-        android:textColor="@color/blue100" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/proceed_button"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_34sdp"
-        android:layout_above="@id/back_button"
-        android:background="@drawable/button_blue_selector"
-        android:text="@string/proceed"
-        android:textColor="@android:color/white" />
+            <TextView
+                android:id="@+id/select_card"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:gravity="center_vertical"
+                android:text="@string/select_card"
+                android:textColor="@color/black100"
+                android:textSize="@dimen/_14ssp"
+                android:textStyle="bold" />
 
-    <Button
-        android:id="@+id/back_button"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_34sdp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginTop="@dimen/_10sdp"
-        android:layout_marginBottom="@dimen/_10sdp"
-        android:background="@drawable/paybutton_black_border"
-        android:text="@string/back"
-        android:textColor="@android:color/black" />
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
 
-</RelativeLayout>
+            <Button
+                android:id="@+id/manage_cards_button"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_34sdp"
+                android:layout_marginEnd="@dimen/_16sdp"
+                android:background="@drawable/paybutton_blue_border"
+                android:paddingHorizontal="@dimen/_16sdp"
+                android:paddingVertical="@dimen/_8sdp"
+                android:text="@string/manage_cards"
+                android:textColor="@color/blue100" />
+
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/cards_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_24sdp"
+            android:nestedScrollingEnabled="false"
+            tools:listitem="@layout/item_saved_card" />
+
+        <Button
+            android:id="@+id/add_new_card_button"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_34sdp"
+            android:layout_marginHorizontal="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_16sdp"
+            android:background="@drawable/paybutton_blue_border"
+            android:text="@string/add_new_card"
+            android:textColor="@color/blue100" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:minHeight="@dimen/_120sdp" />
+
+        <Button
+            android:id="@+id/proceed_button"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_34sdp"
+            android:layout_marginHorizontal="@dimen/_16sdp"
+            android:background="@drawable/button_blue_selector"
+            android:text="@string/proceed"
+            android:textColor="@android:color/white" />
+
+        <Button
+            android:id="@+id/back_button"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_34sdp"
+            android:layout_marginHorizontal="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:background="@drawable/paybutton_black_border"
+            android:text="@string/back"
+            android:textColor="@android:color/black" />
+
+    </LinearLayout>
+</ScrollView>

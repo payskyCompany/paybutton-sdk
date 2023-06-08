@@ -2,6 +2,7 @@ package io.paysky.data.network;
 
 import io.paysky.data.model.request.CheckTransactionStatusRequest;
 import io.paysky.data.model.request.GetSessionRequest;
+import io.paysky.data.model.request.ListSavedCardsRequest;
 import io.paysky.data.model.request.ManualPaymentRequest;
 import io.paysky.data.model.request.MerchantInfoRequest;
 import io.paysky.data.model.request.QrGeneratorRequest;
@@ -11,6 +12,7 @@ import io.paysky.data.model.request.TransactionStatusRequest;
 import io.paysky.data.model.response.CheckTransactionStatusResponse;
 import io.paysky.data.model.response.GenerateQrCodeResponse;
 import io.paysky.data.model.response.GetSessionResponse;
+import io.paysky.data.model.response.ListSavedCardsResponse;
 import io.paysky.data.model.response.ManualPaymentResponse;
 import io.paysky.data.model.response.MerchantInfoResponse;
 import io.paysky.data.model.response.RequestToPayResponse;
@@ -59,4 +61,8 @@ public interface ApiInterface {
     @Headers("Content-Type: application/json")
     @POST(ApiLinks.Get_Session_For_Customer_Token)
     Call<GetSessionResponse> getSession(@Body GetSessionRequest request);
+
+    @Headers("Content-Type: application/json")
+    @POST(ApiLinks.LIST_SAVED_CARDS_FOR_CUSTOMER)
+    Call<ListSavedCardsResponse> listSavedCards(@Body ListSavedCardsRequest request);
 }

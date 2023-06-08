@@ -11,6 +11,7 @@ import java.util.concurrent.TimeUnit;
 
 import io.paysky.data.model.request.CheckTransactionStatusRequest;
 import io.paysky.data.model.request.GetSessionRequest;
+import io.paysky.data.model.request.ListSavedCardsRequest;
 import io.paysky.data.model.request.ManualPaymentRequest;
 import io.paysky.data.model.request.MerchantInfoRequest;
 import io.paysky.data.model.request.QrGeneratorRequest;
@@ -21,6 +22,7 @@ import io.paysky.data.model.response.CheckTransactionStatusResponse;
 import io.paysky.data.model.response.DateTransactionsItem;
 import io.paysky.data.model.response.GenerateQrCodeResponse;
 import io.paysky.data.model.response.GetSessionResponse;
+import io.paysky.data.model.response.ListSavedCardsResponse;
 import io.paysky.data.model.response.ManualPaymentResponse;
 import io.paysky.data.model.response.MerchantInfoResponse;
 import io.paysky.data.model.response.RequestToPayResponse;
@@ -201,6 +203,24 @@ public class ApiConnection {
                              }
                          }
                 );
+    }
+
+    public static void listSavedCards(ListSavedCardsRequest request,
+                                      final ApiResponseListener<ListSavedCardsResponse> listener) {
+        createConnection().listSavedCards(request).enqueue(new Callback<ListSavedCardsResponse>() {
+            @Override
+            public void onResponse(Call<ListSavedCardsResponse> call, Response<ListSavedCardsResponse> response) {
+                if (response.isSuccessful()) {
+                    listener.onSuccess(response.body());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ListSavedCardsResponse> call, Throwable t) {
+                listener.onFail(t);
+            }
+        });
+
     }
 
 //    public static void compose3dsTransaction(Compose3dsTransactionRequest request, final ApiResponseListener<Compose3dsTransactionResponse> listener) {

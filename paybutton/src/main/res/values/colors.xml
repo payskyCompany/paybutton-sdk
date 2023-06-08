@@ -7,6 +7,10 @@
     <color name="font_gray_color2">#878d91</color>
     <color name="font_gray_color3">#2D3134</color>
     <color name="blue100">#52B4F2</color>
+
     <color name="gray100">#C7C8C8</color>
     <color name="gray200">#CAC4D0</color>
+
+    <color name="black100">#222222</color>
+    <color name="red100">#DEFB4949</color>
 </resources>

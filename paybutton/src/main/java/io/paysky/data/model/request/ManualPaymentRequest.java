@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import javax.annotation.Generated;
 
 @Generated("com.robohorse.robopojogenerator")
-public class ManualPaymentRequest  extends BaseRequest{
+public class ManualPaymentRequest extends BaseRequest {
     @SerializedName("cvv2")
     public String cvv2;
 
@@ -87,10 +87,10 @@ public class ManualPaymentRequest  extends BaseRequest{
     public String threeDSECI;
 
     @SerializedName("IsSaveCard")
-    public boolean isSaveCard;
+    public Boolean isSaveCard = null;
 
     @SerializedName("IsDefaultCard")
-    public boolean isDefaultCard;
+    public Boolean isDefaultCard = null;
 
     @SerializedName("TokenCustomerId")
     public String tokenCustomerId;

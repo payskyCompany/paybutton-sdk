@@ -15,6 +15,7 @@ public interface AppConstant {
         String URL_ENUM_KEY = "enumKey";
         String CARD_DATA = "card_data";
         String DECLINE_CAUSE = "decline_cause";
+        String TOKENIZED_CARD = "tokenized_card";
     }
 
 

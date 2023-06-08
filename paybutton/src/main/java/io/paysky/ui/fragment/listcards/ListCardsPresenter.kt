@@ -3,7 +3,10 @@ package io.paysky.ui.fragment.listcards
 import android.os.Bundle
 import io.paysky.data.model.PaymentData
 import io.paysky.data.model.request.GetSessionRequest
+import io.paysky.data.model.request.ListSavedCardsRequest
+import io.paysky.data.model.response.CardItem
 import io.paysky.data.model.response.GetSessionResponse
+import io.paysky.data.model.response.ListSavedCardsResponse
 import io.paysky.data.network.ApiConnection
 import io.paysky.data.network.ApiResponseListener
 import io.paysky.ui.mvp.BasePresenter
@@ -18,6 +21,7 @@ class ListCardsPresenter(
 
 ) : BasePresenter<ListCardsView>() {
     val paymentData: PaymentData?
+    val cardsList = mutableListOf<CardItem>()
 
     init {
         paymentData = arguments?.parcelable(AppConstant.BundleKeys.PAYMENT_DATA)
@@ -91,6 +95,50 @@ class ListCardsPresenter(
     }
 
     fun listCustomerCards() {
+        paymentData?.let { payment ->
+            // check internet.
+            if (!view.isInternetAvailable) {
+                view.showNoInternetDialog()
+                return
+            }
+            view.showProgress()
+            val dateTimeLocalTrxn = getDateTimeLocalTrxn()
+            val request = ListSavedCardsRequest(
+                sessionId = payment.customerSession,
+                customerId = payment.customerId,
+                amount = payment.amount,
+                terminalId = payment.terminalId,
+                merchantId = payment.merchantId,
+                dateTimeLocalTrxn = dateTimeLocalTrxn
+            )
+            ApiConnection.listSavedCards(request,
+                object : ApiResponseListener<ListSavedCardsResponse?> {
+                    override fun onSuccess(response: ListSavedCardsResponse?) {
+                        view.dismissProgress()
+                        response?.let {
+                            if (it.success) {
+                                cardsList.clear()
+                                cardsList.addAll(it.cardsLists)
+                                setDefaultCardSelected()
+                                view.showSavedCards(cardsList)
+                            } else {
+                                view.showToastError(response.message!!)
+                            }
+                        } ?: {
+                            view.showToastError("Errorrrr")
+                        }
+                    }
 
+                    override fun onFail(error: Throwable) {
+                        error.printStackTrace()
+                        view.dismissProgress()
+                    }
+                }
+            )
+        }
+    }
+
+    private fun setDefaultCardSelected() {
+        cardsList.find { it.isDefaultCard }?.isSelected = true
     }
 }
