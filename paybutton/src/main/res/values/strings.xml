@@ -76,6 +76,7 @@
     <string name="cvv">CVV</string>
     <string name="select_card">Select card</string>
     <string name="manage_cards">Manage cards</string>
+    <string name="cvv_number_required">CVV Number Required</string>
     <string name="auth_number_fromatted">Auth Code: #%s</string>
     <string name="trx_id_formatted">Transaction No: #%s</string>
     <string name="set_your_default_card">Set Your Default Card</string>

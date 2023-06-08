@@ -67,6 +67,7 @@ class SavedCardsAdapter(
             itemView.findViewById(R.id.masked_card_number_text_view)
         private val cardName: TextView = itemView.findViewById(R.id.card_name_textview)
         private val selectCard: RadioButton = itemView.findViewById(R.id.card_selected_radio_button)
+        private val cvvRequired: View = itemView.findViewById(R.id.cvv_required)
 
         fun setCardData(cardItem: CardItem, position: Int) {
             selectCard.setOnCheckedChangeListener { _, isChecked ->
@@ -107,8 +108,10 @@ class SavedCardsAdapter(
         private fun updateCvvBackground(cardItem: CardItem) {
             if (cardItem.isError) {
                 cvv.setBackgroundResource(R.drawable.error_border_background)
+                cvvRequired.visibility = View.VISIBLE
             } else {
                 cvv.setBackgroundResource(R.drawable.cvv_border_background)
+                cvvRequired.visibility = View.GONE
             }
         }
     }

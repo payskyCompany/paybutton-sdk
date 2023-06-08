@@ -74,6 +74,7 @@
     <string name="cvv">CVV</string>
     <string name="select_card">أختر البطاقة</string>
     <string name="manage_cards">إدارة البطاقات</string>
+    <string name="cvv_number_required">رقم CVV مطلوب</string>
     <string name="auth_number_fromatted">رقم الموافقة: #%s</string>
     <string name="trx_id_formatted">رقم المعاملة: #%s</string>
     <string name="set_your_default_card">قم بتعيين بطاقتك الافتراضية</string>
