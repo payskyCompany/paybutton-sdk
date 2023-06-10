@@ -50,6 +50,7 @@ public class ManualPaymentFragment extends BaseFragment implements View.OnClickL
     private PaymentData paymentData;
 
     static final int MY_SCAN_REQUEST_CODE = 1;
+    private Button backButton;
 
     public ManualPaymentFragment() {
         // Required empty public constructor
@@ -85,16 +86,17 @@ public class ManualPaymentFragment extends BaseFragment implements View.OnClickL
             }
         });
 
-        ImageView cardTypeImageView = view.findViewById(R.id.card_type_imageView);
+        //ImageView cardTypeImageView = view.findViewById(R.id.card_type_imageView);
         cardNumberEditText = view.findViewById(R.id.card_number_editText);
-        cardNumberEditText.setCardTypeImage(cardTypeImageView);
+        //cardNumberEditText.setCardTypeImage(cardTypeImageView);
+
         cardOwnerNameEditText = view.findViewById(R.id.card_owner_name_editText);
         expireDateEditText = view.findViewById(R.id.expire_date_editText);
         ccvEditText = view.findViewById(R.id.ccv_editText);
         proceedButton = view.findViewById(R.id.proceed_button);
         proceedButton.setOnClickListener(this);
         if (LocaleHelper.getLocale().equals("ar")) {
-            cardNumberEditText.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
+           // cardNumberEditText.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
             expireDateEditText.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
             ccvEditText.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
         }
@@ -114,6 +116,14 @@ public class ManualPaymentFragment extends BaseFragment implements View.OnClickL
                 if (b) {
                     saveForLaterCheckBox.setChecked(true);
                 }
+            }
+        });
+
+        backButton = view.findViewById(R.id.back_button);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                activity.finish();
             }
         });
     }

@@ -62,7 +62,7 @@ public class CardEditText extends AppCompatEditText implements TextWatcher {
         if (s.startsWith("4") || s.matches(CardPattern.VISA)) {
             cardIcon = R.drawable.vi;
             type = "Visa";
-        }  else if (s.matches(CardPattern.MASTERCARD_SHORTER) ||
+        } else if (s.matches(CardPattern.MASTERCARD_SHORTER) ||
                 s.matches(CardPattern.MASTERCARD_SHORT)
                 || s.matches(CardPattern.MASTERCARD)
                 || s.matches(CardPattern.MASTERCARD_VALID)
@@ -81,8 +81,7 @@ public class CardEditText extends AppCompatEditText implements TextWatcher {
         } else if (s.matches(CardPattern.DINERS_CLUB_SHORT) || s.matches(CardPattern.DINERS_CLUB)) {
             cardIcon = R.drawable.dc;
             type = "Diners_Club";
-        }
-        else if (s.matches(CardPattern.MEZA_VALID)
+        } else if (s.matches(CardPattern.MEZA_VALID)
                 || s.matches(CardPattern.MASTER_MEZA_VALID)
                 || s.matches(CardPattern.SHORT_MEZA_VALID)
                 || s.matches(CardPattern.SHORT_MASTER_MEZA_VALID)
@@ -90,17 +89,16 @@ public class CardEditText extends AppCompatEditText implements TextWatcher {
                 || s.startsWith("50")) {
             cardIcon = R.drawable.ic_meeza;
             type = "MIZA";
-        }
-
-        else {
-            cardIcon = R.drawable.card_icon;
+        } else {
+            cardIcon = R.drawable.ic_card_mini;
             type = "UNKNOWN";
         }
 
-        if (cardTypeImage != null) {
+       /* if (cardTypeImage != null) {
             cardTypeImage.setImageResource(cardIcon);
-        }
-
+        }*/
+        //this.setCompoundDrawablesRelative(, null, null, null);
+        this.setCompoundDrawablesWithIntrinsicBounds(cardIcon, 0, 0, 0);
     }
 
     public String getCardNumber() {

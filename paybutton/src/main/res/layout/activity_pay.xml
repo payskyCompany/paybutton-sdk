@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -180,8 +181,8 @@
                     <LinearLayout
                         android:id="@+id/card_payment_layout"
                         android:layout_width="0dp"
-                        android:layout_marginStart="@dimen/_6sdp"
                         android:layout_height="@dimen/_34sdp"
+                        android:layout_marginStart="@dimen/_6sdp"
                         android:layout_marginEnd="@dimen/_6sdp"
                         android:layout_weight="1"
                         android:background="@drawable/payment_option_selected"
@@ -264,11 +265,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="start"
-                            android:drawableEnd="@drawable/ic_language"
                             android:drawablePadding="8dp"
-                            android:text="@string/arabic"
-                            android:textColor="#2D3134"
-                            android:textSize="@dimen/_13ssp" />
+                            android:text="@string/change_language"
+                            android:textColor="@color/blue100"
+                            android:textSize="@dimen/_14ssp" />
 
                         <TextView
                             android:id="@+id/terms_conditions_textView"
@@ -276,8 +276,8 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="3dp"
                             android:text="@string/terms_conditions"
-                            android:textColor="#2D3134"
-                            android:textSize="@dimen/_11ssp" />
+                            android:textColor="@color/blue100"
+                            android:textSize="@dimen/_14ssp" />
                     </LinearLayout>
 
                     <View
@@ -285,12 +285,12 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1" />
 
-                    <ImageView
+                    <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/iv_powered_by"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:src="@drawable/ic_pay_sky_logo2" />
+                        app:srcCompat="@drawable/ic_paysky_logo" />
                 </LinearLayout>
 
             </LinearLayout>
