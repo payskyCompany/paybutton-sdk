@@ -70,7 +70,7 @@ open class CardsPresenter<V : CardsView>(arguments: Bundle?, view: V) :
             request,
             object : ApiResponseListener<GetSessionResponse?> {
                 override fun onSuccess(response: GetSessionResponse?) {
-                    view.dismissProgress()
+                    //view.dismissProgress()
                     if (response != null) {
                         if (response.success) {
                             paymentData?.customerSession = response.sessionId!!
@@ -99,7 +99,7 @@ open class CardsPresenter<V : CardsView>(arguments: Bundle?, view: V) :
                 view.showNoInternetDialog()
                 return
             }
-            view.showProgress()
+            //view.showProgress()
             val dateTimeLocalTrxn = AppUtils.getDateTimeLocalTrxn()
             val request = ListSavedCardsRequest(
                 sessionId = payment.customerSession,

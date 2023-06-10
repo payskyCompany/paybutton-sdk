@@ -30,13 +30,8 @@ class ListCardsFragment : BaseFragment(), CardsView {
     private lateinit var cardsList: RecyclerView
     private lateinit var adapter: SavedCardsAdapter
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        activity = getActivity() as PaymentActivity
-        activity.setHeaderIconClickListener { activity.finish() }
-        activity.showPaymentInfoAndOptions()
+    init {
 
-        presenter = CardsPresenter(arguments, this)
     }
 
     override fun onCreateView(
@@ -49,6 +44,11 @@ class ListCardsFragment : BaseFragment(), CardsView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        activity = getActivity() as PaymentActivity
+        activity.setHeaderIconClickListener { activity.finish() }
+        activity.showPaymentInfoAndOptions()
+
+        presenter = CardsPresenter(arguments, this)
         initView(view)
     }
 
