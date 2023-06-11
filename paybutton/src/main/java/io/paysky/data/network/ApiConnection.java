@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import io.paysky.data.model.request.UpdateCardsRequest;
 import io.paysky.data.model.request.CheckTransactionStatusRequest;
 import io.paysky.data.model.request.GetSessionRequest;
 import io.paysky.data.model.request.ListSavedCardsRequest;
@@ -29,6 +30,7 @@ import io.paysky.data.model.response.RequestToPayResponse;
 import io.paysky.data.model.response.SendReceiptByMailResponse;
 import io.paysky.data.model.response.TransactionStatusResponse;
 import io.paysky.data.model.response.TransactionsItem;
+import io.paysky.data.model.response.UpdateCardsResponse;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
@@ -220,7 +222,39 @@ public class ApiConnection {
                 listener.onFail(t);
             }
         });
+    }
 
+    public static void changeDefaultToken(UpdateCardsRequest request,
+                                          final ApiResponseListener<UpdateCardsResponse> listener) {
+        createConnection().changeDefaultToken(request).enqueue(new Callback<UpdateCardsResponse>() {
+            @Override
+            public void onResponse(Call<UpdateCardsResponse> call, Response<UpdateCardsResponse> response) {
+                if (response.isSuccessful()) {
+                    listener.onSuccess(response.body());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UpdateCardsResponse> call, Throwable t) {
+                listener.onFail(t);
+            }
+        });
+    }
+    public static void deleteTokenizedCard(UpdateCardsRequest request,
+                                          final ApiResponseListener<UpdateCardsResponse> listener) {
+        createConnection().deleteTokenizedCard(request).enqueue(new Callback<UpdateCardsResponse>() {
+            @Override
+            public void onResponse(Call<UpdateCardsResponse> call, Response<UpdateCardsResponse> response) {
+                if (response.isSuccessful()) {
+                    listener.onSuccess(response.body());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UpdateCardsResponse> call, Throwable t) {
+                listener.onFail(t);
+            }
+        });
     }
 
 //    public static void compose3dsTransaction(Compose3dsTransactionRequest request, final ApiResponseListener<Compose3dsTransactionResponse> listener) {

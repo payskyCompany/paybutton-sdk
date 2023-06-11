@@ -12,26 +12,26 @@ import io.paysky.data.model.TokenizedCardPaymentParameters
 import io.paysky.data.model.response.CardItem
 import io.paysky.ui.activity.payment.PaymentActivity
 import io.paysky.ui.base.BaseFragment
+import io.paysky.ui.fragment.cardsOperations.CardsPresenter
+import io.paysky.ui.fragment.cardsOperations.CardsView
+import io.paysky.ui.fragment.managecards.ManageCardsFragment
 import io.paysky.ui.fragment.manualpayment.ManualPaymentFragment
 import io.paysky.ui.fragment.paymentprocessing.PaymentProcessingFragment
 import io.paysky.util.AppConstant
 import io.paysky.util.ToastUtils
 import io.paysky.util.hideSoftKeyboard
 
-class ListCardsFragment : BaseFragment(), ListCardsView {
-    private lateinit var presenter: ListCardsPresenter
+class ListCardsFragment : BaseFragment(), CardsView {
+    private lateinit var presenter: CardsPresenter<CardsView>
     private lateinit var addNewCardButton: Button
     private lateinit var proceedButton: Button
     private lateinit var backButton: Button
+    private lateinit var manageCardsButton: Button
     private lateinit var cardsList: RecyclerView
     private lateinit var adapter: SavedCardsAdapter
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        activity = getActivity() as PaymentActivity?
-        activity.setHeaderIconClickListener { activity.finish() }
+    init {
 
-        presenter = ListCardsPresenter(arguments, this)
     }
 
     override fun onCreateView(
@@ -44,6 +44,11 @@ class ListCardsFragment : BaseFragment(), ListCardsView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        activity = getActivity() as PaymentActivity
+        activity.setHeaderIconClickListener { activity.finish() }
+        activity.showPaymentInfoAndOptions()
+
+        presenter = CardsPresenter(arguments, this)
         initView(view)
     }
 
@@ -80,6 +85,12 @@ class ListCardsFragment : BaseFragment(), ListCardsView {
         backButton.setOnClickListener {
             activity.finish()
         }
+        manageCardsButton = view.findViewById(R.id.manage_cards_button)
+        manageCardsButton.setOnClickListener {
+            val bundle = Bundle()
+            bundle.putParcelable(AppConstant.BundleKeys.PAYMENT_DATA, presenter.paymentData)
+            activity.replaceFragmentAndAddOldToBackStack(ManageCardsFragment::class.java, bundle)
+        }
     }
 
     private fun moveToPaymentProcessing(cardId: Int, cvv: String) {
@@ -89,10 +100,6 @@ class ListCardsFragment : BaseFragment(), ListCardsView {
         bundle.putParcelable(AppConstant.BundleKeys.PAYMENT_DATA, presenter.paymentData)
         bundle.putParcelable(AppConstant.BundleKeys.TOKENIZED_CARD, tokenizedCardPaymentParameters)
         activity.replaceFragmentAndRemoveOldFragment(PaymentProcessingFragment::class.java, bundle)
-    }
-
-    override fun sessionIdFetchedSuccessfully() {
-        presenter.listCustomerCards()
     }
 
     override fun showToastError(message: String) {

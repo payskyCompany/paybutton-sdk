@@ -9,14 +9,15 @@
     <string name="testing_type">Testing Environment</string>
     <string name="environment_type">الرابط</string>
     <string name="required">حقل مطلوب</string>
-    <string name="secure_hash_key">Secret Hash Key</string>
+    <string name="secure_hash_key">مفتاح التجزئة السري</string>
     <string name="english">English</string>
     <string name="submit">Submit</string>
-    <string name="not_subscribed">Not Subscribed</string>
-    <string name="subscribed">Subscribed</string>
-    <string name="trnx_ref_number">Trnx Ref Number</string>
-    <string name="customer_id">Customer ID</string>
+    <string name="not_subscribed">غير مشترك</string>
+    <string name="subscribed">مشترك</string>
+    <string name="trnx_ref_number">الرقم المرجعي للعملية</string>
+    <string name="customer_id">كود العميل</string>
     <string name="email_address">البريد الألكتروني</string>
     <string name="mobile_number_hint">رقم الموبايل</string>
     <string name="invalid_email">البريد الالكترونى غير صحيح</string>
+    <string name="auth_spinner_hint">اختر القناة (رقم الموبايل أو البريد الألكتروني)</string>
 </resources>

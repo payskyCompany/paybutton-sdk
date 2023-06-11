@@ -37,13 +37,15 @@
                 android:id="@+id/card_name_textview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ellipsize="end" />
+                android:ellipsize="end"
+                android:textSize="@dimen/_12ssp" />
 
             <TextView
                 android:id="@+id/masked_card_number_text_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_4sdp" />
+                android:layout_marginTop="@dimen/_4sdp"
+                android:textSize="@dimen/_12ssp" />
         </LinearLayout>
 
         <EditText
