@@ -22,8 +22,8 @@
 
             <ImageView
                 android:id="@+id/loading_view"
-                android:layout_width="@dimen/_120sdp"
-                android:layout_height="@dimen/_120sdp"
+                android:layout_width="@dimen/_150sdp"
+                android:layout_height="@dimen/_150sdp"
                 android:layout_gravity="center"
                 android:layout_marginStart="@dimen/_92sdp"
                 android:layout_marginEnd="@dimen/_92sdp"

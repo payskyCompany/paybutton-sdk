@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_marginStart="@dimen/_16sdp"
+        android:layout_marginEnd="@dimen/_12sdp"
         android:button="@drawable/radio_button_states" />
 
     <androidx.appcompat.widget.AppCompatImageView

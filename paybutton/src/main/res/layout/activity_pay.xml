@@ -24,7 +24,7 @@
                 android:id="@+id/header_layout"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_44sdp"
-                android:background="#00a7f6"
+                android:background="@color/blue100"
                 android:orientation="horizontal"
                 android:padding="@dimen/_2sdp">
 
@@ -36,7 +36,7 @@
                     android:layout_marginEnd="@dimen/_2sdp"
                     android:padding="@dimen/_8sdp"
                     android:scaleType="centerInside"
-                    android:src="@drawable/ic_back" />
+                    android:src="@drawable/ic_close" />
 
                 <TextView
                     android:layout_width="match_parent"

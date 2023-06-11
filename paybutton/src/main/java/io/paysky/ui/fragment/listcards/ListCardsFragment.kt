@@ -89,7 +89,7 @@ class ListCardsFragment : BaseFragment(), CardsView {
         manageCardsButton.setOnClickListener {
             val bundle = Bundle()
             bundle.putParcelable(AppConstant.BundleKeys.PAYMENT_DATA, presenter.paymentData)
-            activity.replaceFragmentAndRemoveOldFragment(ManageCardsFragment::class.java, bundle)
+            activity.replaceFragmentAndAddOldToBackStack(ManageCardsFragment::class.java, bundle)
         }
     }
 
