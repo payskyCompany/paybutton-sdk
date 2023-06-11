@@ -119,6 +119,7 @@
                     android:maxLength="20"
                     android:layout_height="wrap_content"
                     android:layout_weight="7"
+                    android:digits="0123456789+"
                     android:inputType="phone" />
             </LinearLayout>
 
