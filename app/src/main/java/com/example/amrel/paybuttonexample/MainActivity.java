@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity
         initializeAuthTypeSpinner();
 
         //todo comment before create a version
-        //setDefaultData();
+        setDefaultData();
 
         setupPayButton();
         setupSubscribedNotSubscribedView();
@@ -341,12 +341,12 @@ public class MainActivity extends AppCompatActivity
         TextView languageTextView = findViewById(R.id.language_textView);
         languageTextView.setOnClickListener(this);
         if (LocaleHelper.getLocale().equals("ar")) {
-            languageTextView.setText(R.string.english);
+            languageTextView.setText(R.string.change_language);
             merchantIdEditText.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
             terminalIdEditText.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
             amountEditText.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
         } else {
-            languageTextView.setText(R.string.arabic);
+            languageTextView.setText(R.string.change_language);
         }
     }
 

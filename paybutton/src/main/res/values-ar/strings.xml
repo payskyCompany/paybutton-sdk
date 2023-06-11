@@ -80,5 +80,6 @@
     <string name="set_your_default_card">قم بتعيين بطاقتك الافتراضية</string>
     <string name="set_default">تعيين\nكافتراضي</string>
     <string name="card_details">بيانات البطاقة</string>
+    <string name="change_language">تغيير اللغة</string>
 
 </resources>

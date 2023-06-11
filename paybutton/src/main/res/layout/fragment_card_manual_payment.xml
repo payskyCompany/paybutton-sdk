@@ -25,39 +25,41 @@
                 android:textColor="#282C2E" />
 
 
-            <TableRow>
+            <!-- <TableRow>
 
-                <ImageView
-                    android:id="@+id/card_type_imageView"
-                    android:layout_width="@dimen/_40sdp"
-                    android:layout_height="@dimen/_22sdp"
-                    android:scaleType="fitXY" />
-            </TableRow>
+                 <ImageView
+                     android:id="@+id/card_type_imageView"
+                     android:layout_width="@dimen/_40sdp"
+                     android:layout_height="@dimen/_22sdp"
+                     android:scaleType="fitXY" />
+             </TableRow>-->
 
             <LinearLayout
                 android:layout_height="@dimen/_36sdp"
                 android:layout_marginTop="@dimen/_4sdp"
-                android:background="@drawable/edittext_drawable">
+                android:background="@drawable/rectengle_drawable">
 
                 <View
-                    android:layout_width="@dimen/_8sdp"
+                    android:layout_width="@dimen/_15sdp"
                     android:layout_height="match_parent"
-                    android:background="@color/accentColor" />
+                    android:background="@drawable/card_number_leading" />
 
                 <io.paysky.ui.custom.CardEditText
                     android:id="@+id/card_number_editText"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:background="@drawable/edittext_drawable"
+                    android:background="@drawable/card_number_background"
                     android:digits="01234 56789"
+                    android:drawableStart="@drawable/ic_card_mini"
+                    android:drawablePadding="@dimen/_4sdp"
                     android:hint="@string/card_number"
                     android:imeOptions="actionNext"
                     android:inputType="number"
+                    android:textAlignment="viewStart"
                     android:maxLength="19"
                     android:maxLines="1"
-                    android:paddingStart="8dp"
-                    android:paddingEnd="8dp"
+                    android:paddingHorizontal="@dimen/_4sdp"
                     android:singleLine="true"
                     android:text=""
                     android:textColorHint="?android:textColorHint"
@@ -79,14 +81,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_36sdp"
                 android:layout_marginTop="@dimen/_12sdp"
-                android:background="@drawable/edittext_drawable"
+                android:background="@drawable/rectengle_drawable"
                 android:hint="@string/name_on_card"
                 android:imeOptions="actionNext"
                 android:maxLines="1"
-                android:paddingStart="8dp"
+                android:paddingHorizontal="8dp"
                 android:singleLine="true"
                 android:textColorHint="?android:textColorHint"
-                android:textSize="@dimen/_13ssp" />
+                android:textSize="@dimen/_14ssp" />
 
             <TableRow android:layout_marginTop="@dimen/_12sdp">
 
@@ -97,14 +99,14 @@
                     android:layout_marginEnd="@dimen/_6sdp"
                     android:layout_weight="1"
                     android:background="@drawable/rectengle_drawable"
-                    android:drawableEnd="@drawable/ic_expire_date"
+                    android:drawableEnd="@drawable/ic_calender"
+                    android:drawablePadding="@dimen/_4sdp"
                     android:hint="@string/expire_date"
                     android:imeOptions="actionNext"
                     android:inputType="number"
                     android:maxLength="5"
                     android:maxLines="1"
-                    android:paddingStart="8dp"
-                    android:paddingEnd="8dp"
+                    android:paddingHorizontal="@dimen/_8sdp"
                     android:singleLine="true"
                     android:textAlignment="viewStart"
                     android:textColorHint="?android:textColorHint"
@@ -117,15 +119,16 @@
                     android:layout_marginStart="@dimen/_6sdp"
                     android:layout_weight="1"
                     android:background="@drawable/rectengle_drawable"
-                    android:drawableEnd="@drawable/ic_card_colored"
+                    android:drawableEnd="@drawable/ic_cvv_mini"
+                    android:drawablePadding="@dimen/_4sdp"
                     android:hint="@string/cvc"
                     android:imeOptions="actionDone"
                     android:inputType="numberSigned"
                     android:maxLength="3"
                     android:maxLines="1"
-                    android:paddingStart="8dp"
-                    android:paddingEnd="8dp"
+                    android:paddingHorizontal="@dimen/_8sdp"
                     android:singleLine="true"
+                    android:textAlignment="viewStart"
                     android:textColorHint="?android:textColorHint"
                     android:textSize="@dimen/_14ssp" />
             </TableRow>
@@ -148,14 +151,25 @@
                 android:text="@string/set_as_default"
                 android:textColor="?android:textColorHint" />
 
+
             <Button
                 android:id="@+id/proceed_button"
+                android:layout_width="match_parent"
                 android:layout_height="@dimen/_34sdp"
-                android:layout_marginTop="@dimen/_12sdp"
+                android:layout_marginTop="@dimen/_80sdp"
                 android:background="@drawable/button_blue_selector"
                 android:text="@string/proceed"
                 android:textColor="@android:color/white" />
 
+            <Button
+                android:id="@+id/back_button"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_34sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:background="@drawable/paybutton_black_border"
+                android:text="@string/back"
+                android:textColor="@android:color/black" />
         </TableLayout>
 
     </LinearLayout>

@@ -82,4 +82,5 @@
     <string name="set_your_default_card">Set Your Default Card</string>
     <string name="set_default">Set\nDefault</string>
     <string name="card_details">Card Details</string>
+    <string name="change_language">Change Language</string>
 </resources>

@@ -361,11 +361,10 @@
             android:layout_alignParentBottom="true"
             android:layout_gravity="start"
             android:layout_margin="8dp"
-            android:drawableEnd="@drawable/ic_language"
             android:drawablePadding="8dp"
-            android:text="@string/arabic"
-            android:textColor="#2D3134"
-            android:textSize="@dimen/_13ssp" />
+            android:text="@string/change_language"
+            android:textColor="@color/blue100"
+            android:textSize="@dimen/_14ssp" />
 
         <ImageView
             android:id="@+id/logo_imageView"
@@ -374,6 +373,6 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:layout_margin="@dimen/_4sdp"
-            android:src="@drawable/ic_pay_sky_logo2" />
+            android:src="@drawable/ic_paysky_logo" />
     </RelativeLayout>
 </ScrollView>
