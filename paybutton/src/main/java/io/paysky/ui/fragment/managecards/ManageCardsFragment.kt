@@ -26,9 +26,7 @@ class ManageCardsFragment : BaseFragment(), ManageCardsView {
         activity = getActivity() as PaymentActivity?
         presenter = ManageCardsPresenter(arguments, this)
         activity.setHeaderIconClickListener {
-            val bundle = Bundle()
-            bundle.putParcelable(AppConstant.BundleKeys.PAYMENT_DATA, presenter.paymentData)
-            activity.replaceFragmentAndRemoveOldFragment(ListCardsFragment::class.java, bundle)
+            requireActivity().onBackPressedDispatcher.onBackPressed()
         }
         activity.hidePaymentInfoAndOptions()
     }
@@ -60,9 +58,7 @@ class ManageCardsFragment : BaseFragment(), ManageCardsView {
 
         backButton = view.findViewById(R.id.back_button)
         backButton.setOnClickListener {
-            val bundle = Bundle()
-            bundle.putParcelable(AppConstant.BundleKeys.PAYMENT_DATA, presenter.paymentData)
-            activity.replaceFragmentAndRemoveOldFragment(ListCardsFragment::class.java, bundle)
+            requireActivity().onBackPressedDispatcher.onBackPressed()
         }
     }
 

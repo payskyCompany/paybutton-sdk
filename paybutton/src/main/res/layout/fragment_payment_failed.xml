@@ -17,8 +17,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/_12sdp"
-        android:layout_marginRight="@dimen/_12sdp"
         android:layout_marginTop="@dimen/_4sdp"
+        android:layout_marginRight="@dimen/_12sdp"
         android:gravity="center" />
 
     <TextView
@@ -26,16 +26,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/_12sdp"
-        android:layout_marginRight="@dimen/_12sdp"
         android:layout_marginTop="@dimen/_4sdp"
+        android:layout_marginRight="@dimen/_12sdp"
         android:gravity="center" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/_12sdp"
-        android:layout_marginRight="@dimen/_12sdp"
-        android:layout_marginTop="@dimen/_14sdp">
+        android:layout_marginTop="@dimen/_14sdp"
+        android:layout_marginRight="@dimen/_12sdp">
 
         <Button
             android:id="@+id/close_button"
@@ -44,7 +44,8 @@
             android:layout_height="@dimen/_34sdp"
             android:layout_marginEnd="@dimen/_4sdp"
             android:layout_weight="1"
-            android:text="@string/close" />
+            android:text="@string/close"
+            android:textAllCaps="false" />
 
         <Button
             android:id="@+id/try_again_button"
@@ -54,7 +55,8 @@
             android:layout_marginStart="@dimen/_4sdp"
             android:layout_weight="1"
             android:background="@drawable/paybutton_green_button"
-            android:text="@string/try_again" />
+            android:text="@string/try_again"
+            android:textAllCaps="false" />
     </LinearLayout>
 
 </LinearLayout>

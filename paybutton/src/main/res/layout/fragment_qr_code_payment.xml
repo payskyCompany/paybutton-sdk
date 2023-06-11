@@ -1,7 +1,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:layout_height="wrap_content">
 
     <LinearLayout
 
@@ -45,9 +45,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_marginEnd="16dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="@dimen/_2sdp">
+                android:layout_marginTop="@dimen/_2sdp"
+                android:layout_marginEnd="16dp">
 
                 <View
                     android:layout_width="@dimen/_8sdp"
@@ -69,11 +69,12 @@
                 android:id="@+id/send_otp_button"
                 style="@style/buttonStyle"
                 android:layout_height="@dimen/_34sdp"
-                android:layout_marginEnd="@dimen/_12sdp"
                 android:layout_marginStart="@dimen/_12sdp"
                 android:layout_marginTop="@dimen/_8sdp"
+                android:layout_marginEnd="@dimen/_12sdp"
                 android:background="@drawable/paybutton_green_button"
-                android:text="@string/send_otp" />
+                android:text="@string/send_otp"
+                android:textAllCaps="false" />
         </LinearLayout>
 
 
@@ -81,8 +82,8 @@
             android:id="@+id/or_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/_8sdp"
             android:layout_marginStart="@dimen/_8sdp"
+            android:layout_marginEnd="@dimen/_8sdp"
             android:gravity="center">
 
             <View
@@ -94,8 +95,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
                 android:text="@string/or"
                 android:textColor="#C7C8C8"
                 android:textSize="@dimen/_16sdp" />
@@ -112,8 +113,8 @@
             android:id="@+id/request_payment_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/_8sdp"
             android:layout_marginStart="@dimen/_8sdp"
+            android:layout_marginEnd="@dimen/_8sdp"
             android:layout_marginBottom="@dimen/_4sdp"
             android:gravity="center_vertical"
             android:weightSum="2">
@@ -142,6 +143,7 @@
                     android:layout_height="@dimen/_31sdp"
                     android:background="@drawable/paybutton_green_button"
                     android:text="@string/request_payment"
+                    android:textAllCaps="false"
                     android:textSize="@dimen/_10sdp" />
             </LinearLayout>
 

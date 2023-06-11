@@ -41,6 +41,7 @@
                 android:paddingHorizontal="@dimen/_16sdp"
                 android:paddingVertical="@dimen/_8sdp"
                 android:text="@string/manage_cards"
+                android:textAllCaps="false"
                 android:textColor="@color/blue100" />
 
         </LinearLayout>
@@ -61,6 +62,7 @@
             android:layout_marginTop="@dimen/_16sdp"
             android:background="@drawable/paybutton_blue_border"
             android:text="@string/add_new_card"
+            android:textAllCaps="false"
             android:textColor="@color/blue100" />
 
         <View
@@ -76,6 +78,7 @@
             android:layout_marginHorizontal="@dimen/_16sdp"
             android:background="@drawable/button_blue_selector"
             android:text="@string/proceed"
+            android:textAllCaps="false"
             android:textColor="@android:color/white" />
 
         <Button
@@ -87,6 +90,7 @@
             android:layout_marginBottom="@dimen/_10sdp"
             android:background="@drawable/paybutton_black_border"
             android:text="@string/back"
+            android:textAllCaps="false"
             android:textColor="@android:color/black" />
 
     </LinearLayout>

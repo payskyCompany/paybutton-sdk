@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        authenticationTypes = new String[]{"Select channel (Mobile number or Email)",
+        authenticationTypes = new String[]{getString(R.string.auth_spinner_hint),
                 getString(R.string.mobile_number_hint), getString(R.string.email_address)};
 
         linkViewsWithIds();

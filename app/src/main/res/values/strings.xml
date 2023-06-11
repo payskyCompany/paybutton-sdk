@@ -22,5 +22,6 @@
     <string name="paybutton_version_formatted" translatable="false">
         PaySky PayButton SDK - Version  %s
     </string>
+    <string name="auth_spinner_hint">Select channel (Mobile number or Email)</string>
 
 </resources>

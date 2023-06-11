@@ -56,12 +56,12 @@
                     android:hint="@string/card_number"
                     android:imeOptions="actionNext"
                     android:inputType="number"
-                    android:textAlignment="viewStart"
                     android:maxLength="19"
                     android:maxLines="1"
                     android:paddingHorizontal="@dimen/_4sdp"
                     android:singleLine="true"
                     android:text=""
+                    android:textAlignment="viewStart"
                     android:textColorHint="?android:textColorHint"
                     android:textDirection="ltr"
                     android:textSize="@dimen/_14ssp" />
@@ -159,6 +159,7 @@
                 android:layout_marginTop="@dimen/_80sdp"
                 android:background="@drawable/button_blue_selector"
                 android:text="@string/proceed"
+                android:textAllCaps="false"
                 android:textColor="@android:color/white" />
 
             <Button
@@ -169,6 +170,7 @@
                 android:layout_marginBottom="@dimen/_10sdp"
                 android:background="@drawable/paybutton_black_border"
                 android:text="@string/back"
+                android:textAllCaps="false"
                 android:textColor="@android:color/black" />
         </TableLayout>
 

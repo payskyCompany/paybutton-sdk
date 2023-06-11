@@ -89,7 +89,8 @@
             android:layout_marginTop="@dimen/_4sdp"
             android:layout_marginRight="@dimen/_10sdp"
             android:background="@drawable/paybutton_green_button"
-            android:text="@string/print" />
+            android:text="@string/print"
+            android:textAllCaps="false" />
 
         <LinearLayout
             android:id="@+id/send_email_notification"
@@ -140,6 +141,7 @@
                 android:layout_height="match_parent"
                 android:baselineAligned="false"
                 android:text="@string/send"
+                android:textAllCaps="false"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/_14ssp" />
         </LinearLayout>
@@ -173,7 +175,8 @@
                 android:layout_marginTop="@dimen/_4sdp"
                 android:layout_marginRight="@dimen/_10sdp"
                 android:background="@drawable/button_blue_selector"
-                android:text="@string/close" />
+                android:text="@string/close"
+                android:textAllCaps="false" />
         </LinearLayout>
 
     </TableLayout>
