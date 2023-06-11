@@ -123,7 +123,7 @@ public class ManualPaymentFragment extends BaseFragment implements View.OnClickL
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                activity.finish();
+               activity.onBackPressed();
             }
         });
     }

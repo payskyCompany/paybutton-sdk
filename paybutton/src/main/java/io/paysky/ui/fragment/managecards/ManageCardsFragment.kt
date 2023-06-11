@@ -21,15 +21,6 @@ class ManageCardsFragment : BaseFragment(), ManageCardsView {
     private lateinit var cardsList: RecyclerView
     private lateinit var backButton: Button
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        activity = getActivity() as PaymentActivity?
-        presenter = ManageCardsPresenter(arguments, this)
-        activity.setHeaderIconClickListener {
-            requireActivity().onBackPressedDispatcher.onBackPressed()
-        }
-        activity.hidePaymentInfoAndOptions()
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,6 +32,12 @@ class ManageCardsFragment : BaseFragment(), ManageCardsView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        activity = getActivity() as PaymentActivity?
+        presenter = ManageCardsPresenter(arguments, this)
+        activity.setHeaderIconClickListener {
+            requireActivity().onBackPressedDispatcher.onBackPressed()
+        }
+        activity.hidePaymentInfoAndOptions()
         initView(view)
     }
 
