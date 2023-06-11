@@ -77,5 +77,6 @@
     <string name="cvv_number_required">رقم CVV مطلوب</string>
     <string name="auth_number_fromatted">رقم الموافقة: #%s</string>
     <string name="trx_id_formatted">رقم المعاملة: #%s</string>
+    <string name="change_language">تغيير اللغة</string>
 
 </resources>

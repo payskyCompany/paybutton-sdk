@@ -1,4 +1,5 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -14,29 +15,41 @@
         android:layout_height="match_parent"
         tools:context="io.paysky.ui.fragment.paymentsuccess.PaymentApprovedFragment">
 
-        <TableRow android:gravity="center">
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/_18sdp">
 
             <ImageView
-                android:layout_width="@dimen/_95sdp"
-                android:layout_height="@dimen/_95sdp"
-                android:layout_margin="@dimen/_4sdp"
-                android:src="@drawable/ic_payment_approved" />
+                android:id="@+id/loading_view"
+                android:layout_width="@dimen/_120sdp"
+                android:layout_height="@dimen/_120sdp"
+                android:layout_gravity="center"
+                android:layout_marginStart="@dimen/_92sdp"
+                android:layout_marginEnd="@dimen/_92sdp"
+                android:src="@drawable/ic_loading" />
 
-        </TableRow>
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/ic_approved" />
+        </FrameLayout>
+
 
         <TextView
             android:id="@+id/approved_textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_28sdp"
             android:gravity="center"
             android:textSize="@dimen/_14ssp"
             tools:text="approved" />
 
         <TableRow
             android:layout_marginLeft="@dimen/_10sdp"
-            android:layout_marginRight="@dimen/_10sdp"
-            android:layout_marginTop="@dimen/_4sdp">
-
+            android:layout_marginTop="@dimen/_4sdp"
+            android:layout_marginRight="@dimen/_10sdp">
 
             <TextView
                 android:id="@+id/auth_number_textView"
@@ -53,8 +66,8 @@
 
         <TableRow
             android:layout_marginLeft="@dimen/_10sdp"
-            android:layout_marginRight="@dimen/_10sdp"
-            android:layout_marginTop="@dimen/_4sdp">
+            android:layout_marginTop="@dimen/_4sdp"
+            android:layout_marginRight="@dimen/_10sdp">
 
             <TextView
                 android:id="@+id/trx_id_textView"
@@ -73,8 +86,8 @@
             android:layout_width="0dp"
             android:layout_height="@dimen/_34sdp"
             android:layout_marginLeft="@dimen/_10sdp"
-            android:layout_marginRight="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_4sdp"
+            android:layout_marginRight="@dimen/_10sdp"
             android:background="@drawable/paybutton_green_button"
             android:text="@string/print" />
 
@@ -82,51 +95,53 @@
             android:id="@+id/send_email_notification"
             android:orientation="vertical">
 
-            <View
+            <!--<View
                 android:id="@+id/divider1"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_marginEnd="@dimen/_10sdp"
                 android:layout_marginStart="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
                 android:background="#C7C8C8" />
-
+-->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:textSize="@dimen/_12ssp"
+                android:layout_marginTop="@dimen/_14sdp"
                 android:gravity="center"
                 android:text="@string/send_notification"
-                android:textColor="#282C2E" />
+                android:textColor="#282C2E"
+                android:textSize="@dimen/_12ssp" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/send_email_layout"
             android:layout_height="@dimen/_36sdp"
             android:layout_marginLeft="@dimen/_8sdp"
-            android:layout_marginRight="@dimen/_8sdp"
             android:layout_marginTop="@dimen/_4sdp"
-            android:background="@drawable/rectengle_drawable">
+            android:layout_marginRight="@dimen/_8sdp">
 
             <EditText
                 android:id="@+id/email_editText"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_marginEnd="@dimen/_4sdp"
                 android:layout_weight="1"
-                android:background="@drawable/edittext_drawable"
+                android:background="@drawable/rectengle_drawable"
                 android:hint="@string/email_hint"
                 android:inputType="textEmailAddress"
-                android:paddingStart="@dimen/_8sdp" />
+                android:paddingHorizontal="@dimen/_8sdp"
+                android:textSize="@dimen/_14ssp" />
 
             <Button
                 android:id="@+id/send_email_button"
+                style="@style/buttonStyle"
                 android:layout_width="@dimen/_60sdp"
                 android:layout_height="match_parent"
-                android:background="@drawable/button_blue_selector"
                 android:baselineAligned="false"
                 android:text="@string/send"
-                android:textColor="@android:color/white" />
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/_14ssp" />
         </LinearLayout>
 
         <LinearLayout
@@ -140,9 +155,9 @@
                 android:id="@+id/mail_sent_textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-               android:layout_marginStart="@dimen/_8sdp"
-                android:layout_marginEnd="@dimen/_8sdp"
+                android:layout_marginStart="@dimen/_8sdp"
                 android:layout_marginTop="@dimen/_1sdp"
+                android:layout_marginEnd="@dimen/_8sdp"
                 android:layout_marginBottom="@dimen/_1sdp"
                 android:gravity="center"
                 android:textColor="#00BFA5"
@@ -155,8 +170,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_34sdp"
                 android:layout_marginLeft="@dimen/_10sdp"
-                android:layout_marginRight="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_4sdp"
+                android:layout_marginRight="@dimen/_10sdp"
                 android:background="@drawable/button_blue_selector"
                 android:text="@string/close" />
         </LinearLayout>
