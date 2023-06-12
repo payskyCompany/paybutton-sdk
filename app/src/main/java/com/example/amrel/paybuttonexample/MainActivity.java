@@ -50,18 +50,6 @@ public class MainActivity extends AppCompatActivity
     private final int MOBILE_INDEX = 1, EMAIL_INDEX = 2;
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        merchantIdEditText.setText("41565");
-        terminalIdEditText.setText("1583826");
-        secureHashKeyEditText.setText("09a90e81140dcb0d686c09f0036ef910");
-        amountEditText.setText("10");
-        currencyEditText.setText("818");
-        customerIdEditText.setText("ea4989d7-a09c-463c-b0fa-867847538b85");
-        transactionRefNumberEditText.setText("532423523563432");
-    }
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
