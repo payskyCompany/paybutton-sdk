@@ -21,4 +21,10 @@ public class TransactionStatusRequest extends BaseRequest{
 
     @SerializedName("MerchantId")
     public String merchantId;
+
+    @SerializedName("ExtraInfo")
+    public String ExtraInfo;
+
+    @SerializedName("IsNaps")
+    public Boolean IsNaps;
 }

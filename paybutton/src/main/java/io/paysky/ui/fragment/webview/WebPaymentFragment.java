@@ -1,5 +1,7 @@
 package io.paysky.ui.fragment.webview;
 
+import static io.paysky.util.AppUtils.getDateTimeLocalTrxn;
+
 import android.annotation.TargetApi;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -200,6 +202,24 @@ public class WebPaymentFragment extends BaseFragment implements WebPaymentView {
                     return;
                 }
                 dismissProgress();
+
+                String dateTimeLocalTrnx= getDateTimeLocalTrxn();
+                if (url.contains("NAPSInquiry")) {
+                    presenter.checkTransactionPaymentStatus(
+                            paymentData.secureHashKey,
+                            paymentData.terminalId,
+                            paymentData.merchantId,
+                            dateTimeLocalTrnx,
+                            true);
+                } else if (url.contains("OMInquiry")) {
+                    presenter.checkTransactionPaymentStatus(
+                            paymentData.secureHashKey,
+                            paymentData.terminalId,
+                            paymentData.merchantId,
+                            dateTimeLocalTrnx,
+                            false);
+                }
+
                 webView.evaluateJavascript(
                         "document.documentElement.outerHTML;",
                         new ValueCallback<String>() {
@@ -261,6 +281,22 @@ public class WebPaymentFragment extends BaseFragment implements WebPaymentView {
                 }
             }
         });
+    }
+
+    @Override
+    public void showPaymentStatus(String message, String systemTxnId, boolean type) {
+        Bundle bundle = new Bundle();
+        if (type) {
+            bundle.putString("massage", message);
+            bundle.putString("systemTxnId", systemTxnId);
+            bundle.putString("opened_by", "manual_payment");
+            activity.replaceFragmentAndRemoveOldFragment(PaymentApprovedFragment.class, bundle);
+        } else {
+            bundle.putString(AppConstant.BundleKeys.DECLINE_CAUSE, message);
+            bundle.putString("systemTxnId", systemTxnId);
+            bundle.putString("opened_by", "manual_payment");
+            activity.replaceFragmentAndRemoveOldFragment(PaymentFailedFragment.class, bundle);
+        }
     }
 
     @Override

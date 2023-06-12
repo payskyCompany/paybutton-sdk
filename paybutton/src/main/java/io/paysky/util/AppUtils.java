@@ -208,7 +208,7 @@ public class AppUtils {
         }
     }
 
-    public static void playRingtome(Activity activity) {
+    public static void playRingtone(Activity activity) {
         try {
             Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
             Ringtone r = RingtoneManager.getRingtone(activity, notification);

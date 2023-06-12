@@ -65,7 +65,7 @@ public class PaymentApprovedFragment extends BaseFragment implements View.OnClic
                              Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment.
-        AppUtils.playRingtome(getActivity());
+        AppUtils.playRingtone(getActivity());
         return inflater.inflate(R.layout.fragment_payment_approved, container, false);
     }
 
