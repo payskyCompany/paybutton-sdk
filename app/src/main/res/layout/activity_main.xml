@@ -95,7 +95,9 @@
             <Spinner
                 android:id="@+id/auth_type_spinner"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:background="@drawable/rectengle_drawable"/>
 
             <LinearLayout
                 android:id="@+id/mobile_number_layout"
@@ -366,7 +368,7 @@
             android:drawablePadding="8dp"
             android:text="@string/change_language"
             android:textColor="@color/blue100"
-            android:textSize="@dimen/_14ssp" />
+            android:textSize="@dimen/_12ssp" />
 
         <ImageView
             android:id="@+id/logo_imageView"
