@@ -84,7 +84,7 @@ open class CardsPresenter<V : CardsView>(arguments: Bundle?, view: V) :
                             }
                         } else {
                             view.dismissProgress()
-                            view.showToastError("Errorrrr")
+                            view.showToastError("Something went wrong")
                         }
                     }
 
@@ -131,7 +131,7 @@ open class CardsPresenter<V : CardsView>(arguments: Bundle?, view: V) :
                                 view.showToastError(response.message!!)
                             }
                         } ?: {
-                            view.showToastError("Errorrrr")
+                            view.showToastError("Something went wrong")
                         }
                     }
 

@@ -44,7 +44,7 @@ class ManageCardsPresenter(
                                 view.showToastError(response.message!!)
                             }
                         } ?: {
-                            view.showToastError("Errorrrr")
+                            view.showToastError("Something went wrong")
                         }
                     }
 
@@ -85,7 +85,7 @@ class ManageCardsPresenter(
                                 view.showToastError(response.message!!)
                             }
                         } ?: {
-                            view.showToastError("Errorrrr")
+                            view.showToastError("Something went wrong")
                         }
                     }
 
