@@ -37,7 +37,7 @@
             <LinearLayout
                 android:layout_height="@dimen/_36sdp"
                 android:layout_marginTop="@dimen/_4sdp"
-                android:background="@drawable/rectengle_drawable">
+                android:background="@drawable/rectangle_border_drawable">
 
                 <View
                     android:layout_width="@dimen/_15sdp"
@@ -81,7 +81,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_36sdp"
                 android:layout_marginTop="@dimen/_12sdp"
-                android:background="@drawable/rectengle_drawable"
+                android:background="@drawable/rectangle_border_drawable"
                 android:hint="@string/name_on_card"
                 android:imeOptions="actionNext"
                 android:maxLines="1"
@@ -98,7 +98,7 @@
                     android:layout_height="@dimen/_36sdp"
                     android:layout_marginEnd="@dimen/_6sdp"
                     android:layout_weight="1"
-                    android:background="@drawable/rectengle_drawable"
+                    android:background="@drawable/rectangle_border_drawable"
                     android:drawableEnd="@drawable/ic_calender"
                     android:drawablePadding="@dimen/_4sdp"
                     android:hint="@string/expire_date"
@@ -118,7 +118,7 @@
                     android:layout_height="@dimen/_36sdp"
                     android:layout_marginStart="@dimen/_6sdp"
                     android:layout_weight="1"
-                    android:background="@drawable/rectengle_drawable"
+                    android:background="@drawable/rectangle_border_drawable"
                     android:drawableEnd="@drawable/ic_cvv_mini"
                     android:drawablePadding="@dimen/_4sdp"
                     android:hint="@string/cvc"
