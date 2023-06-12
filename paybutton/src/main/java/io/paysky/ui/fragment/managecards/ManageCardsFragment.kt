@@ -11,8 +11,6 @@ import com.example.paybutton.R
 import io.paysky.data.model.response.CardItem
 import io.paysky.ui.activity.payment.PaymentActivity
 import io.paysky.ui.base.BaseFragment
-import io.paysky.ui.fragment.listcards.ListCardsFragment
-import io.paysky.util.AppConstant
 import io.paysky.util.ToastUtils
 
 class ManageCardsFragment : BaseFragment(), ManageCardsView {
@@ -61,6 +59,11 @@ class ManageCardsFragment : BaseFragment(), ManageCardsView {
 
     override fun showToastError(message: String) {
         ToastUtils.showLongToast(context, message)
+    }
+
+    override fun showToastErrorAndFinish(error: Int) {
+        ToastUtils.showLongToast(context, getString(error))
+        activity.finish()
     }
 
     override fun showSavedCards(cardsLists: List<CardItem>) {

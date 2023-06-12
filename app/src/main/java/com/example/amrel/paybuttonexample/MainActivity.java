@@ -170,7 +170,6 @@ public class MainActivity extends AppCompatActivity
                     merchantId,
                     amount,
                     secureHashKey,
-                    transactionRefNumber,
                     customerId,
                     mobileNumber,
                     email);
@@ -229,7 +228,6 @@ public class MainActivity extends AppCompatActivity
                                  String merchantId,
                                  String amount,
                                  String secureHashKey,
-                                 String transactionRefNumber,
                                  String customerId,
                                  String mobileNumber,
                                  String email) {
@@ -249,11 +247,6 @@ public class MainActivity extends AppCompatActivity
 
         if (secureHashKey.isEmpty()) {
             secureHashKeyEditText.setError(getString(R.string.required));
-            hasErrors = true;
-        }
-
-        if (transactionRefNumber.isEmpty()) {
-            transactionRefNumberEditText.setError(getString(R.string.required));
             hasErrors = true;
         }
 

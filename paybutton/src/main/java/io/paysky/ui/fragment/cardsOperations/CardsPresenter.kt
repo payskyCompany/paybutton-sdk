@@ -1,6 +1,7 @@
 package io.paysky.ui.fragment.cardsOperations
 
 import android.os.Bundle
+import com.example.paybutton.R
 import io.paysky.data.model.PaymentData
 import io.paysky.data.model.request.GetSessionRequest
 import io.paysky.data.model.request.ListSavedCardsRequest
@@ -52,43 +53,50 @@ open class CardsPresenter<V : CardsView>(arguments: Bundle?, view: V) :
         // create request body.
 
         val dateTimeLocalTrxn = AppUtils.getDateTimeLocalTrxn()
-        val request = GetSessionRequest(
-            customerId = customerId,
-            merchantId = merchantId,
-            terminalId = terminalId,
-            dateTimeLocalTrxn = dateTimeLocalTrxn,
-            amount = amount,
-            secureHash = HashGenerator.encode(
-                paymentData?.secureHashKey,
-                dateTimeLocalTrxn,
-                merchantId,
-                terminalId
-            )
+        val secureHash = HashGenerator.encode(
+            paymentData?.secureHashKey,
+            dateTimeLocalTrxn,
+            merchantId,
+            terminalId
         )
+        if (secureHash != null) {
+            val request = GetSessionRequest(
+                customerId = customerId,
+                merchantId = merchantId,
+                terminalId = terminalId,
+                dateTimeLocalTrxn = dateTimeLocalTrxn,
+                amount = amount,
+                secureHash = secureHash
+            )
 
-        ApiConnection.getSession(
-            request,
-            object : ApiResponseListener<GetSessionResponse?> {
-                override fun onSuccess(response: GetSessionResponse?) {
-                    //view.dismissProgress()
-                    if (response != null) {
-                        if (response.success) {
-                            paymentData?.customerSession = response.sessionId!!
-                            listCustomerCards()
+            ApiConnection.getSession(
+                request,
+                object : ApiResponseListener<GetSessionResponse?> {
+                    override fun onSuccess(response: GetSessionResponse?) {
+                        //view.dismissProgress()
+                        if (response != null) {
+                            if (response.success) {
+                                paymentData?.customerSession = response.sessionId!!
+                                listCustomerCards()
+                            } else {
+                                view.dismissProgress()
+                                view.showToastError(response.message!!)
+                            }
                         } else {
-                            view.showToastError(response.message!!)
+                            view.dismissProgress()
+                            view.showToastError("Something went wrong")
                         }
-                    } else {
-                        view.showToastError("Errorrrr")
+                    }
+
+                    override fun onFail(error: Throwable) {
+                        error.printStackTrace()
+                        view.dismissProgress()
                     }
                 }
-
-                override fun onFail(error: Throwable) {
-                    error.printStackTrace()
-                    view.dismissProgress()
-                }
-            }
-        )
+            )
+        } else {
+            view.showToastErrorAndFinish(R.string.something_went_wrong)
+        }
     }
 
 
@@ -123,7 +131,7 @@ open class CardsPresenter<V : CardsView>(arguments: Bundle?, view: V) :
                                 view.showToastError(response.message!!)
                             }
                         } ?: {
-                            view.showToastError("Errorrrr")
+                            view.showToastError("Something went wrong")
                         }
                     }
 
