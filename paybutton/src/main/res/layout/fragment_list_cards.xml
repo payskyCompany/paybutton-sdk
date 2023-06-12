@@ -69,7 +69,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:minHeight="@dimen/_120sdp" />
+            android:minHeight="@dimen/_40sdp" />
 
         <Button
             android:id="@+id/proceed_button"

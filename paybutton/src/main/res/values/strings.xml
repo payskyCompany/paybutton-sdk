@@ -83,4 +83,5 @@
     <string name="set_default">Set\nDefault</string>
     <string name="card_details">Card Details</string>
     <string name="change_language">Change Language</string>
+    <string name="something_went_wrong">Something went wrong</string>
 </resources>

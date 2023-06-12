@@ -81,5 +81,6 @@
     <string name="set_default">تعيين\nكافتراضي</string>
     <string name="card_details">بيانات البطاقة</string>
     <string name="change_language">تغيير اللغة</string>
+    <string name="something_went_wrong">حدث خطأ ما</string>
 
 </resources>

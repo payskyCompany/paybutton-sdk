@@ -106,6 +106,11 @@ class ListCardsFragment : BaseFragment(), CardsView {
         ToastUtils.showLongToast(context, message)
     }
 
+    override fun showToastErrorAndFinish(error: Int) {
+        ToastUtils.showLongToast(context, getString(error))
+        activity.finish()
+    }
+
     override fun showSavedCards(cardsLists: List<CardItem>) {
         adapter.setItems(cardsLists)
     }
