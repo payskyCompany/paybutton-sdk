@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -92,12 +93,20 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <Spinner
-                android:id="@+id/auth_type_spinner"
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_8sdp"
-                android:background="@drawable/rectangle_border_drawable"/>
+                android:theme="@style/Theme.MaterialComponents.Light"
+                app:cardCornerRadius="4dp"
+                app:strokeColor="@color/gray300"
+                app:strokeWidth="1dp">
+
+                <androidx.appcompat.widget.AppCompatSpinner
+                    android:id="@+id/auth_type_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.card.MaterialCardView>
 
             <LinearLayout
                 android:id="@+id/mobile_number_layout"
@@ -117,12 +126,12 @@
                 <EditText
                     android:id="@+id/phone_number_editText"
                     android:layout_width="0dp"
-                    android:hint="@string/mobile_hint"
-                    android:maxLength="20"
                     android:layout_height="wrap_content"
                     android:layout_weight="7"
                     android:digits="0123456789+"
-                    android:inputType="phone" />
+                    android:hint="@string/mobile_hint"
+                    android:inputType="phone"
+                    android:maxLength="20" />
             </LinearLayout>
 
             <LinearLayout
@@ -224,9 +233,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/_4sdp"
                     android:layout_weight="3"
-                    android:textSize="@dimen/_10sdp"
                     android:text="@string/secure_hash_key"
                     android:textColor="@color/black"
+                    android:textSize="@dimen/_10sdp"
                     android:textStyle="bold" />
 
                 <EditText
@@ -291,9 +300,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/_4sdp"
                     android:layout_weight="3"
-                    android:textSize="@dimen/_10sdp"
                     android:text="@string/trnx_ref_number"
                     android:textColor="@color/black"
+                    android:textSize="@dimen/_10sdp"
                     android:textStyle="bold" />
 
                 <EditText
@@ -341,9 +350,9 @@
                 android:layout_marginTop="@dimen/_20sdp"
                 android:layout_marginEnd="8dp"
                 android:background="@drawable/button_blue_selector"
+                android:enabled="false"
                 android:gravity="center"
                 android:text="@string/submit"
-                android:enabled="false"
                 android:textColor="#FFF"
                 android:textSize="@dimen/_14ssp" />
 
