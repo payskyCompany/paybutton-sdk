@@ -61,7 +61,6 @@ public class MainActivity extends AppCompatActivity
         initializePaymentTypesSpinner();
         initializeAuthTypeSpinner();
 
-
         setupPayButton();
         setupSubscribedNotSubscribedView();
 
