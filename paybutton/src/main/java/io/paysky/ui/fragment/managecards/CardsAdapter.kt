@@ -90,4 +90,12 @@ class CardsAdapter(
         notifyItemChanged(position)
         notifyItemChanged(selectedItemPosition)
     }
+
+    fun revertDefault(position: Int) {
+        cardsList[selectedItemPosition] = cardsList[position].copy(isDefaultCard = true)
+        cardsList[position] =
+            cardsList[position].copy(isDefaultCard = false)
+        notifyItemChanged(position)
+        notifyItemChanged(selectedItemPosition)
+    }
 }

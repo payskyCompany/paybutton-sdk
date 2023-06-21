@@ -50,5 +50,6 @@ public class ManualPaymentResponse {
     @SerializedName("ChallengeRequired")
     public boolean challengeRequired;
 
-
+    @SerializedName("TokenCustomerId")
+    public String tokenCustomerId;
 }

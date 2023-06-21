@@ -41,7 +41,8 @@ class ManageCardsPresenter(
                             if (it.success) {
                                 view.setCardAsDefault(position)
                             } else {
-                                view.showToastError(response.message!!)
+                                view.revertDefaultSelect(position)
+                                view.showToastError(response.message ?: "")
                             }
                         } ?: {
                             view.showToastError("Something went wrong")

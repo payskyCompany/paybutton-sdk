@@ -1,8 +1,11 @@
 package com.example.amrel.paybuttonexample;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,6 +51,8 @@ public class MainActivity extends AppCompatActivity
 
     private int selectedAuthType = -1;
     private final int MOBILE_INDEX = 1, EMAIL_INDEX = 2;
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +60,8 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         authenticationTypes = new String[]{getString(R.string.auth_spinner_hint),
                 getString(R.string.mobile_number_hint), getString(R.string.email_address)};
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        editor = sharedPreferences.edit();
 
         linkViewsWithIds();
 
@@ -207,7 +214,12 @@ public class MainActivity extends AppCompatActivity
             payButton.createTransaction(new PayButton.PaymentTransactionCallback() {
                 @Override
                 public void onCardTransactionSuccess(SuccessfulCardTransaction cardTransaction) {
-                    //  paymentStatusTextView.setText(cardTransaction.toString());
+                    Log.v("Transaction reference: ", cardTransaction.SystemReference);
+                    if (cardTransaction.tokenCustomerId != null && !cardTransaction.tokenCustomerId.equals("")) {
+                        Log.v("Customer Id: ", cardTransaction.tokenCustomerId);
+                        editor.putString("customerIdToken", cardTransaction.tokenCustomerId).commit();
+                        customerIdEditText.setText(cardTransaction.tokenCustomerId);
+                    }
                 }
 
                 @Override

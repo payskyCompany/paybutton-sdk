@@ -171,6 +171,9 @@ public class WebPaymentFragment extends BaseFragment implements WebPaymentView {
                             cardTransaction.merchantId = paymentData.merchantId;
                             cardTransaction.terminalId = paymentData.terminalId;
                             cardTransaction.amount = paymentData.executedTransactionAmount;
+                            if (paymentData.customerId != null) {
+                                cardTransaction.tokenCustomerId = paymentData.customerId;
+                            }
                             TransactionManager.setCardTransaction(cardTransaction);
 
                             activity.replaceFragmentAndRemoveOldFragment(PaymentApprovedFragment.class, bundle);
@@ -203,7 +206,7 @@ public class WebPaymentFragment extends BaseFragment implements WebPaymentView {
                 }
                 dismissProgress();
 
-                String dateTimeLocalTrnx= getDateTimeLocalTrxn();
+                String dateTimeLocalTrnx = getDateTimeLocalTrxn();
                 if (url.contains("NAPSInquiry")) {
                     presenter.checkTransactionPaymentStatus(
                             paymentData.secureHashKey,

@@ -77,4 +77,8 @@ class ManageCardsFragment : BaseFragment(), ManageCardsView {
     override fun deleteCard(position: Int) {
         adapter.deleteCard(position)
     }
+
+    override fun revertDefaultSelect(position: Int) {
+        adapter.revertDefault(position)
+    }
 }

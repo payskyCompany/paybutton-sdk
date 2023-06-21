@@ -154,6 +154,7 @@ class PaymentProcessingPresenter(
                                 cardTransaction.merchantId = paymentData?.merchantId
                                 cardTransaction.terminalId = paymentData?.terminalId
                                 cardTransaction.amount = paymentData?.executedTransactionAmount
+                                cardTransaction.tokenCustomerId = paymentData?.customerId
                                 TransactionManager.setCardTransaction(cardTransaction)
                                 view.showTransactionApprovedFragment(
                                     transactionNo = response.transactionNo,
@@ -277,6 +278,9 @@ class PaymentProcessingPresenter(
                     // server make response.
                     view.dismissProgress()
                     if (response?.challengeRequired == true) {
+                        if (paymentData?.customerId == null) {
+                            paymentData?.customerId = response.tokenCustomerId
+                        }
                         view.show3dpWebView(response.threeDSUrl, paymentData)
                     } else {
                         if (response?.mWActionCode != null) {
@@ -317,6 +321,12 @@ class PaymentProcessingPresenter(
                                 cardTransaction.merchantId = paymentData?.merchantId
                                 cardTransaction.terminalId = paymentData?.terminalId
                                 cardTransaction.amount = paymentData?.executedTransactionAmount
+                                if (paymentData?.customerId != null) {
+                                    cardTransaction.tokenCustomerId = paymentData.customerId
+                                } else {
+                                    paymentData?.customerId = response.tokenCustomerId
+                                    cardTransaction.tokenCustomerId = response.tokenCustomerId
+                                }
                                 TransactionManager.setCardTransaction(cardTransaction)
                                 view.showTransactionApprovedFragment(
                                     transactionNo = response.transactionNo,
