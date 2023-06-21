@@ -42,7 +42,8 @@ class ManageCardsPresenter(
                                 view.setCardAsDefault(position)
                             } else {
                                 view.revertDefaultSelect(position)
-                                view.showToastError(response.message ?: "")
+                                val error = response.message ?: (response.errorDetail ?: "")
+                                view.showToastError(error)
                             }
                         } ?: {
                             view.showToastError("Something went wrong")
@@ -83,7 +84,8 @@ class ManageCardsPresenter(
                             if (it.success) {
                                 view.deleteCard(position)
                             } else {
-                                view.showToastError(response.message!!)
+                                val error = response.message ?: (response.errorDetail ?: "")
+                                view.showToastError(error)
                             }
                         } ?: {
                             view.showToastError("Something went wrong")
