@@ -87,7 +87,7 @@ class PaymentProcessingPresenter(
         paymentRequest.cardAcceptorTerminalID = terminalId
         paymentRequest.currencyCodeTrxn = currencyCode
         paymentRequest.cvv2 = ccv
-        paymentRequest.iSFromPOS = true
+        paymentRequest.iSFromPOS = false
         paymentRequest.systemTraceNr = paymentData?.transactionReferenceNumber
         paymentRequest.MerchantReference = paymentData?.transactionReferenceNumber
         paymentRequest.dateTimeLocalTrxn = AppUtils.getDateTimeLocalTrxn()
@@ -245,7 +245,7 @@ class PaymentProcessingPresenter(
         paymentRequest.currencyCodeTrxn = currencyCode
         paymentRequest.cvv2 = ccv
         paymentRequest.dateExpiration = expiryDate
-        paymentRequest.iSFromPOS = true
+        paymentRequest.iSFromPOS = false
         paymentRequest.pAN = cardNumber
         paymentRequest.systemTraceNr = paymentData?.transactionReferenceNumber
         paymentRequest.MerchantReference = paymentData?.transactionReferenceNumber
