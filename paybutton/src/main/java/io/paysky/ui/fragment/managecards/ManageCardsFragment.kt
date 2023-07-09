@@ -18,6 +18,9 @@ class ManageCardsFragment : BaseFragment(), ManageCardsView {
     private lateinit var presenter: ManageCardsPresenter
     private lateinit var cardsList: RecyclerView
     private lateinit var backButton: Button
+    private lateinit var title: View
+    private lateinit var setAsDefaultTitle: View
+    private lateinit var cardDetailsTitle: View
 
 
     override fun onCreateView(
@@ -40,6 +43,10 @@ class ManageCardsFragment : BaseFragment(), ManageCardsView {
     }
 
     private fun initView(view: View) {
+        title = view.findViewById(R.id.title)
+        setAsDefaultTitle = view.findViewById(R.id.set_as_default_title)
+        cardDetailsTitle = view.findViewById(R.id.card_details_title)
+
         cardsList = view.findViewById(R.id.cards_list)
         adapter = CardsAdapter(
             onChangeDefaultItem = { cardItem, position ->
@@ -67,6 +74,9 @@ class ManageCardsFragment : BaseFragment(), ManageCardsView {
     }
 
     override fun showSavedCards(cardsLists: List<CardItem>) {
+        title.visibility = View.VISIBLE
+        setAsDefaultTitle.visibility = View.VISIBLE
+        cardDetailsTitle.visibility = View.VISIBLE
         adapter.setItems(cardsLists)
     }
 

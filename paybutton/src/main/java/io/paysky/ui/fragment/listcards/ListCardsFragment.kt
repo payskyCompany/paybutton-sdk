@@ -55,9 +55,7 @@ class ListCardsFragment : BaseFragment(), CardsView {
     private fun initView(view: View) {
         addNewCardButton = view.findViewById(R.id.add_new_card_button)
         addNewCardButton.setOnClickListener {
-            val bundle = Bundle()
-            bundle.putParcelable(AppConstant.BundleKeys.PAYMENT_DATA, presenter.paymentData)
-            activity.replaceFragmentAndAddOldToBackStack(ManualPaymentFragment::class.java, bundle)
+            goToManualPaymentFragment()
         }
 
         adapter = SavedCardsAdapter(
@@ -93,6 +91,12 @@ class ListCardsFragment : BaseFragment(), CardsView {
         }
     }
 
+    private fun goToManualPaymentFragment() {
+        val bundle = Bundle()
+        bundle.putParcelable(AppConstant.BundleKeys.PAYMENT_DATA, presenter.paymentData)
+        activity.replaceFragmentAndAddOldToBackStack(ManualPaymentFragment::class.java, bundle)
+    }
+
     private fun moveToPaymentProcessing(cardId: Int, cvv: String) {
         hideSoftKeyboard(activity)
         val tokenizedCardPaymentParameters = TokenizedCardPaymentParameters(cardId, cvv)
@@ -113,5 +117,8 @@ class ListCardsFragment : BaseFragment(), CardsView {
 
     override fun showSavedCards(cardsLists: List<CardItem>) {
         adapter.setItems(cardsLists)
+        if (cardsLists.isEmpty()) {
+            goToManualPaymentFragment()
+        }
     }
 }

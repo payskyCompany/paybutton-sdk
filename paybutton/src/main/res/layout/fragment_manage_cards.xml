@@ -2,20 +2,21 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:paddingBottom="@dimen/_16sdp"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/_16sdp">
 
     <TextView
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
+        android:layout_marginHorizontal="@dimen/_20sdp"
         android:layout_marginTop="@dimen/_20sdp"
         android:text="@string/set_your_default_card"
         android:textColor="@color/black100"
         android:textSize="@dimen/_14ssp"
-        android:layout_marginHorizontal="@dimen/_20sdp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/set_as_default_title"
@@ -27,7 +28,8 @@
         android:layout_marginTop="@dimen/_24sdp"
         android:text="@string/set_default"
         android:textSize="@dimen/_12ssp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/card_details_title"
@@ -40,7 +42,8 @@
         android:gravity="center_vertical"
         android:text="@string/card_details"
         android:textSize="@dimen/_12ssp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:visibility="gone" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/cards_list"
