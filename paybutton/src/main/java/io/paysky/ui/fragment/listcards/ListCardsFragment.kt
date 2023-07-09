@@ -55,7 +55,7 @@ class ListCardsFragment : BaseFragment(), CardsView {
     private fun initView(view: View) {
         addNewCardButton = view.findViewById(R.id.add_new_card_button)
         addNewCardButton.setOnClickListener {
-            goToManualPaymentFragment()
+            goToManualPaymentFragment(addToBackStack = true)
         }
 
         adapter = SavedCardsAdapter(
@@ -91,10 +91,14 @@ class ListCardsFragment : BaseFragment(), CardsView {
         }
     }
 
-    private fun goToManualPaymentFragment() {
+    private fun goToManualPaymentFragment(addToBackStack: Boolean) {
         val bundle = Bundle()
         bundle.putParcelable(AppConstant.BundleKeys.PAYMENT_DATA, presenter.paymentData)
-        activity.replaceFragmentAndAddOldToBackStack(ManualPaymentFragment::class.java, bundle)
+        if (addToBackStack) {
+            activity.replaceFragmentAndAddOldToBackStack(ManualPaymentFragment::class.java, bundle)
+        } else {
+            activity.replaceFragmentAndRemoveOldFragment(ManualPaymentFragment::class.java, bundle)
+        }
     }
 
     private fun moveToPaymentProcessing(cardId: Int, cvv: String) {
@@ -118,7 +122,7 @@ class ListCardsFragment : BaseFragment(), CardsView {
     override fun showSavedCards(cardsLists: List<CardItem>) {
         adapter.setItems(cardsLists)
         if (cardsLists.isEmpty()) {
-            goToManualPaymentFragment()
+            goToManualPaymentFragment(addToBackStack = false)
         }
     }
 }
