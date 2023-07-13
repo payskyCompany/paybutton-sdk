@@ -13,6 +13,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.ActionBar;
 import androidx.fragment.app.Fragment;
 
+import com.example.paybutton.BuildConfig;
 import com.example.paybutton.R;
 
 import io.paysky.data.model.PaymentData;
@@ -59,7 +60,9 @@ public class PaymentActivity extends BaseActivity implements View.OnClickListene
         PrefsUtils.initialize(this);
         LocaleHelper.setLocale(this, LocaleHelper.getLocale());
         makeActivityFullScreen();
-        AppUtils.preventScreenshot(this);
+        if(!BuildConfig.DEBUG) {
+            AppUtils.preventScreenshot(this);
+        }
         setContentView(R.layout.activity_pay);
         hideActionBar();
         initView();
@@ -203,10 +206,6 @@ public class PaymentActivity extends BaseActivity implements View.OnClickListene
             LocaleHelper.changeAppLanguage(this);
             NORMAL_CLOSE = false;
             recreate();
-//            Bundle bundle = new Bundle();
-//            bundle.putParcelable(AppConstant.BundleKeys.PAYMENT_DATA, paymentData);
-//            startActivity(new Intent(this, PaymentActivity.class).putExtras(bundle));
-//            finish();
         } else if (i == R.id.terms_conditions_textView) {
             // show terms dialog.
             DialogUtils.showTermsAndConditionsDialog(this);
