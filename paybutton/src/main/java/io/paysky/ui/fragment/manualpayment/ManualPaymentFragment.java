@@ -110,6 +110,15 @@ public class ManualPaymentFragment extends BaseFragment implements View.OnClickL
         saveForLaterCheckBox.setVisibility(canSaveCard ? View.VISIBLE : View.GONE);
         setDefaultCheckBox.setVisibility(canSaveCard ? View.VISIBLE : View.GONE);
 
+        saveForLaterCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (!b) {
+                    setDefaultCheckBox.setChecked(false);
+                }
+            }
+        });
+
         setDefaultCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
