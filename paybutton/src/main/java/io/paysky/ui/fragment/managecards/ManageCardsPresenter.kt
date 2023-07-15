@@ -8,6 +8,7 @@ import io.paysky.data.network.ApiConnection
 import io.paysky.data.network.ApiResponseListener
 import io.paysky.ui.fragment.cardsOperations.CardsPresenter
 import io.paysky.util.AppUtils
+import io.paysky.util.HashGenerator
 
 class ManageCardsPresenter(
     arguments: Bundle?,
@@ -26,12 +27,19 @@ class ManageCardsPresenter(
             }
             view.showProgress()
             val dateTimeLocalTrxn = AppUtils.getDateTimeLocalTrxn()
+            val secureHash = HashGenerator.encode(
+                paymentData.secureHashKey,
+                dateTimeLocalTrxn,
+                payment.merchantId,
+                payment.terminalId
+            )
             val request = UpdateCardsRequest(
                 cardToken = cardItem.token,
                 customerId = payment.customerId,
                 dateTimeLocalTrxn = dateTimeLocalTrxn,
                 merchantId = payment.merchantId,
-                terminalId = payment.terminalId
+                terminalId = payment.terminalId,
+                secureHash = secureHash
             )
             ApiConnection.changeDefaultToken(request,
                 object : ApiResponseListener<UpdateCardsResponse> {
@@ -69,12 +77,19 @@ class ManageCardsPresenter(
             }
             view.showProgress()
             val dateTimeLocalTrxn = AppUtils.getDateTimeLocalTrxn()
+            val secureHash = HashGenerator.encode(
+                paymentData.secureHashKey,
+                dateTimeLocalTrxn,
+                payment.merchantId,
+                payment.terminalId
+            )
             val request = UpdateCardsRequest(
                 cardToken = cardItem.token,
                 customerId = payment.customerId,
                 dateTimeLocalTrxn = dateTimeLocalTrxn,
                 merchantId = payment.merchantId,
-                terminalId = payment.terminalId
+                terminalId = payment.terminalId,
+                secureHash = secureHash
             )
             ApiConnection.deleteTokenizedCard(request,
                 object : ApiResponseListener<UpdateCardsResponse> {

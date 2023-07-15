@@ -94,7 +94,6 @@ public class PayButton {
     }
 
     public void createTransaction(PaymentTransactionCallback transactionCallback) {
-
         switch (productionStatus) {
             case PRODUCTION:
                 ApiLinks.PAYMENT_LINK = ApiLinks.CUBE;
@@ -103,30 +102,12 @@ public class PayButton {
                 ApiLinks.PAYMENT_LINK = ApiLinks.GRAY_LINK;
                 break;
         }
-
-
-//
-//        if (isProduction) {
-//            ApiLinks.PAYMENT_LINK = ApiLinks.CUBE;
-//        } else {
-//            ApiLinks.PAYMENT_LINK = ApiLinks.GRAY_LINK;
-//        }
         PayButton.transactionCallback = transactionCallback;
         // validate user inputs.
         validateUserInputs();
         showProgress();
         loadMerchantInfo();
     }
-
-
-//    public boolean isProduction() {
-//        return isProduction;
-//    }
-//
-//    public void setProduction(boolean production) {
-//        isProduction = production;
-//    }
-
 
     private void showProgress() {
         progressDialog = new ProgressDialog(context);

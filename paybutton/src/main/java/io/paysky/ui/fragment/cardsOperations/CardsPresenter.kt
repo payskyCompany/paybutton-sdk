@@ -51,7 +51,6 @@ open class CardsPresenter<V : CardsView>(arguments: Bundle?, view: V) :
         }
         view.showProgress()
         // create request body.
-
         val dateTimeLocalTrxn = AppUtils.getDateTimeLocalTrxn()
         val secureHash = HashGenerator.encode(
             paymentData?.secureHashKey,
@@ -107,15 +106,22 @@ open class CardsPresenter<V : CardsView>(arguments: Bundle?, view: V) :
                 view.showNoInternetDialog()
                 return
             }
-            //view.showProgress()
+            // create request body.
             val dateTimeLocalTrxn = AppUtils.getDateTimeLocalTrxn()
+            val secureHash = HashGenerator.encode(
+                paymentData.secureHashKey,
+                dateTimeLocalTrxn,
+                payment.merchantId,
+                payment.terminalId
+            )
             val request = ListSavedCardsRequest(
                 sessionId = payment.customerSession,
                 customerId = payment.customerId,
                 amount = payment.amount,
                 terminalId = payment.terminalId,
                 merchantId = payment.merchantId,
-                dateTimeLocalTrxn = dateTimeLocalTrxn
+                dateTimeLocalTrxn = dateTimeLocalTrxn,
+                secureHash = secureHash
             )
             ApiConnection.listSavedCards(request,
                 object : ApiResponseListener<ListSavedCardsResponse?> {

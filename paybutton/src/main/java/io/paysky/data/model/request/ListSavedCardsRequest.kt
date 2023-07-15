@@ -15,5 +15,7 @@ data class ListSavedCardsRequest(
     @SerializedName("MerchantId")
     val merchantId: String,
     @SerializedName("DateTimeLocalTrxn")
-    val dateTimeLocalTrxn: String
+    val dateTimeLocalTrxn: String,
+    @SerializedName("SecureHash")
+    var secureHash: String
 )

@@ -7,5 +7,6 @@ data class UpdateCardsRequest(
     @SerializedName("CustomerId") val customerId: String,
     @SerializedName("DateTimeLocalTrxn") val dateTimeLocalTrxn: String,
     @SerializedName("MerchantId") val merchantId: String,
-    @SerializedName("TerminalId") val terminalId: String
+    @SerializedName("TerminalId") val terminalId: String,
+    @SerializedName("SecureHash") var secureHash: String
 )
