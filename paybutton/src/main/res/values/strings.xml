@@ -6,6 +6,7 @@
     <string name="arabic">عربى</string>
     <string name="terms_conditions">Terms and conditions</string>
     <string name="card">Card</string>
+    <string name="contactless">Contactless</string>
     <string name="wallet">MeezaDigital</string>
     <string name="enter_card_data">Please enter card data</string>
     <string name="card_number">Card number</string>
@@ -84,4 +85,10 @@
     <string name="card_details">Card Details</string>
     <string name="change_language">Change Language</string>
     <string name="something_went_wrong">Something went wrong</string>
+    <string name="tv_tapYourCard">Please tap the Card or Phone </string>
+    <string name="ad_nfcTurnOn_title">NFC is turned off.</string>
+    <string name="ad_nfcTurnOn_message">You need turn on NFC module for scanning. Wish to turn it on?</string>
+    <string name="ad_nfcTurnOn_pos">Turn on</string>
+    <string name="ad_nfcTurnOn_neg">Dismiss</string>
+
 </resources>
