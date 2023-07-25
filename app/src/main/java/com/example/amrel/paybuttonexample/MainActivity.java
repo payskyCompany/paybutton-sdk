@@ -68,6 +68,8 @@ public class MainActivity extends AppCompatActivity
         initializePaymentTypesSpinner();
         initializeAuthTypeSpinner();
 
+        setDefaultData();
+
         setupPayButton();
         setupSubscribedNotSubscribedView();
 
@@ -81,6 +83,16 @@ public class MainActivity extends AppCompatActivity
         setLanguageTextView();
     }
 
+    private void setDefaultData() {
+        merchantIdEditText.setText("41565");
+        terminalIdEditText.setText("1583826");
+        currencyEditText.setText("818");
+        secureHashKeyEditText.setText("09a90e81140dcb0d686c09f0036ef910");
+        spinner_type.setSelection(1);
+        customerIdEditText.setText("ea4989d7-a09c-463c-b0fa-867847538b85");
+        amountEditText.setText("1000");
+        transactionRefNumberEditText.setText("144232");
+    }
     private void initializeAuthTypeSpinner() {
         ArrayAdapter<String> authTypeAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, authenticationTypes) {
