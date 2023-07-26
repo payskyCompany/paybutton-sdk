@@ -5,6 +5,7 @@ import android.nfc.NfcAdapter;
 import android.nfc.Tag;
 import android.nfc.tech.IsoDep;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.pro100svitlo.creditCardNfcReader.enums.EmvCardScheme;
 import com.pro100svitlo.creditCardNfcReader.model.EmvCard;
@@ -114,6 +115,7 @@ public class CardNfcAsyncTask extends AsyncTask<Void, Void, Object>{
 
     private CardNfcAsyncTask(Builder b) {
         mTag = b.mTag;
+        Log.d("NFCRisha","aaaa "+mTag);
         if (mTag != null) {
             mInterface = b.mInterface;
             try {

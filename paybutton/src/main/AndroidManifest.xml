@@ -4,6 +4,8 @@
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.NFC" />
+
 
     <application
         android:theme="@style/AppTheme"
@@ -12,7 +14,20 @@
 
             android:name="io.paysky.ui.activity.payment.PaymentActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme" />
+            android:exported="true"
+            android:theme="@style/AppTheme" >
+            <intent-filter>
+                <action android:name="android.nfc.action.TECH_DISCOVERED" />
+
+            </intent-filter>
+
+            <meta-data
+                android:name="android.nfc.action.TECH_DISCOVERED"
+                android:resource="@xml/nfc_tech_filter" />
+            <intent-filter>
+                <action android:name="android.nfc.action.TAG_DISCOVERED" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
