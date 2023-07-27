@@ -6,7 +6,6 @@ import android.content.Intent
 import android.nfc.NfcAdapter
 import android.os.Bundle
 import android.provider.Settings
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,41 +14,44 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import com.example.paybutton.R
 import com.pro100svitlo.creditCardNfcReader.CardNfcAsyncTask
+import com.pro100svitlo.creditCardNfcReader.CardNfcAsyncTask.CardNfcInterface
 import com.pro100svitlo.creditCardNfcReader.utils.CardNfcUtils
+import io.paysky.data.model.CardPaymentParameters
+import io.paysky.data.model.PaymentData
+import io.paysky.ui.activity.payment.PaymentActivity
 import io.paysky.ui.base.BaseFragment
+import io.paysky.ui.fragment.paymentprocessing.PaymentProcessingFragment
+import io.paysky.util.AppConstant
+import io.paysky.util.ContaclessInterface
 
 
-class ContactlessFragment : BaseFragment()  {
+class ContactlessFragment : BaseFragment() , CardNfcInterface,ContaclessInterface {
 
     private var mNfcAdapter: NfcAdapter? = null
     private var mTurnNfcDialog: AlertDialog? = null
     private lateinit var resultLauncher: ActivityResultLauncher<Intent>
 
+    private lateinit var cardNfcUtils: CardNfcUtils
+    private lateinit var mCardNfcAsyncTask:CardNfcAsyncTask
+    private var paymentData: PaymentData? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        assert(arguments != null)
+        paymentData = requireArguments().getParcelable(AppConstant.BundleKeys.PAYMENT_DATA)
+
+        cardNfcUtils= CardNfcUtils(requireActivity())
 
         resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()
         ) {
 
-                  Log.d("mNfcAdapter","aaaa "+it.resultCode)
             if (it.resultCode == Activity.RESULT_OK) {
 
+                cardNfcUtils.enableDispatch()
+
             } else if (it.resultCode == Activity.RESULT_CANCELED) {
-                mNfcAdapter = NfcAdapter.getDefaultAdapter(requireContext())
-
-                Log.d("mNfcAdapter","aaaa "+it.resultCode)
-
-                if (mNfcAdapter != null && !mNfcAdapter!!.isEnabled) {
-                    Log.d("mNfcAdapter","aaaa is not enabled")
-
-                    showTurnOnNfcDialog()
-                }
-                else if(mNfcAdapter == null){
-                    Log.d("mNfcAdapter","aaaa is null enabled")
-
-                }
+                openNfcIFNeedCheck()
             }
         }
 
@@ -91,7 +93,8 @@ class ContactlessFragment : BaseFragment()  {
 
         else if (mNfcAdapter != null) {
             try {
-
+                (getActivity() as PaymentActivity?)!!.initContactlessInterface(this)
+                cardNfcUtils.enableDispatch()
             } catch (e: Exception) {
                 e.printStackTrace()
             }
@@ -126,7 +129,61 @@ class ContactlessFragment : BaseFragment()  {
         }
     }
 
+    override fun startNfcReadCard() {
 
+    }
+
+    override fun cardIsReadyToRead() {
+
+
+        val expireDate = mCardNfcAsyncTask.cardExpireDate.replace("/".toRegex(), "")
+        val month = expireDate.substring(0, 2)
+        val year = expireDate.substring(2)
+        //move to processing screen with data
+        val cardPaymentParameters = CardPaymentParameters(
+            mCardNfcAsyncTask.cardNumber,
+            "",
+            year + month,
+            "",
+            false,
+            false
+        )
+
+        val bundle = Bundle()
+        bundle.putParcelable(AppConstant.BundleKeys.PAYMENT_DATA, paymentData)
+        bundle.putParcelable(AppConstant.BundleKeys.CARD_DATA, cardPaymentParameters)
+        activity.replaceFragmentAndRemoveOldFragment(PaymentProcessingFragment::class.java, bundle)
+
+    }
+
+    override fun doNotMoveCardSoFast() {
+
+    }
+
+    override fun unknownEmvCard() {
+
+    }
+
+    override fun cardWithLockedNfc() {
+
+    }
+
+    override fun finishNfcReadCard() {
+
+    }
+
+    override fun getIntentFromNewIntent(intent: Intent) {
+
+        if (mNfcAdapter != null && mNfcAdapter!!.isEnabled) {
+            mCardNfcAsyncTask = CardNfcAsyncTask.Builder(this, intent, true)
+                .build()
+        }
+        if (intent.extras != null) {
+            for (key in intent.extras!!.keySet()) {
+                val value = intent.extras!![key]
+            }
+        }
+    }
 
 
 }

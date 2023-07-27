@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.nfc.NfcAdapter;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -19,7 +18,6 @@ import androidx.fragment.app.Fragment;
 import com.example.paybutton.BuildConfig;
 import com.example.paybutton.R;
 import com.pro100svitlo.creditCardNfcReader.CardNfcAsyncTask;
-import com.pro100svitlo.creditCardNfcReader.utils.CardNfcUtils;
 
 import io.paysky.data.model.PaymentData;
 import io.paysky.ui.base.BaseActivity;
@@ -32,13 +30,14 @@ import io.paysky.ui.fragment.qr.QrCodePaymentFragment;
 import io.paysky.util.AllURLsStatus;
 import io.paysky.util.AppConstant;
 import io.paysky.util.AppUtils;
+import io.paysky.util.ContaclessInterface;
 import io.paysky.util.DialogUtils;
 import io.paysky.util.LocaleHelper;
 import io.paysky.util.PrefsUtils;
 import io.paysky.util.TransactionManager;
 import me.grantland.widget.AutofitHelper;
 
-public class PaymentActivity extends BaseActivity implements View.OnClickListener , CardNfcAsyncTask.CardNfcInterface{
+public class PaymentActivity extends BaseActivity implements View.OnClickListener {
 
     //GUI.
     private ImageView headerBackImage;
@@ -60,8 +59,9 @@ public class PaymentActivity extends BaseActivity implements View.OnClickListene
     //Variables.
     private static boolean NORMAL_CLOSE = true;
     private NfcAdapter mNfcAdapter;
+    ContaclessInterface contaclessInterface;
 
-    private CardNfcUtils mCardNfcUtils;
+
     private CardNfcAsyncTask mCardNfcAsyncTask;
 
 
@@ -96,6 +96,8 @@ public class PaymentActivity extends BaseActivity implements View.OnClickListene
             contactlessPaymentLayout.setVisibility(View.GONE);
 
         }
+
+
         showPaymentBasedOnPaymentOptions(paymentData.paymentMethod);
     }
 
@@ -246,8 +248,6 @@ public class PaymentActivity extends BaseActivity implements View.OnClickListene
         }
         else if (i == R.id.contactless_payment_layout) {
             changePaymentOptionButton(3);
-            mCardNfcUtils = new CardNfcUtils(this);
-            onNewIntent(getIntent());
             Bundle bundle = new Bundle();
             bundle.putParcelable(AppConstant.BundleKeys.PAYMENT_DATA, paymentData);
             showContactlessFragment (bundle)  ;
@@ -399,52 +399,15 @@ public class PaymentActivity extends BaseActivity implements View.OnClickListene
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        if (mNfcAdapter != null && mNfcAdapter.isEnabled()) {
-            mCardNfcAsyncTask = new CardNfcAsyncTask.Builder(this, intent, true)
-                    .build();
-        }
-        if (intent.getExtras() != null) {
-            for (String key : intent.getExtras().keySet()) {
-                Object value = intent.getExtras().get(key);
-                Log.d("dataaaa ", "Key: " + key + " Value: " + value);
-            }
-        }
+
+        contaclessInterface.getIntentFromNewIntent(intent);
+    }
+
+    public void initContactlessInterface(ContaclessInterface contaclessInterface){
+        this.contaclessInterface=contaclessInterface;
+
     }
 
 
-    @Override
-    public void startNfcReadCard() {
-        Log.d("NFCRisha","startNfcReadCard");
 
-    }
-
-    @Override
-    public void cardIsReadyToRead() {
-        Log.d("NFCRisha","cardIsReadyToRead");
-
-    }
-
-    @Override
-    public void doNotMoveCardSoFast() {
-        Log.d("NFCRisha","doNotMoveCardSoFast");
-
-    }
-
-    @Override
-    public void unknownEmvCard() {
-        Log.d("NFCRisha","unknownEmvCard");
-
-    }
-
-    @Override
-    public void cardWithLockedNfc() {
-        Log.d("NFCRisha","cardWithLockedNfc");
-
-    }
-
-    @Override
-    public void finishNfcReadCard() {
-        Log.d("NFCRisha","finishNfcReadCard");
-
-    }
 }

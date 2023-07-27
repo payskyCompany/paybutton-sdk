@@ -85,7 +85,7 @@
     <string name="card_details">Card Details</string>
     <string name="change_language">Change Language</string>
     <string name="something_went_wrong">Something went wrong</string>
-    <string name="tv_tapYourCard">Please tap the Card or Phone </string>
+    <string name="tv_tapYourCard">Please Tap the Card to Pay </string>
     <string name="ad_nfcTurnOn_title">NFC is turned off.</string>
     <string name="ad_nfcTurnOn_message">You need turn on NFC module for scanning. Wish to turn it on?</string>
     <string name="ad_nfcTurnOn_pos">Turn on</string>
