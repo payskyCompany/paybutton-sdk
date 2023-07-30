@@ -13,9 +13,9 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import com.example.paybutton.R
-import com.pro100svitlo.creditCardNfcReader.CardNfcAsyncTask
-import com.pro100svitlo.creditCardNfcReader.CardNfcAsyncTask.CardNfcInterface
-import com.pro100svitlo.creditCardNfcReader.utils.CardNfcUtils
+import io.paysky.creditCardNfcReader.CardNfcAsyncTask
+import io.paysky.creditCardNfcReader.utils.CardNfcUtils
+
 import io.paysky.data.model.CardPaymentParameters
 import io.paysky.data.model.PaymentData
 import io.paysky.ui.activity.payment.PaymentActivity
@@ -25,7 +25,7 @@ import io.paysky.util.AppConstant
 import io.paysky.util.ContaclessInterface
 
 
-class ContactlessFragment : BaseFragment() , CardNfcInterface,ContaclessInterface {
+class ContactlessFragment : BaseFragment() , CardNfcAsyncTask.CardNfcInterface,ContaclessInterface {
 
     private var mNfcAdapter: NfcAdapter? = null
     private var mTurnNfcDialog: AlertDialog? = null

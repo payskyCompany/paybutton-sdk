@@ -17,8 +17,8 @@ import androidx.fragment.app.Fragment;
 
 import com.example.paybutton.BuildConfig;
 import com.example.paybutton.R;
-import com.pro100svitlo.creditCardNfcReader.CardNfcAsyncTask;
 
+import io.paysky.creditCardNfcReader.CardNfcAsyncTask;
 import io.paysky.data.model.PaymentData;
 import io.paysky.ui.base.BaseActivity;
 import io.paysky.ui.fragment.contactless.ContactlessFragment;
