@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity
     private void setDefaultData() {
         merchantIdEditText.setText("41565");
         terminalIdEditText.setText("1583826");
-        currencyEditText.setText("818");
+        currencyEditText.setText("784");
         secureHashKeyEditText.setText("09a90e81140dcb0d686c09f0036ef910");
         spinner_type.setSelection(1);
         customerIdEditText.setText("ea4989d7-a09c-463c-b0fa-867847538b85");

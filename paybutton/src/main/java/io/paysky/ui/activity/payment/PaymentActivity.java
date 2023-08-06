@@ -89,16 +89,11 @@ public class PaymentActivity extends BaseActivity implements View.OnClickListene
         paymentData.executedTransactionAmount = amount;
         amountTextView.setText(amount);
         currencyTextView.setText(paymentData.currencyName);
-        if (checkNFCSupported()){
-            contactlessPaymentLayout.setVisibility(View.VISIBLE);
-
-        }else{
-            contactlessPaymentLayout.setVisibility(View.GONE);
-
-        }
-
 
         showPaymentBasedOnPaymentOptions(paymentData.paymentMethod);
+
+
+
     }
 
 
@@ -158,9 +153,21 @@ public class PaymentActivity extends BaseActivity implements View.OnClickListene
                 // card payment enabled.
                 cardPaymentLayout.setVisibility(View.VISIBLE);
                 cardPaymentLayout.setOnClickListener(this);
-                showCardPaymentFragment(bundle);
-                changePaymentOptionButton(1);
+
+                if (checkNFCSupported()){
+                    contactlessPaymentLayout.setVisibility(View.VISIBLE);
+                    contactlessPaymentLayout.setOnClickListener(this);
+                    showContactlessFragment(bundle);
+                    changePaymentOptionButton(3);
+
+                }else{
+                    contactlessPaymentLayout.setVisibility(View.GONE);
+                    showCardPaymentFragment(bundle);
+                    changePaymentOptionButton(1);
+                }
                 break;
+
+
             case 1:
                 // wallet payment enabled.
                 qrPaymentLayout.setVisibility(View.VISIBLE);
@@ -174,8 +181,19 @@ public class PaymentActivity extends BaseActivity implements View.OnClickListene
                 cardPaymentLayout.setOnClickListener(this);
                 qrPaymentLayout.setVisibility(View.VISIBLE);
                 qrPaymentLayout.setOnClickListener(this);
-                showCardPaymentFragment(bundle);
+                if (checkNFCSupported()){
+                    contactlessPaymentLayout.setVisibility(View.VISIBLE);
+                    contactlessPaymentLayout.setOnClickListener(this);
+                    showContactlessFragment(bundle);
+                    changePaymentOptionButton(3);
+
+                }else{
+                    contactlessPaymentLayout.setVisibility(View.GONE);
+                    showCardPaymentFragment(bundle);
+                    changePaymentOptionButton(1);
+                }
                 break;
+
         }
     }
 
