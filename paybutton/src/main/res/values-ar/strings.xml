@@ -6,6 +6,7 @@
     <string name="arabic">English</string>
     <string name="terms_conditions">الشروط والاحكام</string>
     <string name="card">بطاقة</string>
+    <string name="contactless">الدفع بدون تلامس</string>
     <string name="wallet">ميزة ديجيتال</string>
     <string name="enter_card_data">تحقق من ادخال بيانات البطاقة</string>
     <string name="card_number">رقم البطاقة</string>
@@ -82,5 +83,11 @@
     <string name="card_details">بيانات البطاقة</string>
     <string name="change_language">تغيير اللغة</string>
     <string name="something_went_wrong">حدث خطأ ما</string>
+    <string name="tv_tapYourCard">يرجى وضع بطاقتك على اللوحة الخلفية للهاتف</string>
+    <string name="ad_nfcTurnOn_title">تم إيقاف تشغيل NFC.</string>
+    <string name="ad_nfcTurnOn_message">تحتاج إلى تشغيل وحدة NFC للمسح الضوئي. أتمنى تشغيله الآن؟</string>
+    <string name="ad_nfcTurnOn_pos">شغله</string>
+    <string name="ad_nfcTurnOn_neg">رفض</string>
+
 
 </resources>

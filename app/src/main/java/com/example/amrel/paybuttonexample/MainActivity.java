@@ -68,6 +68,7 @@ public class MainActivity extends AppCompatActivity
         initializePaymentTypesSpinner();
         initializeAuthTypeSpinner();
 
+
         setupPayButton();
         setupSubscribedNotSubscribedView();
 
@@ -80,6 +81,7 @@ public class MainActivity extends AppCompatActivity
 
         setLanguageTextView();
     }
+
 
     private void initializeAuthTypeSpinner() {
         ArrayAdapter<String> authTypeAdapter = new ArrayAdapter<String>(this,

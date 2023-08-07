@@ -13,4 +13,5 @@
 
     <color name="black100">#222222</color>
     <color name="red100">#DEFB4949</color>
+    <color name="black">#000000</color>
 </resources>

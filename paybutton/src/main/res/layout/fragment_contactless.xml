@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="top"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_12sdp"
+        android:layout_marginBottom="@dimen/_7sdp"
+        android:gravity="center"
+        android:text="@string/tv_tapYourCard"
+        android:textColor="#282C2E" />
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_32sdp"
+            app:srcCompat="@drawable/vc_pay_by_nfc"
+            android:layout_gravity="center"
+            android:layout_marginBottom="@dimen/_16sdp"/>
+
+
+
+
+
+    <LinearLayout
+        android:id="@+id/ll_visa_mastercard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:visibility="visible"
+       >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:padding="@dimen/_7sdp"
+            android:layout_marginEnd="@dimen/_12sdp"
+            android:src="@drawable/visa_logo" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/_3sdp"
+            android:paddingBottom="@dimen/_3sdp"
+            android:layout_marginStart="@dimen/_12sdp"
+            app:srcCompat="@drawable/vc_mastercard_logo" />
+
+
+    </LinearLayout>
+
+</LinearLayout>

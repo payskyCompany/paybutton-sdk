@@ -1,7 +1,9 @@
 package io.paysky.ui.activity.payment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.nfc.NfcAdapter;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -16,8 +18,10 @@ import androidx.fragment.app.Fragment;
 import com.example.paybutton.BuildConfig;
 import com.example.paybutton.R;
 
+import io.paysky.creditCardNfcReader.CardNfcAsyncTask;
 import io.paysky.data.model.PaymentData;
 import io.paysky.ui.base.BaseActivity;
+import io.paysky.ui.fragment.contactless.ContactlessFragment;
 import io.paysky.ui.fragment.listcards.ListCardsFragment;
 import io.paysky.ui.fragment.manualpayment.ManualPaymentFragment;
 import io.paysky.ui.fragment.paymentfail.PaymentFailedFragment;
@@ -26,6 +30,7 @@ import io.paysky.ui.fragment.qr.QrCodePaymentFragment;
 import io.paysky.util.AllURLsStatus;
 import io.paysky.util.AppConstant;
 import io.paysky.util.AppUtils;
+import io.paysky.util.ContaclessInterface;
 import io.paysky.util.DialogUtils;
 import io.paysky.util.LocaleHelper;
 import io.paysky.util.PrefsUtils;
@@ -37,6 +42,7 @@ public class PaymentActivity extends BaseActivity implements View.OnClickListene
     //GUI.
     private ImageView headerBackImage;
     private LinearLayout cardPaymentLayout;
+    private LinearLayout contactlessPaymentLayout;
     private LinearLayout qrPaymentLayout;
     private TextView currencyTextView;
     private TextView amountTextView;
@@ -52,6 +58,12 @@ public class PaymentActivity extends BaseActivity implements View.OnClickListene
 
     //Variables.
     private static boolean NORMAL_CLOSE = true;
+    private NfcAdapter mNfcAdapter;
+    ContaclessInterface contaclessInterface;
+
+
+    private CardNfcAsyncTask mCardNfcAsyncTask;
+
 
 
     @Override
@@ -77,7 +89,11 @@ public class PaymentActivity extends BaseActivity implements View.OnClickListene
         paymentData.executedTransactionAmount = amount;
         amountTextView.setText(amount);
         currencyTextView.setText(paymentData.currencyName);
+
         showPaymentBasedOnPaymentOptions(paymentData.paymentMethod);
+
+
+
     }
 
 
@@ -110,10 +126,11 @@ public class PaymentActivity extends BaseActivity implements View.OnClickListene
         termsTextView.setOnClickListener(this);
         //termsTextView.setOnClickListener(this);
         cardPaymentLayout = findViewById(R.id.card_payment_layout);
+        contactlessPaymentLayout = findViewById(R.id.contactless_payment_layout);
         qrPaymentLayout = findViewById(R.id.qr_payment_layout);
         cardPaymentLayout.setOnClickListener(this);
+        contactlessPaymentLayout.setOnClickListener(this);
         qrPaymentLayout.setOnClickListener(this);
-
         paymentInfoView = findViewById(R.id.payment_info_layout);
         paymentOptionsLayout = findViewById(R.id.payment_options_layout);
     }
@@ -136,9 +153,21 @@ public class PaymentActivity extends BaseActivity implements View.OnClickListene
                 // card payment enabled.
                 cardPaymentLayout.setVisibility(View.VISIBLE);
                 cardPaymentLayout.setOnClickListener(this);
-                showCardPaymentFragment(bundle);
-                changePaymentOptionButton(1);
+
+                if (checkNFCSupported()){
+                    contactlessPaymentLayout.setVisibility(View.VISIBLE);
+                    contactlessPaymentLayout.setOnClickListener(this);
+                    showContactlessFragment(bundle);
+                    changePaymentOptionButton(3);
+
+                }else{
+                    contactlessPaymentLayout.setVisibility(View.GONE);
+                    showCardPaymentFragment(bundle);
+                    changePaymentOptionButton(1);
+                }
                 break;
+
+
             case 1:
                 // wallet payment enabled.
                 qrPaymentLayout.setVisibility(View.VISIBLE);
@@ -152,8 +181,19 @@ public class PaymentActivity extends BaseActivity implements View.OnClickListene
                 cardPaymentLayout.setOnClickListener(this);
                 qrPaymentLayout.setVisibility(View.VISIBLE);
                 qrPaymentLayout.setOnClickListener(this);
-                showCardPaymentFragment(bundle);
+                if (checkNFCSupported()){
+                    contactlessPaymentLayout.setVisibility(View.VISIBLE);
+                    contactlessPaymentLayout.setOnClickListener(this);
+                    showContactlessFragment(bundle);
+                    changePaymentOptionButton(3);
+
+                }else{
+                    contactlessPaymentLayout.setVisibility(View.GONE);
+                    showCardPaymentFragment(bundle);
+                    changePaymentOptionButton(1);
+                }
                 break;
+
         }
     }
 
@@ -169,6 +209,10 @@ public class PaymentActivity extends BaseActivity implements View.OnClickListene
 
     public void showQrPaymentFragment(Bundle bundle) {
         replaceFragmentAndRemoveOldFragment(QrCodePaymentFragment.class, bundle);
+    }
+
+    public void showContactlessFragment(Bundle bundle) {
+        replaceFragmentAndRemoveOldFragment(ContactlessFragment.class, bundle);
     }
 
 
@@ -220,6 +264,12 @@ public class PaymentActivity extends BaseActivity implements View.OnClickListene
             bundle.putParcelable(AppConstant.BundleKeys.PAYMENT_DATA, paymentData);
             showQrPaymentFragment(bundle);
         }
+        else if (i == R.id.contactless_payment_layout) {
+            changePaymentOptionButton(3);
+            Bundle bundle = new Bundle();
+            bundle.putParcelable(AppConstant.BundleKeys.PAYMENT_DATA, paymentData);
+            showContactlessFragment (bundle)  ;
+        }
     }
 
     private void changePaymentOptionButton(int type) {
@@ -241,7 +291,19 @@ public class PaymentActivity extends BaseActivity implements View.OnClickListene
             } else {
                 qrTextView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_wallet_gray, 0, 0, 0);
             }
-        } else {
+
+            contactlessPaymentLayout.setBackgroundResource(R.drawable.payment_option_unselected);
+            TextView contactlessTextView = contactlessPaymentLayout.findViewById(R.id.contactless_payment_textView);
+            contactlessTextView.setTextColor(getResources().getColor(R.color.font_gray_color3));
+            if (LocaleHelper.getLocale().equals("ar")) {
+                contactlessTextView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_card_black, 0);
+            } else {
+                contactlessTextView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_card_black, 0, 0, 0);
+            }
+
+        }
+
+        else if (type == 2) {
             // qr payment.
             cardPaymentLayout.setBackgroundResource(R.drawable.payment_option_unselected);
             TextView manualTextView = cardPaymentLayout.findViewById(R.id.card_payment_textView);
@@ -258,6 +320,43 @@ public class PaymentActivity extends BaseActivity implements View.OnClickListene
                 qrTextView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_wallet_white, 0);
             } else {
                 qrTextView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_wallet_white, 0, 0, 0);
+            }
+
+            contactlessPaymentLayout.setBackgroundResource(R.drawable.payment_option_unselected);
+            TextView contactlessTextView = contactlessPaymentLayout.findViewById(R.id.contactless_payment_textView);
+            contactlessTextView.setTextColor(getResources().getColor(R.color.font_gray_color3));
+            if (LocaleHelper.getLocale().equals("ar")) {
+                contactlessTextView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_card_black, 0);
+            } else {
+                contactlessTextView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_card_black, 0, 0, 0);
+            }
+        }
+
+        else if (type == 3) {
+            // contactless payment.
+            cardPaymentLayout.setBackgroundResource(R.drawable.payment_option_unselected);
+            TextView manualTextView = cardPaymentLayout.findViewById(R.id.card_payment_textView);
+            manualTextView.setTextColor(getResources().getColor(R.color.font_gray_color3));
+            if (LocaleHelper.getLocale().equals("ar")) {
+                manualTextView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_card_black, 0);
+            } else {
+                manualTextView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_card_black, 0, 0, 0);
+            }
+            qrPaymentLayout.setBackgroundResource(R.drawable.payment_option_unselected);
+            TextView qrTextView = qrPaymentLayout.findViewById(R.id.qr_payment_textView);
+            qrTextView.setTextColor(getResources().getColor(R.color.font_gray_color3));
+            if (LocaleHelper.getLocale().equals("ar")) {
+                qrTextView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_wallet_gray, 0);
+            } else {
+                qrTextView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_wallet_gray, 0, 0, 0);
+            }
+            contactlessPaymentLayout.setBackgroundResource(R.drawable.payment_option_selected);
+            TextView contactlessTextView = contactlessPaymentLayout.findViewById(R.id.contactless_payment_textView);
+            contactlessTextView.setTextColor(getResources().getColor(android.R.color.white));
+            if (LocaleHelper.getLocale().equals("ar")) {
+                contactlessTextView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_card_white, 0);
+            } else {
+                contactlessTextView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_card_white, 0, 0, 0);
             }
         }
     }
@@ -302,6 +401,31 @@ public class PaymentActivity extends BaseActivity implements View.OnClickListene
         qrPaymentLayout.setVisibility(View.GONE);
         cardPaymentLayout.setVisibility(View.GONE);
     }
+
+    public boolean checkNFCSupported(){
+        mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
+        if (mNfcAdapter == null) {
+           return false;
+        } else {
+
+              return true;
+        }
+
+
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+
+        contaclessInterface.getIntentFromNewIntent(intent);
+    }
+
+    public void initContactlessInterface(ContaclessInterface contaclessInterface){
+        this.contaclessInterface=contaclessInterface;
+
+    }
+
 
 
 }
