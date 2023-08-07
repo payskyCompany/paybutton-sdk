@@ -185,6 +185,11 @@ class ContactlessFragment : BaseFragment() , CardNfcAsyncTask.CardNfcInterface,C
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        cardNfcUtils.disableDispatch()
+    }
+
 
 }
 
