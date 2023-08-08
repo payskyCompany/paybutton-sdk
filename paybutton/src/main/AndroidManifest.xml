@@ -14,7 +14,7 @@
 
             android:name="io.paysky.ui.activity.payment.PaymentActivity"
             android:screenOrientation="portrait"
-            android:exported="true"
+            android:exported="false"
             android:theme="@style/AppTheme" >
             <intent-filter>
                 <action android:name="android.nfc.action.TECH_DISCOVERED" />
