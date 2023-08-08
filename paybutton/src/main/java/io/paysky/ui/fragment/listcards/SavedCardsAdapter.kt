@@ -117,13 +117,17 @@ class SavedCardsAdapter(
     }
 
     private fun updateSelectedCard(position: Int) {
-        savedCardsList[selectedItemPosition] =
-            savedCardsList[selectedItemPosition].copy(isSelected = false, isError = false)
+        if (selectedItemPosition != -1) {
+            savedCardsList[selectedItemPosition] =
+                savedCardsList[selectedItemPosition].copy(isSelected = false, isError = false)
+        }
         savedCardsList[position] =
             savedCardsList[position].copy(isSelected = true)
 
         onChangeItem(position)
-        onChangeItem(selectedItemPosition)
+        if (selectedItemPosition != -1) {
+            onChangeItem(selectedItemPosition)
+        }
 
         this.selectedItemPosition = position
     }
