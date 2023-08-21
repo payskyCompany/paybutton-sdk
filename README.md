@@ -16,7 +16,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 1. JDK installed on your machine with minimum version 1.7
 2. Android Studio installed on your machine
-3. Create new Android project in Android Studio to use SDK or if you have created a project before with minSdkVersion api version 17.                 
+3. Create a new Android project in Android Studio to use SDK or if you have created a project before with minSdkVersion API version 17.                 
 4. AndroidX compatibility
 
 
@@ -28,18 +28,18 @@ maven { url 'https://jitpack.io' }
 ```
 3. In your build.gradle file in app level in dependencies{} add
 ```
-implementation 'com.github.payskyCompany:paybutton-sdk:2.0.7'
+implementation 'com.github.payskyCompany:paybutton-sdk:2.0.8'
 ```
 4. Sync your project.
 
-Note: Version 2.0.7 may not be the last version check Releases in github to get latest version.
+Note: Version 2.0.8 may not be the last version check Releases in github to get latest version.
 
 ## :rocket: Deployment
 1. Before deploying your project live, you should get a merchant ID and terminal ID from our company.
 2. You should keep your merchant ID and terminal ID secured in your project, encrypt them before save them in project.
 ​
 ## :hammer_and_wrench: How to use
-In order to use the SDK you should get a Merchant ID, a Terminal ID and Secure Hash from PaySky company.
+In order to use the SDK you should get a Merchant ID, a Terminal ID and Secure Hash Key from PaySky company.
 ​
 ### :point_right: Create a new instance from PayButton
 In the class you want to intiate the payment from  PayButton
@@ -51,9 +51,9 @@ You need to just pass some parameters to PayButton class instance
 1) Merchat id.
 2) Terminal id.
 3) Payment amount.
-4) Currency code [Optional].
-5) Merchant secure hash.
-6) Transaction Reference Number.
+4) Currency code.
+5) Secure hash key.
+6) Transaction Reference Number. [Optional]
 
 Note That:
 You shoud keep your secure hash and merchant id and terminal id with encryption 
@@ -63,38 +63,37 @@ before save them in storage if you want.
 payButton.setMerchantId(merchantId); // Merchant id
 payButton.setTerminalId(terminalId); // Terminal  id
 payButton.setPayAmount(amount); // Amount
-payButton.setCurrencyCode(currencyCode); // Currency Code [Optional]
-payButton.setMerchantSecureHash("Merchant secure hash"); // Merchant secure hash
-payButton.setTransactionReferenceNumber("reference number"); // unique transaction reference number.
+payButton.setCurrencyCode(currencyCode); // Currency code
+payButton.setMerchantSecureHash("secure_hash_key"); // Secure hash key
 payButton.setProductionStatus(PRODUCTION); // for testing environment use GREY
 // you can get reference number from AppUtils.generateRandomNumber();   
-payButton.setTransactionReferenceNumber(AppUtils.generateRandomNumber());
+payButton.setTransactionReferenceNumber(AppUtils.generateRandomNumber()); // unique transaction reference number [Optional]
 ```
 ### :luggage: Features
 In order to create transaction call
 ​
 ```java 
 payButton.createTransaction(new PayButton.PaymentTransactionCallback() {
-            @Override
-            public void onCardTransactionSuccess(SuccessfulCardTransaction cardTransaction) {
-                paymentStatusTextView.setText(cardTransaction.toString());
-                cardTransaction.NetworkReference; // transaction reference number.
-            }
-
-            @Override
-            public void onWalletTransactionSuccess(SuccessfulWalletTransaction walletTransaction) {
-                paymentStatusTextView.setText(walletTransaction.toString());
-                walletTransaction.NetworkReference ; // transaction reference number.
-            }
-
-            @Override
-            public void onError(TransactionException error) {
-                paymentStatusTextView.setText("failed by:- " + error.getMessage());
-            }
-        });
+     @Override
+     public void onCardTransactionSuccess(SuccessfulCardTransaction cardTransaction) {
+          paymentStatusTextView.setText(cardTransaction.toString());
+          cardTransaction.NetworkReference; // transaction reference number.
+     }
+            
+     @Override
+     public void onWalletTransactionSuccess(SuccessfulWalletTransaction walletTransaction) {
+          paymentStatusTextView.setText(walletTransaction.toString());
+          walletTransaction.NetworkReference ; // transaction reference number.
+     }
+            
+     @Override
+     public void onError(TransactionException error) {
+          paymentStatusTextView.setText("failed by:- " + error.getMessage());
+     }
+});
 ```
 ​
-to create transaction in our sdk you just call createTransaction method and pass to it
+to create a transaction in our SDK you just call createTransaction method and pass to it
 PaymentTransactionCallback listener to call it after transaction.
 This listener has 3 methods:
 ​
