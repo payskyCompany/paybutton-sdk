@@ -61,6 +61,7 @@ Note That:
 You shoud keep your secure hash key and merchant id and terminal id with encryption 
 before save them in storage if you want.
 ​
+
 If the merchant is *Not Subscribed*, and the channel selected is *Mobile Number*:-
 ```java
 payButton.setMerchantId(merchantId); // Merchant id
