@@ -51,7 +51,7 @@ You need to just pass some parameters to PayButton class instance
 1) Merchat id.
 2) Terminal id.
 3) Payment amount.
-4) Currency code.
+4) Currency code. (https://www.iban.com/currency-codes)
 5) Secure hash key.
 6) Transaction Reference Number. [Optional]
 
@@ -63,7 +63,7 @@ before save them in storage if you want.
 payButton.setMerchantId(merchantId); // Merchant id
 payButton.setTerminalId(terminalId); // Terminal  id
 payButton.setPayAmount(amount); // Amount
-payButton.setCurrencyCode(currencyCode); // Currency code (https://www.iban.com/currency-codes)
+payButton.setCurrencyCode(currencyCode); // Currency code
 payButton.setMerchantSecureHash("secure_hash_key"); // Secure hash key
 payButton.setProductionStatus(PRODUCTION); // for testing environment use GREY
 // you can get reference number from AppUtils.generateRandomNumber();   
