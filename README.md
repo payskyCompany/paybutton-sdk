@@ -54,23 +54,54 @@ You need to just pass some parameters to PayButton class instance
 4) Currency code. (https://www.iban.com/currency-codes)
 5) Secure hash key.
 6) Transaction Reference Number. [Optional]
+7) If the user is not subscribed, you will need to pass the customer's mobile number or email.
+   Otherwise, the user is subscribed so you will pass by the customer ID.
 
 Note That:
 You shoud keep your secure hash key and merchant id and terminal id with encryption 
 before save them in storage if you want.
 ​
+If the merchant is *Not Subscribed*, and the channel selected is *Mobile Number*:-
 ```java
 payButton.setMerchantId(merchantId); // Merchant id
 payButton.setTerminalId(terminalId); // Terminal  id
 payButton.setPayAmount(amount); // Amount
 payButton.setCurrencyCode(currencyCode); // Currency code
 payButton.setMerchantSecureHash("secure_hash_key"); // Secure hash key
-payButton.setProductionStatus(PRODUCTION); // for testing environment use GREY
+payButton.setProductionStatus(PRODUCTION);                                   // for testing environment use GREY
 // you can get reference number from AppUtils.generateRandomNumber();   
-payButton.setTransactionReferenceNumber(AppUtils.generateRandomNumber()); // unique transaction reference number [Optional]
+payButton.setTransactionReferenceNumber(AppUtils.generateRandomNumber());    // unique reference number [Optional]
+payButton.setCustomerMobile("xxxxxxxxxx");
 ```
+
+If the merchant is *Not Subscribed*, and the channel selected is *Email*:-
+```java
+payButton.setMerchantId(merchantId); // Merchant id
+payButton.setTerminalId(terminalId); // Terminal  id
+payButton.setPayAmount(amount); // Amount
+payButton.setCurrencyCode(currencyCode); // Currency code
+payButton.setMerchantSecureHash("secure_hash_key"); // Secure hash key
+payButton.setProductionStatus(PRODUCTION);                                   // for testing environment use GREY
+// you can get reference number from AppUtils.generateRandomNumber();   
+payButton.setTransactionReferenceNumber(AppUtils.generateRandomNumber());    // unique reference number [Optional]
+payButton.setCustomerEmail("joe@name.com");
+```
+
+If the merchant is *Subscribed*:-
+```java
+payButton.setMerchantId(merchantId); // Merchant id
+payButton.setTerminalId(terminalId); // Terminal  id
+payButton.setPayAmount(amount); // Amount
+payButton.setCurrencyCode(currencyCode); // Currency code
+payButton.setMerchantSecureHash("secure_hash_key"); // Secure hash key
+payButton.setProductionStatus(PRODUCTION);                                   // for testing environment use GREY
+// you can get reference number from AppUtils.generateRandomNumber();   
+payButton.setTransactionReferenceNumber(AppUtils.generateRandomNumber());    // unique reference number [Optional]
+payButton.setCustomerId("xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx");
+```
+
 ### :luggage: Features
-In order to create transaction call
+In order to create a transaction call
 ​
 ```java 
 payButton.createTransaction(new PayButton.PaymentTransactionCallback() {
