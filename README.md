@@ -35,7 +35,7 @@ implementation 'com.github.payskyCompany:paybutton-sdk:2.0.8'
 Note: Version 2.0.8 may not be the last version check Releases in github to get latest version.
 
 ## :rocket: Deployment
-1. Before deploying your project live, you should get a merchant ID and terminal ID from our company.
+1. Before deploying your project live, you should get a merchant ID, terminal ID and Secure Hash Key from our company.
 2. You should keep your merchant ID and terminal ID secured in your project, encrypt them before save them in project.
 ​
 ## :hammer_and_wrench: How to use
@@ -48,7 +48,7 @@ PayButton payButton = new PayButton(context);
 ```
 ​
 You need to just pass some parameters to PayButton class instance
-1) Merchat id.
+1) Merchant id.
 2) Terminal id.
 3) Payment amount.
 4) Currency code. (https://www.iban.com/currency-codes)
@@ -56,7 +56,7 @@ You need to just pass some parameters to PayButton class instance
 6) Transaction Reference Number. [Optional]
 
 Note That:
-You shoud keep your secure hash and merchant id and terminal id with encryption 
+You shoud keep your secure hash key and merchant id and terminal id with encryption 
 before save them in storage if you want.
 ​
 ```java
