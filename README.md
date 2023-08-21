@@ -63,7 +63,7 @@ before save them in storage if you want.
 payButton.setMerchantId(merchantId); // Merchant id
 payButton.setTerminalId(terminalId); // Terminal  id
 payButton.setPayAmount(amount); // Amount
-payButton.setCurrencyCode(currencyCode); // Currency code
+payButton.setCurrencyCode(currencyCode); // Currency code (https://www.iban.com/currency-codes)
 payButton.setMerchantSecureHash("secure_hash_key"); // Secure hash key
 payButton.setProductionStatus(PRODUCTION); // for testing environment use GREY
 // you can get reference number from AppUtils.generateRandomNumber();   
