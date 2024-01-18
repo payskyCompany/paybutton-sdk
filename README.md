@@ -28,11 +28,11 @@ maven { url 'https://jitpack.io' }
 ```
 3. In your build.gradle file in app level in dependencies{} add
 ```
-implementation 'com.github.payskyCompany:paybutton-sdk:2.0.8'
+implementation 'com.github.payskyCompany:paybutton-sdk:2.0.9'
 ```
 4. Sync your project.
 
-Note: Version 2.0.8 may not be the last version check Releases in github to get latest version.
+Note: Version 2.0.9 may not be the last version check Releases in github to get latest version.
 
 ## :rocket: Deployment
 1. Before deploying your project live, you should get a merchant ID, terminal ID and Secure Hash Key from our company.
@@ -108,8 +108,9 @@ In order to create a transaction call
 payButton.createTransaction(new PayButton.PaymentTransactionCallback() {
      @Override
      public void onCardTransactionSuccess(SuccessfulCardTransaction cardTransaction) {
-          paymentStatusTextView.setText(cardTransaction.toString());
-          cardTransaction.NetworkReference; // transaction reference number.
+         paymentStatusTextView.setText(cardTransaction.toString());
+         Log.v("Transaction reference: ", cardTransaction.SystemReference); // Transaction reference number.
+         Log.v("Customer Id: ", cardTransaction.tokenCustomerId); // Customer token ID.
      }
             
      @Override
