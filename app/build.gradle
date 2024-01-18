@@ -18,11 +18,12 @@ android {
             signingConfig signingConfigs.debug
         }
     }
-    buildToolsVersion '30.0.3'
+
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
+
     packagingOptions {
         exclude 'META-INF/DEPENDENCIES'
         exclude 'META-INF/LICENSE'
@@ -34,6 +35,7 @@ android {
         exclude 'META-INF/ASL2.0'
         exclude 'META-INF/INDEX.LIST'
     }
+    namespace 'com.example.amrel.paybuttonexample'
     applicationVariants.all { variant ->
         variant.outputs.all { output ->
             def SEP = "_"
