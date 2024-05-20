@@ -7,5 +7,5 @@ before_install:
   - ./scripts/prepareJitpackEnvironment.sh
 
 install:
-  - FILE="-Dfile=paybutton.aar"
-  - mvn install:install-file $FILE -DgroupId=com.github.mohamed-mahmoud-abdelfattah-paysky -DartifactId=paybutton-sdk -Dversion=2.0.13 -Dpackaging=aar -DgeneratePom=true
+  - FILE="-Dfile=build/outputs/aar/paybutton-debug.aar"
+  - mvn install:install-file $FILE -DgroupId=com.github.payskyCompany  -DartifactId=paybutton-sdk -Dversion=2.0.13 -Dpackaging=aar -DgeneratePom=true
