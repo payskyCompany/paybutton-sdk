@@ -5,7 +5,7 @@ plugins{
     id 'kotlin-parcelize'
 }
 
-group = 'com.github.paysky'
+group = 'com.github.payskyCompany'
 
 android {
     compileSdk 34
@@ -19,12 +19,25 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            consumerProguardFiles 'consumer-rules.pro'
         }
     }
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
+    }
+
+    java {
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(17)
+        }
+    }
+
+
+    java {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 
     namespace 'com.example.paybutton'
@@ -78,5 +91,44 @@ dependencies {
     implementation 'com.parse.bolts:bolts-android:1.1.2'
     implementation 'org.apache.commons:commons-lang3:3.6'
     implementation 'commons-io:commons-io:2.6'
+}
 
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = 'com.github.payskyCompany'
+            artifactId = 'paybutton-sdk'
+            version = "2.0.13"
+            pom {
+                description = 'fixed bug'
+            }
+        }
+    }
+    repositories {
+        mavenLocal()
+    }
+}
+tasks.withType(PublishToMavenRepository).configureEach { task ->
+    def predicate = provider {
+        def externalRepo = publishing.repositories.findByName('external')
+        def internalRepo = publishing.repositories.findByName('internal')
+        def binaryPublication = publishing.publications.findByName('binary')
+        def binaryAndSourcesPublication = publishing.publications.findByName('binaryAndSources')
+
+        (task.repository == externalRepo && task.publication == binaryPublication) ||
+                (task.repository == internalRepo && task.publication == binaryAndSourcesPublication)
+    }
+    onlyIf {
+        predicate.getOrElse(false)
+    }
+}
+
+tasks.withType(PublishToMavenLocal).configureEach { task ->
+    def predicate = provider {
+        def binaryAndSourcesPublication = publishing.publications.findByName('binaryAndSources')
+        task.publication == binaryAndSourcesPublication
+    }
+    onlyIf {
+        predicate.getOrElse(false)
+    }
 }

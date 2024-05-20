@@ -1,2 +1,14 @@
 jdk:
   - openjdk17
+  - openjdk-17
+  - openjdk-18
+  - openjdk-19
+  - openjdk-20
+# Configuration file for building snapshots and releases with jitpack.io
+
+before_install:
+  - ./scripts/prepareJitpackEnvironment.sh
+
+install:
+  - FILE="-Dfile=paybutton.aar"
+  - mvn install:install-file $FILE -DgroupId=com.github.mohamed-mahmoud-abdelfattah-paysky -DartifactId=com.github.payskyCompany -Dversion=2.0.13 -Dpackaging=aar -DgeneratePom=true
