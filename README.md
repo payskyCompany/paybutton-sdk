@@ -1,5 +1,5 @@
 
-<p align="center"><a href="https://paysky.io/" target="_blank"><img width="440" src="https://paysky.io/wp-content/uploads/2021/05/PaySky-logo.svg"></a></p>
+<p align="center"><a href="https://paysky.io/" target="_blank"><img width="440" src="https://paysky.io/wp-content/uploads/2023/12/Paysky-logo.png"></a></p>
 
 
 
