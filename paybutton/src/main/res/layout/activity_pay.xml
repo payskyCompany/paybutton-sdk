@@ -313,7 +313,7 @@
 
                     <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/iv_powered_by"
-                        android:layout_width="wrap_content"
+                        android:layout_width="@dimen/_130sdp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         app:srcCompat="@drawable/ic_paysky_logo" />

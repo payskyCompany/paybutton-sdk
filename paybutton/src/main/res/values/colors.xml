@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimaryDark">#e0e0e0</color>
-    <color name="accentColor">#52B4F2</color>
+    <color name="accentColor">#000000</color>
     <color name="paybutton_app_background">#f3f3f3</color>
     <color name="backgroundColorDark">#f1f2f3</color>
     <color name="font_gray_color2">#878d91</color>
     <color name="font_gray_color3">#2D3134</color>
-    <color name="blue100">#52B4F2</color>
+    <color name="blue100">#000000</color>
 
     <color name="gray100">#C7C8C8</color>
     <color name="gray200">#CAC4D0</color>

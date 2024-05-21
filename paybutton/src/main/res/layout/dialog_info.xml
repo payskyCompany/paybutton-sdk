@@ -15,7 +15,7 @@
             style="@style/TextAppearance.AppCompat.Medium"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_48sdp"
-            android:background="#00A7F6"
+            android:background="#000000"
             android:gravity="center"
             android:textSize="@dimen/_14ssp"
             android:textColor="@android:color/white"

@@ -23,7 +23,8 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_wallet_sdk" />
+                android:src="@drawable/ic_wallet_sdk"
+                app:tint="@color/black" />
 
 
             <TextView
@@ -381,8 +382,8 @@
 
         <ImageView
             android:id="@+id/logo_imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/_130sdp"
+            android:layout_height="30dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:layout_margin="@dimen/_4sdp"
