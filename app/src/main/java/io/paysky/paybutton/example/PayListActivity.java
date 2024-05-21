@@ -1,8 +1,10 @@
-package com.example.amrel.paybuttonexample;
+package io.paysky.paybutton.example;
 
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.amrel.paybuttonexample.R;
 
 public class PayListActivity extends AppCompatActivity {
 

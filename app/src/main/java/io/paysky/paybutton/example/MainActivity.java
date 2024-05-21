@@ -1,4 +1,4 @@
-package com.example.amrel.paybuttonexample;
+package io.paysky.paybutton.example;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -19,6 +19,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.amrel.paybuttonexample.R;
 
 import io.paysky.data.model.SuccessfulCardTransaction;
 import io.paysky.data.model.SuccessfulWalletTransaction;

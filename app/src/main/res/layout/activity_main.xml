@@ -18,7 +18,7 @@
             android:gravity="center"
             android:orientation="vertical"
             android:padding="8dp"
-            tools:context="com.example.amrel.paybuttonexample.MainActivity">
+            tools:context="com.example.amrel.paybuttonexample.com.paysky.amrel.paybuttonexample.MainActivity">
 
             <ImageView
                 android:layout_width="wrap_content"

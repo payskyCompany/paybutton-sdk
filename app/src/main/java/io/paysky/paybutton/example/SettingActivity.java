@@ -1,4 +1,4 @@
-package com.example.amrel.paybuttonexample;
+package io.paysky.paybutton.example;
 
 import android.os.Bundle;
 import android.view.View;
@@ -8,6 +8,8 @@ import android.widget.CheckBox;
 import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.amrel.paybuttonexample.R;
 
 import java.util.ArrayList;
 

@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name="io.paysky.paybutton.example.MainActivity"
             android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -19,8 +19,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SettingActivity" />
-        <activity android:name=".PayListActivity">
+        <activity android:name="io.paysky.paybutton.example.SettingActivity" />
+        <activity android:name="io.paysky.paybutton.example.PayListActivity">
             <!--     <intent-filter>
                      <action android:name="android.intent.action.MAIN" />
 

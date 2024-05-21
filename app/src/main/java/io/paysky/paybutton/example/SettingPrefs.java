@@ -1,4 +1,4 @@
-package com.example.amrel.paybuttonexample;
+package io.paysky.paybutton.example;
 
 import android.content.Context;
 import android.content.SharedPreferences;
